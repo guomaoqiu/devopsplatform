@@ -7,7 +7,7 @@ from flask_login import current_user, login_required
 from ..decorators import admin_required , permission_required
 import json,commands,datetime,sys,os
 from .forms import  EditProfileForm, EditProfileAdminForm, ApiForm, DataForm,ResDataForm, EditorUidForm, EditorForm, DataFormOnline,ResDataFormOnline,AccessForm, WebsshForm,UidForm
-from ..models import User, LoginLog, Role, ApiMg, Version_file, AccessIpList
+from ..models import User, LoginLog, Role, ApiMg, AccessIpList
 from .. import db
 from app.crypto import prpcrypt
 import time,os,requests
@@ -25,7 +25,7 @@ sys.setdefaultencoding("utf-8")
 
 @main.route('/admin')
 @login_required
-@admin_required 
+@admin_required
 def for_admin_only():
     '''
     @note: 在登陆状态下只允许管理者进入，否则来到403禁止界面
@@ -40,13 +40,13 @@ def for_admin_only():
 def index():
     '''
     @note: 返回主页内容
-    ''' 
+    '''
     #from flask import session
     #print session
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
-        return render_template('index.html')
+        return render_template('dashboard.html')
 
 ###############################################################################
 
@@ -215,11 +215,7 @@ def edit_profile_admin(id):
     return render_template('edit_profile.html', form=form, user=user)
 
 ###############################################################################
-# 主机监控面板
-@main.route('/host_monitor',methods=['GET', 'POST'])
-@login_required
-def host_monitor():
-    return render_template('host_monitor.html',host_group="Warship_GS",host_name="shipgs-2-5")
+
 
 
 # 平台业务逻辑
@@ -253,6 +249,7 @@ def api_manager():
         data.append(x.to_json())
 
     return render_template('api_manager.html',form=form,data=data)
+###############################################################################
 
 # delete api
 @main.route('/api_manager_del',methods=['GET', 'POST'])
@@ -285,7 +282,7 @@ def import_data():
     if form.validate_on_submit():
         data_content = form.data_content.data
         client_version = form.client_version.data
-        if not data_content or not client_version: 
+        if not data_content or not client_version:
             flash('表名称或客户端版本号为空','danger')
             return render_template('import_data.html',form=form)
         else:
@@ -325,13 +322,13 @@ def cbt_resource():
     if form.validate_on_submit():
         res_version = form.res_version.data
         client_version = form.client_version.data
-        if not res_version or not client_version: 
+        if not res_version or not client_version:
             flash('表名称或客户端版本号为空','danger')
             return render_template('update_cbt_resource.html',form=form)
         else:
 
             # 生成数据版本号
-            new_dataversion = datetime.datetime.today().strftime('%Y%m%d%H%M%S')    
+            new_dataversion = datetime.datetime.today().strftime('%Y%m%d%H%M%S')
             # on cbt_server
             resversion_result_oncbt = commands.getoutput("ssh jp-cbt '/bin/bash -x /usr/local/process_version_japan/modify_online_for_cbt_oncbt.sh %s %s'" % (int(new_dataversion), int(res_version)))
             # on jpcontorl_server
@@ -370,7 +367,7 @@ def import_data_online():
             # 生成数据版本号
             new_dataversion = datetime.datetime.today().strftime('%Y%m%d%H%M%S')
             print new_dataversion
-        
+
             dataversion_result_online = commands.getoutput("/bin/bash -x /usr/local/process_version_japan/modify_online_config_for_all.sh %s" % (int(new_dataversion)))
             # on jpcontorl_server
             print dataversion_result_online
@@ -393,7 +390,7 @@ def update_online_resource(self):
     '''
     # 执行热更资源脚本，处理后获取版本号
     result=commands.getoutput("/bin/bash /root/public_update_jp_hot.sh.sh > /tmp/online_resource.txt && tail -1 /tmp/online_resource.txt")
-    return result    
+    return result
 
 # 正式服热更(修改配置)
 @main.route('/online_resource', methods=['GET', 'POST'])
@@ -410,7 +407,7 @@ def online_resource():
             return render_template('update_online_resource.html',form=form)
         else:
             # 生成数据版本号
-            new_dataversion = datetime.datetime.today().strftime('%Y%m%d%H%M%S')    
+            new_dataversion = datetime.datetime.today().strftime('%Y%m%d%H%M%S')
             #resversion_result = res_version
             resversion_result = commands.getoutput("/bin/bash -x /usr/local/process_version_japan/modify_online_config_for_all.sh %s %s" % (int(new_dataversion),int(res_version) ))
 
@@ -420,7 +417,7 @@ def online_resource():
                                     form=form,
                                     resversion_result=resversion_result
                                     )
-    return render_template('update_online_resource.html',form=form)  
+    return render_template('update_online_resource.html',form=form)
 
 @main.route('/updatecode_online',methods=['GET', 'POST'])
 @login_required
@@ -433,12 +430,12 @@ def updatecode_online():
             #result = commands.getoutput('''date''')
             result = commands.getoutput('''ssh jp-cbt "sh /root/update_online_code.sh"''')
             print result
-            #return  render_template('updatecode.html',result=result)   
+            #return  render_template('updatecode.html',result=result)
             return Response(json.dumps({'result':True,"message": "更新完毕" }), mimetype='application/json')
         except Exception,e:
             #return  render_template('updatecode.html',result=result)
             return Response(json.dumps({'result': True, "message": u'更新失败.{0}'.format(e)}), mimetype='application/json')
-    return  render_template('updatecode_online.html')        
+    return  render_template('updatecode_online.html')
 ############ 线上配置修改  End  ###########
 
 # 配置回滚
@@ -450,7 +447,7 @@ def rollback():
         os.system("ssh jp-cbt '/bin/bash -x /usr/local/process_version_japan/rollback.sh")
         # 控制服务器
         #os.system('date')
-        os.system("/bin/bash -x /usr/local/process_version_japan/rollback.sh") 
+        os.system("/bin/bash -x /usr/local/process_version_japan/rollback.sh")
 
         return jsonify({ "result":True,"message": "回滚完毕~~~" })
 
@@ -510,12 +507,12 @@ def updatecode():
             #result = commands.getoutput('''date''')
             result = commands.getoutput('''ssh jp-cbt "sh /root/update_code.sh"''')
             print result
-            #return  render_template('updatecode.html',result=result)   
+            #return  render_template('updatecode.html',result=result)
             return Response(json.dumps({'result':True,"message": "更新完毕" }), mimetype='application/json')
         except Exception,e:
             #return  render_template('updatecode.html',result=result)
             return Response(json.dumps({'result': True, "message": u'更新失败.{0}'.format(e)}), mimetype='application/json')
-    return  render_template('updatecode.html')  
+    return  render_template('updatecode.html')
 
 ############################################################
 
@@ -546,12 +543,12 @@ def openservice():
     if request.method == 'POST' and current_user.is_administrator:
         try:
             commands.getoutput('''sh /root/open.sh''')
-            result=commands.getoutput('''grep "APP_STATUS" /srv/salt/warship/files/game_config/warship/config/version.jp.warshipgirls.com/config.php | grep -v  "DEV"''') 
+            result=commands.getoutput('''grep "APP_STATUS" /srv/salt/warship/files/game_config/warship/config/version.jp.warshipgirls.com/config.php | grep -v  "DEV"''')
             #time.sleep(10)
             return Response(json.dumps({'result':True,"message":u'开服脚本执行完毕',"res":result}), mimetype='application/json')
         except Exception,e:
             return Response(json.dumps({'result': True, "message": u'开服脚本执行失败.{0}'.format(e),"res":result}), mimetype='application/json')
-    #return  render_template('openservice.html')    
+    #return  render_template('openservice.html')
 
 ############################################################
 
@@ -565,38 +562,12 @@ def webssh():
             "port":form.port.data,
             "username":form.username.data,
             "password":form.password.data,
-        } 
+        }
         return render_template('webssh.html',form=form,data=data)
         print data
     return  render_template('webssh.html',form=form)
 ############################################################
 
-@main.route('/connection_webssh',methods=['GET', 'POST'])
-@login_required
-def connection_webssh():
-    #i#f form.validate_on_submit():
-    # if form.validate_on_submit():
-    #     apiinfo = ApiMg(app_name=form.app_name.data,
-    #                 api_user=form.api_user.data,
-    #                 api_paas=form.api_paas.data,
-    #                 api_url=form.api_url.data)
-    #     try:
-    #         # 加密api密码
-    #         prpcrypt_key = prpcrypt(current_app.config.get('PRPCRYPTO_KEY'))
-    #         apiinfo.api_paas = prpcrypt_key.encrypt(form.api_paas.data)
-    #         db.session.add(apiinfo)
-    #         db.session.commit()
-    #         flash('添加Api信息成功','success')
-    #     except Exception,e:
-    #         db.session.rollback()
-    #         print e
-    #         flash('添加Api信息错误','danger')
- 
-
-    #return render_template('api_manager.html',form=form,data=data)
-    return   render_template('connection_webssh.html',form=form)
-
-############################################################
 
 @main.route('/addallowuid',methods=['GET', 'POST'])
 @login_required
@@ -611,18 +582,18 @@ def addallowuid():
             flash(u'UID不能为空! ','danger')
         else:
             try:
-                res = commands.getoutput('''ssh shipcbt "/bin/bash /root/add_allowuid.sh %s"''' % content ) 
+                res = commands.getoutput('''ssh shipcbt "/bin/bash /root/add_allowuid.sh %s"''' % content )
                 print res
                 flash(u'UID添加完毕，手动刷新页面！','success')
                 return redirect(url_for("main.addallowuid"))
             except Exception,e:
                 flash(u'UID添加失败,请联系管理员!\n {0}'.format(e),'danger')
-                return render_template('add_allowuid.html',form=form,white_data=white_data,fixed_data=fixed_data)        
+                return render_template('add_allowuid.html',form=form,white_data=white_data,fixed_data=fixed_data)
     return  render_template('add_allowuid.html', form=form,white_data=white_data,fixed_data=fixed_data)
 
 ############################################################
 
-@main.route('/uideditor',methods=['POST', 'GET'])    
+@main.route('/uideditor',methods=['POST', 'GET'])
 @login_required
 def uideditor():
     file_path = "/tmp/uidList.php"
@@ -636,7 +607,7 @@ def uideditor():
                 file_data = f.read()
                 f.closed
             form.file_data.data=file_data
-            flash("【SUCCESS】: 文件读取成功", "success") 
+            flash("【SUCCESS】: 文件读取成功", "success")
             return render_template('uideditor.html',
                                 form=form,
                                 file_path=file_path,
@@ -647,15 +618,15 @@ def uideditor():
             file.write(form.file_data.data.replace('\r\n','\n'))
             file.close()
             os.system("scp %s %s" % (file_path,remote_dir))
-            flash("【SUCCESS】: 提交成功", "success") 
+            flash("【SUCCESS】: 提交成功", "success")
             return render_template('uideditor.html',
                                 form=form,
                                 file_path=file_path,
-                                )    
+                                )
     return render_template('uideditor.html',form=form)
-            
 
-@main.route('/uideditor2',methods=['POST', 'GET'])    
+
+@main.route('/uideditor2',methods=['POST', 'GET'])
 @login_required
 def uideditor2():
     file_path = "/tmp/fixed_data_uid"
@@ -670,7 +641,7 @@ def uideditor2():
                 file_data = f.read()
                 f.closed
             form.file_data.data=file_data
-            flash("【SUCCESS】: 文件读取成功", "success") 
+            flash("【SUCCESS】: 文件读取成功", "success")
             return render_template('uideditor2.html',
                                 form=form,
                                 file_path=file_path,
@@ -681,15 +652,15 @@ def uideditor2():
             file.write(form.file_data.data.replace('\r\n','\n'))
             file.close()
             os.system("scp %s %s" % (file_path,remote_dir))
-            flash("【SUCCESS】: 提交成功", "success") 
+            flash("【SUCCESS】: 提交成功", "success")
             return render_template('uideditor2.html',
                                 form=form,
                                 file_path=file_path,
-                                )    
+                                )
     return render_template('uideditor2.html',form=form)
 ############################################################
 
-############################################################
+
 
 @main.route('/cleanuid',methods=['POST', 'GET'])
 @login_required
@@ -704,26 +675,11 @@ def cleanuid():
         else:
             return Response(json.dumps({'result': True, "message": u'清空失败.{0}'.format(res)}))
 
+
+
 ############################################################
 
-@main.route('/registerswitch/<action>', methods=['GET', 'POST'])
-def registerswitch(action):
-    '''
-    @note: 注册功能开关
-    '''
-    if request.method == 'POST':
-        if action == 'open':
-            res = commands.getoutput('''ssh  shipcbt  "/bin/bash /root/switch_register.sh close" ''')
-            return Response(json.dumps({'result': True, "message": u'开启注册功能成功！...'}))
-        elif action == 'close':
-            res = commands.getoutput('''ssh  shipcbt  "/bin/bash /root/switch_register.sh open" ''')
-            return Response(json.dumps({'result': True, "message": u'关闭注册功能成功！...'}))
-        else:
-            pass
-            
-############################################################ 
-
-@main.route('/test',methods=['POST', 'GET'])    
+@main.route('/test',methods=['POST', 'GET'])
 # @login_required
 def test():
     if request.method == 'POST':
@@ -734,7 +690,7 @@ def test():
 
 ############################################################
 
-@main.route('/editor',methods=['POST', 'GET'])    
+@main.route('/editor',methods=['POST', 'GET'])
 @login_required
 def editor():
     form = EditorForm()
@@ -777,7 +733,7 @@ def editor():
                                         file_stat=file_stat,
                                         file_stat_dis=True
                                         )
-            #读取文件            
+            #读取文件
             else:
                 with open(file_path, 'rb') as f:
                     file_data = f.read()
@@ -789,7 +745,7 @@ def editor():
                                     file_stat=file_stat,
                                     file_stat_dis=True
                                     )
-        # 保存文件        
+        # 保存文件
         if param_do == 'save':
             file_access = os.access(file_path, os.W_OK)
             if not file_access:
@@ -800,8 +756,8 @@ def editor():
                                         file_access=file_access,
                                         file_stat=file_stat,
                                         file_stat_dis=False
-                                        )   
-            # 比较文件md5 如果相同则判断为文件未发生改变 
+                                        )
+            # 比较文件md5 如果相同则判断为文件未发生改变
             file_md5sum = md5(open(file_path, 'rb').read()).hexdigest()
             form_md5sum = md5(form.file_data.data.replace('\r\n','\n')).hexdigest()
             if file_md5sum == form_md5sum:
@@ -821,7 +777,7 @@ def editor():
             if rescode == 0:
                 # dos2unix
                 commands.getoutput("dos2unix %s" % file_path)
-                flash("【SUCCESS】: 成功保存修改并备份文件为:  %s" % file_backup,"success") 
+                flash("【SUCCESS】: 成功保存修改并备份文件为:  %s" % file_backup,"success")
             else:
                 flash("【ERROR:】该文件 %s 备份失败" % file_path,"danger")
             file = open(file_path, 'wb')
@@ -834,8 +790,7 @@ def editor():
                                 file_access=file_access,
                                 file_stat=file_stat,
                                 file_stat_dis=False
-                                )    
-
+                                )
     return render_template('editor.html',form=form)
 
 ############################################################

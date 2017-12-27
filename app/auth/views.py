@@ -74,11 +74,11 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first() # 数据库查询
-        
+
         access_ip = request.headers.get('X-Forwarded-For',request.remote_addr) # 查库判断登录IP
         c = AccessIpList.query.filter_by(ip=access_ip).first()
-        if c is None or c.ip != access_ip: 
-           flash('您所在地区【' + access_ip +  '】不能访问该平台'  ,'danger')  
+        if c is None or c.ip != access_ip:
+           flash('您所在地区【' + access_ip +  '】不能访问该平台'  ,'danger')
            return redirect('auth/login')
 
         if user is not None and user.verify_password(form.password.data): # 用户是否存在以及是否正确
@@ -95,9 +95,9 @@ def login():
             db.session.commit()
             flash("您好，%s。 欢迎登陆国服操作平台！ 您的账户已于%s通过%s地址登录，请注意账号安全，若有异常，及时修改密码!" % (user.username,users.logintime,access_ip),'info')
 
-            # 用户每次登录 通知管理员     
+            # 用户每次登录 通知管理员
             #send_email(current_app.config['FLASKY_ADMIN'], '登录通知','auth/email/login_notice',user=user, ip=request.remote_addr, agent=request.user_agent)
-           
+
             return redirect(url_for('main.index')) # 如果认证成功则重定向到已认证首页
         else:
             flash(u'邮箱或密码无效,请重新输入!','danger')    # 如果认证错误则flash一条消息过去

@@ -48,26 +48,46 @@
                                 <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out"></i>  注销登录</a></li>
                             </ul>
                         </div>
-                         <!-- <div class="logo-element">H+
-                        </div> -->
                     </li>
                     <li>  <!-- 默认为主页 -->
                         <a href="{{ url_for('main.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span></a>
                     </li>
                     <li>
+                        <a href=""><i class="fa fa-table"></i> <span class="nav-label">资产管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{ url_for('main.server_list') }}">服务器列表</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                       <a href=""><i class="fa fa-wrench"></i> <span class="nav-label">SaltStack</span><span class="fa arrow"></span><span class="label label-info pull-right">集中化管理</span></a>
+                       <ul class="nav nav-second-level collapse">
+                           <li><a href="{{ url_for('main.index') }}">Minion客户端</a></li>
+                           <li><a href="{{ url_for('main.index') }}">文件分发</a></li>
+                           <li><a href="{{ url_for('main.index') }}">应用部署</a></li>
+                           <li><a href="{{ url_for('main.index') }}">命令执行</a></li>
+                       </ul>
+                   </li>
+                   <li>
+                      <a href="${SITE_URL}api_connect"><i class="fa fa-bell-o"></i> <span class="nav-label">监控管理</span></span><span class="fa arrow"></span></a>
+                      <ul class="nav nav-second-level collapse">
+                          <li><a href="{{ url_for('main.index') }}">Zabbix Server添加</a></li>
+                          <li><a href="{{ url_for('main.index') }}">Zabbix Server删除</a></li>
+                      </ul>
+                   </li>
+                    <li>
                         <a href=""><i class="fa fa-wrench"></i> <span class="nav-label">CBT日常操作</span><span class="fa arrow"></span></a>
 
-                        <!-- <ul class="nav nav-second-level collapse"> -->
+                        <ul class="nav nav-second-level collapse">
                             <li><a href=" ">数据导入导出</a></li>
                             <li><a href="{{ url_for('main.cbt_resource') }}">CBT热更</a></li>
                             <li><a href=" ">CBT代码更新</a></li>
                             <li><a href="{{ url_for('main.clean_cache') }}">缓存清理 & 注册开关</a></li>
                             <li><a href="{{ url_for('main.settime') }}">时间设定</a></li>
-                             <!-- <li><a href="{{ url_for('main.addallowuid') }}">UID白名单</a></li> -->
                             <li><a href="{{ url_for('main.uideditor') }}">UID白名单</a></li>
                             <li><a href="{{ url_for('main.uideditor2') }}">UID白名单(参考)</a></li>
 
-                        <!-- </ul> -->
+                        </ul>
                     </li>
 
                     {% if current_user.is_administrator() %}

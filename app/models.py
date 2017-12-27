@@ -194,7 +194,7 @@ class User(UserMixin, db.Model):
                 'member_since':self.member_since,
 
                 }
-    
+
 class AnonymousUser(AnonymousUserMixin):
     def can(self, permissions):
         return False
@@ -257,39 +257,7 @@ class ApiMg(db.Model):
         }
 
 
-# 主机信息
-class Version_file(db.Model):
-    __tablename__ = 'Version_file'
-    id = db.Column(db.Integer, primary_key=True)
-    location_new= db.Column(db.String(64))
-    location_old = db.Column(db.String(64))
-    crate_timme = db.Column(db.DateTime(), default=datetime.now)
-    def to_json(self):
-        return {
-                'id':self.id,
-                'location_new' : self.location_new,
-                'location_old' : self.location_old,
-                'crate_timme' : self.crate_timme,
-        }
 
-
-class CbtRes(db.Model):
-    __tablename__ = 'cbt_resource_action'
-    id = db.Column(db.Integer, primary_key=True)
-    action_user = db.Column(db.String(64))
-    task_id = db.Column(db.String(64))
-    resversion = db.Column(db.String(32))
-    action_time = db.Column(db.DateTime(), default=datetime.now)
-    
-    def to_json(self):
-        return {
-            "id": self.id,
-            "action_user":self.action_user,
-            "task_id":self.task_id,
-            "resversion": self.resversion,
-            "action_time":self.action_time,
-            
-        }
 
 # 访问白名单:
 class AccessIpList(db.Model):
@@ -307,9 +275,5 @@ class AccessIpList(db.Model):
             "create_time":self.create_time,
             "remark": self.remark,
             "ip":self.ip,
-            
+
         }
-
-
-
-
