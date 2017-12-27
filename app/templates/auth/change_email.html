@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Flasky - 邮箱更改{% endblock %}
+{% block content %}
+<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <h2>账户管理</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{ url_for('main.index')}}">Home</a>
+                </li>
+
+                <li class="active">
+                    <strong>邮箱更改</strong>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+
+                    <div class="ibox-content">
+                        {{ wtf.quick_form(form) }}
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+
+{% endblock %}

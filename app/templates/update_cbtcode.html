@@ -1,0 +1,101 @@
+{% extends 'basic.html' %}
+{% block title %}CBT代码更新{% endblock %}
+{% block content %}
+    <link href="{{  url_for('static',filename='main/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{  url_for('static',filename='main/js/sweetalert.min.js') }}"></script>
+    <aside class="right-side" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+ <section class="col-lg-12 connectedSortable ui-sortable">
+
+            <div class="king-page-box">
+        <div class="king-container clearfix">
+            <div class="container-fluid mb0 ">
+                <div class="row">
+                    <div class="col-md-12"></div>
+                    <div class="col-md-12">
+                        <div class="panel panel-success mb0">
+                            <div class="panel-heading"> CBT代码更新 </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group clearfix">
+                                        <div class="col-sm-9 col-sm-offset-3">
+                                            <div class="pull-left info">
+                                           
+                                            <input type="button" class="king-btn mr10  king-success" onclick="update()" value="提交" />
+                                        
+                                        </div>
+                                    </div>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    </aside>
+
+
+    <script>
+        function update() {
+                var csrftoken = $('meta[name=csrf-token]').attr('content')
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+            }
+        })
+          swal({
+            title: "您确定要执行CBT配置回滚操作",
+            // text: "执行后将进入维护状态，请谨慎操作！",
+            type: "warning",
+
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的，回滚",
+            cancelButtonText: "我在想想吧...",
+            closeOnConfirm: false,
+            closeOnCancel: true  //关闭取消后还弹出让你确认的效果提示
+          },
+          function(isConfirm){
+          if (isConfirm) {
+            $.ajax ({
+                type:'POST',
+                //contentType: 'application/json; charset=UTF-8',
+                dataType: 'json',
+                //url:"http://127.0.0.1:5000/update_cbtcode/",
+                url:"http://cbtops.moefantasy.org:8989/update_cbtcode/",
+                 success: function(res) {
+                     if (res.result) {
+                        //layer.msg('success')
+                        swal({
+                          title: res.message,
+                          timer: 1500,
+                          imageUrl: "{{  url_for('static',filename='main/img/thumbs-up.jpg') }}",
+                          showConfirmButton: false
+                        });
+                     }
+                     else{
+                         swal({
+                          title: res.message,
+                          timer: 1500,
+                          imageUrl: "{{  url_for('static',filename='main/img/thumbs-up.jpg') }}",
+                          showConfirmButton: false
+                        });
+                     }
+                    }
+                });
+        }
+      }
+      })
+    }
+
+    </script>
+{% endblock %}
+

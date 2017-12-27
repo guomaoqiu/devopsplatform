@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block title %}Clean Cache{% endblock %}
+{% block content %}
+<link href="{{  url_for('static',filename='main/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{  url_for('static',filename='main/js/sweetalert.min.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/nanobar/0.2.1/nanobar.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/nanobar/0.2.1/nanobar.min.js"></script>
+
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-8">
+                <h2>Clean Cache</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="">CBT日常操作</a>
+                    </li>
+                    
+                    <li class="active">
+                        <strong>Clean Cache</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Clean Cache</h5>
+                        </div>
+                        <div class="ibox-content">
+                  
+                          <input type="button" class="king-btn mr10  king-info" onclick="clean_cache()" value="Go" />
+
+                        </div>
+                    </div>
+                </div>
+  
+        </div>
+               <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>注册功能开关</h5>
+                        </div>
+                        <div class="ibox-content">
+                  
+                          <h4>目前状态:<code>{{ result }}</code></h4>
+                                            <span><code>请勿多次点击按钮!</code></span><br>
+                                            <input type="button" class="king-btn mr10  king-warning" onclick="open_register()" value="开启注册功能" />
+                                            <input type="button" class="king-btn mr10  king-success" onclick="close_register()" value="关闭注册功能" />
+
+                        </div>
+                    </div>
+                </div>
+  
+        </div>
+    </div>
+  <script>
+        function clean_cache() {
+            var csrftoken = $('meta[name=csrf-token]').attr('content')
+            
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                    }
+                }
+            })
+        
+        
+            $.ajax ({
+                type:'POST',
+                dataType: 'json',
+                //url:"http://127.0.0.1:5000/clean_cache",
+                url:"{{ url_for('main.clean_cache') }}",
+                success: function(res) {
+                     if (res.result) {
+                        swal({
+                          title: res.message,
+                          timer: 1500,
+                          imageUrl: "{{  url_for('static',filename='main/img/thumbs-up.jpg') }}",
+                          showConfirmButton: false
+                        });
+                     }
+                     else{
+                         swal(res.message,'','error')
+                     }
+                    }
+                });
+        }
+    </script>
+
+    <!-- 注册功能开关 -->
+        <script>
+        function open_register() {
+                    var csrftoken = $('meta[name=csrf-token]').attr('content')
+            
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                    }
+                }
+            })
+        
+            $.ajax ({
+                type:'POST',
+                //contentType: 'application/json; charset=UTF-8',
+                dataType: 'json',
+                //url:"http://cbtops.moefantasy.org:8989/clean_cache/",
+                //url:"http://127.0.0.1:5000/registerswitch/?result=open",
+                url:"{{ url_for('main.registerswitch',action='open' )}}",
+
+
+                 success: function(res) {
+                     if (res.result) {
+                        //layer.msg('success')
+                        swal({
+                          title: res.message,
+                          timer: 1500,
+                          imageUrl: "{{  url_for('static',filename='main/img/thumbs-up.jpg') }}",
+                          showConfirmButton: false
+                        });
+                        window.location.reload()
+                     }
+                     else{
+                         swal(res.message,'','error')
+                     }
+                    }
+                });
+        }
+    </script>
+        <script>
+        function close_register() {
+                    var csrftoken = $('meta[name=csrf-token]').attr('content')
+            
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                    }
+                }
+            })
+        
+            $.ajax ({
+                type:'POST',
+                //contentType: 'application/json; charset=UTF-8',
+                dataType: 'json',
+                url:"{{ url_for('main.registerswitch' ,action='close' ) }}",
+                //url:"http://127.0.0.1:5000/registerswitch/?result=close",
+
+                 success: function(res) {
+                     if (res.result) {
+                        //layer.msg('success')
+                        swal({
+                          title: res.message,
+                          timer: 1500,
+                          imageUrl: "{{  url_for('static',filename='main/img/thumbs-up.jpg') }}",
+                          showConfirmButton: false
+                        });
+                         window.location.reload()
+                     }
+                     else{
+                         swal(res.message,'','error')
+                     }
+                    }
+                });
+        }
+    </script>
+{% endblock %}
+

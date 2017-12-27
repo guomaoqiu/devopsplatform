@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% block content %}
+<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-8">
+                    <h2>Dashboards</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="${SITE_URL}">Home</a>
+                        </li>
+                        
+                        <li class="active">
+                            <strong>维护操作</strong>
+                        </li>
+                    </ol>
+                </div>
+               
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Line scatter diagram</h5>
+                        </div>
+                        <div class="ibox-content">
+                           <table id="table2_demo2" class="table table-bordered table-hover">
+
+                          <thead>
+                              <tr>
+
+                                 <th>#</th>
+                                 <th>任务名称</th>
+                                 <th>角色</th>
+                                 <th>状态</th>
+                                 <th>Result</th>
+                                 <th>Runtime</th>
+
+                              </tr>
+
+                          </thead>
+                        <tbody>
+                        {% for each_data in data %}
+                                  <tr>
+                                      <td>{{ loop.index }}</td>
+                                      <td>{{ each_data.name }}</td>
+                                      <td>{{ each_data.started  }}</td>
+                                      {% if each_data.state == "SUCCESS" %}
+                                      <td class="label-success" style="background-color:green" >{{ each_data.state }}</td>
+                                      {% else %}
+                                      <td class="label-default" style="color:#ffffff" >{{ each_data.state }}</td>
+                                      {% endif %}
+                                      <td>{{ each_data.result }}</a></td>
+                                      <td>{{ each_data.received }}</a></td>
+                                  </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+       
+
+        </div>
+{% endblock %}
+

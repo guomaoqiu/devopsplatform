@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>用户注册</title> 
+  <!-- Stylesheets -->
+  <link href="{{ url_for('static',filename='auth/style/bootstrap.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static',filename='auth/style/font-awesome.css') }}">
+  <link href="{{ url_for('static',filename='auth/style/style.css') }} " rel="stylesheet">
+  <link href="{{ url_for('static',filename='auth/style/bootstrap-responsive.css') }}" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{{ url_for('static',filename='auth/img/favicon/favicon.png') }}">
+</head>
+
+<body>
+
+<body>
+
+<div class="admin-form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Widget starts -->
+            <div class="widget wred">
+              <div class="widget-head">
+                <i class="icon-lock"></i> 用户注册 
+              </div>
+              <div class="widget-content">
+                <div class="padd">
+                {% import "bootstrap/wtf.html" as wtf %}
+                {{ wtf.quick_form(form) }}
+                </div>
+              </div>
+            {% for message in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{message[0]}}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+               {{ message[1] }}
+            </div>
+            {% endfor %}
+                <div class="widget-foot">
+                  Already Registred? <a href="{{url_for('auth.login')}}">Login</a>
+                </div>
+            </div>  
+      </div>
+    </div>
+  </div> 
+</div>
+	
+		
+
+<!-- JS -->
+<script src="{{ url_for('static',filename='auth/js/jquery.js') }} "></script>
+<script src="{{ url_for('static',filename='auth/js/bootstrap.js') }} "></script>
+</body>
+</html>

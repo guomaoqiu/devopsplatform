@@ -1,0 +1,167 @@
+{% extends 'basic.html' %}
+{% block title %}时间设定{% endblock %}
+{% block content %}
+    <link href="{{  url_for('static',filename='main/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{  url_for('static',filename='main/js/sweetalert.min.js') }}"></script>
+    <aside class="right-side" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+ <section class="col-lg-12 connectedSortable ui-sortable">
+
+            <div class="king-page-box">
+        <div class="king-container clearfix">
+            <div class="container-fluid mb0 ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-success mb0">
+                            <div class="panel-heading"> 设置时间 </div>
+                            <div class="panel-body">
+
+                                <form class="form-horizontal">
+                                    <div class="form-group clearfix">
+                                        <div class="col-sm-9 col-sm-offset-3">
+                                            <div class="pull-left info">
+                                            当前本地时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code id="nowDiv" style="font-size:15px"></code><br><br>
+                                            当前服务器时间:<code id='current_time' style="font-size:15px">{{ current_tiem }}</code><br><br>    
+                                            <input type="text" class="form-control daterangepicker_demo" id="daterangepicker_demo1" placeholder="选择日期...">
+                                            <br>
+                                            <input type="button" class="king-btn mr10  king-success" onclick="settime()" value="提交" />
+                                            <input type="button" class="king-btn mr10  king-info" onclick="flush()" value="刷新" />
+                                             <input type="button" class="king-btn mr10  king-danger" onclick="re_current()" value="设置为当前时间" />
+                                            <br>
+                                            提示:<code style="color: #1b7e5a">点击刷新按钮获取最新服务器时间</code>
+                                        </div>
+                                    </div>
+                                        </div>
+                                </form>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    </aside>
+
+    <script>
+        function show() {
+            var dateTime = new Date();
+            var yy = dateTime.getFullYear() + "";
+            var mm = dateTime.getMonth() + 1 + "";
+            var dd = dateTime.getDate() + "";
+            var hh = dateTime.getHours() + "";
+            var jj = dateTime.getMinutes() + "";
+            var ss = dateTime.getSeconds() + "";
+            if (mm.length == 1) {
+                mm = "0" + mm;
+            }
+            if (dd.length == 1) {
+                dd = "0" + dd;
+            }
+            if (hh.length == 1) {
+                hh = "0" + hh;
+            }
+            if (jj.length == 1) {
+                jj = "0" + jj;
+            }
+            if (ss.length == 1) {
+                ss = "0" + ss;
+            }
+            document.getElementById("nowDiv").innerHTML =
+                    yy + "-" + mm + "-" + dd + " " + hh + ":" + jj + ":" + ss;
+            setTimeout("show()",1000); //设置过1000毫秒就是1秒，调用show方
+        }
+    </script>
+
+<script type="text/javascript">
+    // 选择单个日期
+    $('#daterangepicker_demo1').daterangepicker({
+        locale : {
+            format : 'YYYY-MM-DD HH:mm:ss'
+        },
+        autoApply: true,//选择日期后自动设置值
+        singleDatePicker : true,//单选选择一个日期
+        timePicker: true,//支持时间选择
+        timePicker24Hour: true,//开启24小时时间制
+        timePickerIncrement : 1, //分钟间隔
+        timePickerSeconds: true //开启分钟选择
+
+    });
+</script>
+
+
+    <script>
+        function settime() {
+            var data = {
+                    "time":$("#daterangepicker_demo1").val()
+                };
+            $.ajax ({
+                type:'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'json',
+                url:"http://cbtops.moefantasy.org:8989/settime/",
+                 success: function(res) {
+                     if (res.result) {
+                        swal({
+                          title: "设置时间为: " + $("#daterangepicker_demo1").val() + "成功!",
+                          timer: 1500,
+                          imageUrl: "{{  url_for('static',filename='main/img/thumbs-up.jpg') }}",
+                          showConfirmButton: false
+                        });
+
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500)
+                     }
+                     else{
+                        swal('设置时间失败，请联系管理员...','','error')
+                     }
+                    }
+                });
+        }
+    </script>
+    <script>
+        function flush() {
+            window.location.reload()
+        }
+    </script>
+
+
+        <script>
+        function re_current() {
+         swal({ 
+              title: "设置中.........", 
+              //text: "2秒后自动关闭。", 
+              timer: 2000, 
+              showConfirmButton: false 
+            });
+
+            $.ajax ({
+                 type:'POST',
+                 dataType: 'json',    
+                 url:"http://cbtops.moefantasy.org:8989/re_current/",
+
+                 success: function(res) {
+                     if (res.result) {
+                          swal({
+                          title: res.message,
+                          timer: 1500,
+                          imageUrl: "{{  url_for('static',filename='main/img/thumbs-up.jpg') }}",
+                          showConfirmButton: false
+                        });
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500)
+                     }
+                     
+                     else{
+                       swal(res.message,'','error')
+                     }
+                    }
+                });
+        }
+    </script>
+{% endblock %}
+

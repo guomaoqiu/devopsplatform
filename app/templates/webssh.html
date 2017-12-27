@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<link rel="shortcut icon" href="favicon.ico"> 
+<link href="{{  url_for('static',filename='opsplatform/css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{  url_for('static',filename='opsplatform/css/font-awesome.css') }}" rel="stylesheet">
+<link href="{{  url_for('static',filename='opsplatform/css/animate.css') }}" rel="stylesheet">
+<link href="{{  url_for('static',filename='opsplatform/css/style.css') }}" rel="stylesheet">
+<link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static',filename='webssh/static/image/favicon.ico') }} "/>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<link href="{{ url_for('static',filename='webssh/css/tooltip.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ url_for('static',filename='webssh/css/main.css') }}" rel="stylesheet" type="text/css"/>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-8">
+                    <h2>Dashboards</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="${SITE_URL}">Home</a>
+                        </li>
+                        
+                        <li class="active">
+                            <strong>维护操作</strong>
+                        </li>
+                    </ol>
+                </div>
+               
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Line scatter diagram</h5>
+                        </div>
+                        <div class="ibox-content">
+                                    <form method="post" class="form" role="form">
+  <input id="csrf_token" name="csrf_token" type="hidden" value="IjMzOTM1MmQ0YTk2YmMyY2I1NTAxYTg2Nzk5N2Y1YzU4NzkwN2ZmYTAi.DP1-fw.9SmOqJQhO37mxeOmFqZSdPS9L7w">
+  
+    
+<div class="form-group "><label class="control-label" for="ip">IP地址</label>
+        <input class="form-control" id="host" name="ip" type="text" value="">
+  </div>
+
+
+    
+<div class="form-group "><label class="control-label" for="port">端口</label>
+        <input class="form-control" id="port" name="port" type="text" value="">
+  </div>
+
+
+    
+<div class="form-group "><label class="control-label" for="username">用户名</label>
+        <input class="form-control" id="username" name="username" type="text" value="">
+  </div>
+
+
+    
+
+<div class="form-group ">
+<label class="control-label" for="password">密码</label>
+
+        <input class="form-control" id="secert" name="password" type="text" value="">
+  </div>
+
+
+    
+<button type="button" class="pure-button pure-button-primary" onclick="connect_test()">Connect</button>
+</form>
+
+
+                        </div>
+                    </div>
+                </div>
+                  <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Line scatter diagram</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="term" align="center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+function openTerminal(options) {
+    var client = new WSSHClient();
+    var term = new Terminal({cols: 80, rows: 24, screenKeys: true, useStyle: true});
+    term.on('data', function (data) {
+        client.sendClientData(data);
+    });
+    term.open();
+    $('.terminal').detach().appendTo('#term');
+    $("#term").show();
+    term.write('Connecting...');
+    client.connect({
+        onError: function (error) {
+            term.write('Error: ' + error + '\r\n');
+            console.debug('error happened');
+        },
+        onConnect: function () {
+            client.sendInitData(options);
+            client.sendClientData('\r');
+            console.debug('connection established');
+        },
+        onClose: function () {
+            term.write("\rconnection closed")
+            console.debug('connection reset by peer');
+            $('term').hide()
+        },
+        onData: function (data) {
+            term.write(data);
+            console.debug('get data:' + data);
+        }
+    })
+}
+
+var charWidth = 6.2;
+var charHeight = 15.2;
+
+
+function getTerminalSize() {
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    return {
+        w: Math.floor(width / charWidth),
+        h: Math.floor(height / charHeight)
+    };
+}
+
+
+function store(options) {
+    window.localStorage.host = options.host
+    window.localStorage.port = options.port
+    window.localStorage.username = options.username
+    window.localStorage.ispwd = options.ispwd;
+    window.localStorage.secret = options.secret
+}
+
+// function check() {
+//     return validResult["host"] && validResult["port"] && validResult["username"];
+// }
+
+function connect_test() {
+    // alert('test')
+
+    var remember = $("#remember").is(":checked")
+    var options = {
+        host: $("#host").val(),
+        port: $("#port").val(),
+        username: $("#username").val(),
+        ispwd: $("input[name=ispwd]:checked").val(),
+        secret: $("#secret").val(),
+    }
+    // openTerminal(options)
+    console.log(options)
+    if (remember) {
+        store(options)
+    }
+    openTerminal(options)
+    // if (check()) {
+    //     openTerminal(options)
+    // } else {
+    //     for (var key in validResult) {
+    //         if (!validResult[key]) {
+    //             alert(errorMsg[key]);
+    //             break;
+    //         }
+    //     }
+    // }
+}
+        </script>
+        <script src="http://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+        <script src="https://rawgit.com/chjj/term.js/master/src/term.js"></script>
+        <script src="{{ url_for('static',filename='webssh/js/ws.js') }}"></script>
+        <script src="{{ url_for('static',filename='webssh/js/formvalid.js') }}"></script>
+        <!-- <script src="{{ url_for('static',filename='webssh/js/main.js') }}"></script> -->
+         <script type="application/javascript">
+            $(function () {
+                $("#form").valid([
+                    {name: "host", type: "ip"},
+                    {name: "port", type: "port"},
+                    {name: "username", type: "username"},
+                    //{name: "password", type: "password"},
+                ]);
+            })
+        </script>
+{% endblock %}
+

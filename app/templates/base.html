@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{% block title %}{% endblock %} - OPS</title>
+    <link href="{{  url_for('static',filename='opsplatform/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{  url_for('static',filename='opsplatform/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="{{  url_for('static',filename='opsplatform/css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="{{  url_for('static',filename='opsplatform/js/plugins/gritter/jquery.gritter.css') }}" rel="stylesheet">
+    <link href="{{  url_for('static',filename='opsplatform/css/animate.css') }}" rel="stylesheet">
+    <link href="{{  url_for('static',filename='opsplatform/css/style.css') }}" rel="stylesheet">
+    <link href="{{  url_for('static',filename='opsplatform/css/bk.css') }}" rel="stylesheet">
+    <link href="{{  url_for('static',filename='main/img/thumbs-up.jpg') }}" type="image/x-icon" rel="icon">
+    <link rel="stylesheet" type="text/css" href="{{  url_for('static',filename='opsplatform/css/sweetalert.css') }}">
+</head>
+
+<body onload="show()">
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                          <!-- <img src="{{ url_for('static',filename='opsplatform/img/images.jpeg') }}" width="120"> -->
+                          <!-- <img class="img-rounded profile-thumbnail" src="{{ current_user.gravatar(size=256) }}" width="50"> -->
+                            <div class="dropdown profile-element">
+                            <span><img alt="image" class="img-circle" src="{{ current_user.gravatar(size=256) }}"  width="100" /></span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                               <span class="block m-t-xs"><strong class="font-bold">{% if current_user.name %}{{ current_user.name }}{% else %}{{ current_user.username }}{% endif %}</strong></span>
+                                <span class="text-muted text-xs block">账户<b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="{{ url_for('main.user', username=current_user.username) }}"><i class="fa fa-user"></i>  个人资料</a></li>
+                                <li><a href="{{ url_for('auth.change_password') }}"><i class="fa fa-key"></i>  密码更改</a></li>
+                                <li><a href="{{ url_for('auth.change_email_request') }}"><i class="fa fa-envelope"></i>  邮箱更改</a></li>
+                                {% if current_user.is_administrator()%}
+                                    <li><a href="{{ url_for('main.usermanager') }}"><i class="fa fa-wrench"></i>  用户管理</a></li>
+                                {%endif%}
+                                <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out"></i>  注销登录</a></li>
+                            </ul>
+                        </div>
+                         <!-- <div class="logo-element">H+
+                        </div> -->
+                    </li>
+                    <li>  <!-- 默认为主页 -->
+                        <a href="{{ url_for('main.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-wrench"></i> <span class="nav-label">CBT日常操作</span><span class="fa arrow"></span></a>
+
+                        <!-- <ul class="nav nav-second-level collapse"> -->
+                            <li><a href=" ">数据导入导出</a></li>
+                            <li><a href="{{ url_for('main.cbt_resource') }}">CBT热更</a></li>
+                            <li><a href=" ">CBT代码更新</a></li>
+                            <li><a href="{{ url_for('main.clean_cache') }}">缓存清理 & 注册开关</a></li>
+                            <li><a href="{{ url_for('main.settime') }}">时间设定</a></li>
+                             <!-- <li><a href="{{ url_for('main.addallowuid') }}">UID白名单</a></li> -->
+                            <li><a href="{{ url_for('main.uideditor') }}">UID白名单</a></li>
+                            <li><a href="{{ url_for('main.uideditor2') }}">UID白名单(参考)</a></li>
+
+                        <!-- </ul> -->
+                    </li>
+
+                    {% if current_user.is_administrator() %}
+                    <li>
+                        <a href="{{ url_for('main.editor') }}"><i class="fa fa-film"></i> <span class="nav-label">文件编辑</span></a>
+                    </li>
+                      <li>
+                        <a href="{{ url_for('main.loginlog') }}"><i class="fa fa-film"></i> <span class="nav-label">登录日志</span></a>
+                    </li>
+                     <li>
+                        <a href="{{ url_for('task.task_history') }}"><i class="fa fa-film"></i> <span class="nav-label">任务历史</span></a>
+                    </li>
+                     <li>
+                        <a href="#"><i class="fa fa-bell-o"></i> <span class="nav-label">平台配置</span></span><span class="fa arrow"></span></a>
+
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{ url_for('main.api_manager')}}"><i class="fa fa-bullseye"></i> <span class="nav-label">API管理</span></a></li>
+                            <li><a href="{{ url_for('main.access_iplist')}}"><i class="fa fa-bullseye"></i> <span class="nav-label">访问名单</span></a></li>
+                       </ul>
+                    </li>
+                    {%endif%}
+
+                </ul>
+            </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg dashbard-2">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " title='收起'><i class="fa fa-bars" ></i> </a>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+            <li><a><i class="fa fa-email"></i>Hello <code>{% if current_user.name %}{{ current_user.name }}{% else %}{{ current_user.username }}{% endif %}</code></a></li>
+        </nav>
+        </div>
+        {% for message in get_flashed_messages(with_categories=True) %}
+                 <div class="alert alert-{{ message[0] }}">
+                     <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <b>{{ message[1] }}</b>
+                 </div>
+        {% endfor %}
+
+{% block content %}
+
+{% endblock %}
+<div class="footer">
+                <div class="pull-right">© 2017 - 2018 版权所有 <a href="http://blog.sctux.com/" target="_blank">郭茂秋</a>
+                <!-- </div> -->
+            </div>
+</div>
+{% block scripts %}
+{{ moment.include_moment() }}
+{% endblock %}
+
+
+    <!-- 消息闪现 -->
+    <script src="{{  url_for('static',filename='opsplatform/js/sweetalert.min.js') }}"></script>
+
+    <!-- Mainly scripts -->
+
+    <script src="{{  url_for('static',filename='opsplatform/js/bootstrap.min.js') }}"></script>
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+    <!-- Flot -->
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/flot/jquery.flot.js') }}"></script>
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/flot/jquery.flot.tooltip.min.js') }}"></script>
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/flot/jquery.flot.spline.js') }}"></script>
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/flot/jquery.flot.pie.js') }}"></script>
+
+    <!-- Peity -->
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/peity/jquery.peity.min.js') }}"></script>
+    <script src="{{  url_for('static',filename='opsplatform/js/demo/peity-demo.js') }}"></script>
+
+    <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="{{  url_for('static',filename='opsplatform/js/inspinia.js') }}"></script>
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/pace/pace.min.js') }}"></script>
+
+    <!-- jQuery UI -->
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
+    <!-- GITTER -->
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/gritter/jquery.gritter.min.js') }}"></script>
+
+    <!-- Sparkline -->
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+    <!-- <script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script> -->
+
+    <!-- Sparkline demo data  -->
+    <script src="{{  url_for('static',filename='opsplatform/js/demo/sparkline-demo.js') }}"></script>
+
+    <!-- ChartJS-->
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/chartJs/Chart.min.js') }}"></script>
+
+    <!-- Toastr -->
+    <script src="{{  url_for('static',filename='opsplatform/js/plugins/toastr/toastr.min.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% block content %}
+<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-8">
+                    <h2>UID白名单(参考固定)</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="{{ url_for('.index') }}">Home</a>
+                        </li>
+                        
+                        <li class="active">
+                            <strong>UID白名单(参考固定)</strong>
+                        </li>
+                    </ol>
+                </div>
+               
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+
+                            <form action="{{ url_for('main.uideditor2') }}" method="post">
+                              {{ form.hidden_tag() }}
+                                  <table>
+                              
+                                    <tr>
+                                      <td>
+                                        <button type="submit" class="btn btn-success" name="do_action" value="read">Read</button>
+                                        <button type="submit" class="btn btn-primary" name="do_action" value="save">Save</button>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>&emsp;</td>
+                                    </tr>
+                                
+                                    <tr>
+                                      <td>{{ form.file_data(cols="200",rows="15",wrap="off",  class="form-control",style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240);font-family:-webkit-body;font-size: large;", placeholder="UID白名单(参考固定)") }}</td>
+                                    </tr>
+                                      <!--  -->
+                                    <tr>
+                                      <td>&emsp;</td>
+                                    </tr>  <!--  -->
+                                    <tr>
+                                      <td>&emsp;</td>
+                                    </tr>
+
+                                  </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+{% endblock %}
+

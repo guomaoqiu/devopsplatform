@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% block content %}
+<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
+  <div class="page-header">
+  <br>
+    <h1>
+        Hello, {{ current_user.username }}!
+    </h1>
+    <h3>您尚未确认您的帐户.</h3>
+    <p>
+      在您访问本网站之前，您需要确认您的帐户;
+      检查您的收件箱，您应该已收到一封电子邮件与确认链接.
+    </p>
+    <p>
+        从新发送确认邮件?
+        <a href="{{ url_for('auth.resend_confirmation') }}">Click here</a>
+    </p>
+</div>
+  
+{% endblock %}
