@@ -6,10 +6,8 @@ from flask import render_template,redirect,request,Response,flash,jsonify,url_fo
 from flask_login import login_required
 from saltapi import SaltApi
 from .. import db
-
-
 @salt.route('/apitest',methods=['GET','POST'])
-#@login_required
+@login_required
 def apitest():
     if request.method == 'POST':
         client = SaltApi(app_name='saltstack')
@@ -26,17 +24,15 @@ def saltkeylist():
     @note: 运行salt命令
     '''
     client = SaltApi(app_name='saltstack')
-
-    #api_info = ApiMg.query.filter_by(app_name='saltstack').first()
- 
-    json_data=client.all_key()
-   
-    print "未认证的key: " , json_data['minions_denied']
-    print "已认证key: " , json_data['minions']
-    print "已拒绝key: " , json_data['minions_rejected']
-    print "未认证key: " , json_data['minions_pre']
-   
-    return render_template('saltstack/saltkey_list.html',data=json_data['minions'])
+    try:
+        json_data=client.all_key()
+        print "未认证的key: " , json_data['minions_denied']
+        print "已认证key: " , json_data['minions']
+        print "已拒绝key: " , json_data['minions_rejected']
+        print "未认证key: " , json_data['minions_pre']
+        return render_template('saltstack/saltkey_list.html',data=json_data['minions'])
+    except Exception,e:
+        return render_template('saltstack/saltkey_list.html',data='')   
 
 # saltstack minion connection test
 @salt.route('/salt_minion_test',methods=['GET','POST'])
