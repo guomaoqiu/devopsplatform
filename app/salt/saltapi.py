@@ -26,6 +26,19 @@ class SaltApi(object):
             self.__salt_url = each_info.to_json()["api_url"]
             # 连接ID
             self.__token_id = self.get_saltapi_token(app_name)
+            
+    # 添加api后测试该api是否连接正常        
+    def login_test(self,app_name):
+        parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
+        self.__salt_url += '/login'
+        self.__my_headers = {
+            'Accept': 'application/json'
+        }
+        try:
+            req = requests.post(self.__salt_url, headers=self.__my_headers,data=parmes, verify=False)
+            return True
+        except Exception,e: 
+            return False
 
 
     def get_saltapi_token(self,app_name):
@@ -37,13 +50,14 @@ class SaltApi(object):
         old_api_token = api_info.api_token_res()
         old_token_create_time = int(time.mktime(time.strptime(str(api_info.api_create_time()), '%Y-%m-%d %H:%M:%S')))
         current_time = int(time.time())
-        print (current_time - old_token_create_time)
+        print type(old_api_token)
+        #print (current_time - old_token_create_time)
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
         #print parmes
         if (current_time - old_token_create_time) > 43200 or old_api_token is None:
 
             self.__salt_url += '/login'
-            print self.__user,self.__password,self.__salt_url
+            #print self.__user,self.__password,self.__salt_url
             self.__my_headers = {
                 'Accept': 'application/json'
             }
@@ -51,6 +65,7 @@ class SaltApi(object):
                 req = requests.post(self.__salt_url, headers=self.__my_headers,data=parmes, verify=False)
                 content = json.loads(req.content)
                 token = content["return"][0]['token']
+                print token
                 # 更新token至数据库
                 try:
                     api_info = ApiMg.query.filter_by(app_name=app_name).first()
@@ -59,12 +74,10 @@ class SaltApi(object):
                     api_info.create_time = datetime.datetime.now()
                     db.session.commit()
                 except Exception,e:
-                    print e
                     db.session.rollback()
                 print '超过过期时间，需要更新token & 或 Token 此前为空',token
                 return token
             except Exception,e:
-                print e
                 return e
         else:
             print 'token还在有效期内直接从数据库获取',old_api_token
@@ -96,14 +109,15 @@ class SaltApi(object):
             'X-Auth-Token': self.__token_id
         }
         self.__salt_url = self.__salt_url.strip('/login')
+
         try:
             req = requests.post(self.__salt_url, data=params, headers=headers, verify=False,timeout=2)
             json_data = dict(json.loads(req.content)['return'][0])['data']['return']
             print json_data
-
             return json_data
         except Exception,e:
-            print e
+            return e
+
     def get_allhostname(self, params):
         '''执行salt操作'''
         headers = {

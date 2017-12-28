@@ -256,10 +256,7 @@ class ApiMg(db.Model):
             "api_url": self.api_url
         }
 
-
-
-
-# 访问白名单:
+# 平台访问白名单:
 class AccessIpList(db.Model):
     __tablename__ = 'access_ip_list';
     id = db.Column(db.Integer, primary_key=True)
@@ -276,4 +273,30 @@ class AccessIpList(db.Model):
             "remark": self.remark,
             "ip":self.ip,
 
+        }
+
+# 主机信息
+class Hostinfo(db.Model):
+    __tablename__ = 'server_info_list'
+    id = db.Column(db.Integer, primary_key=True)
+    hostname = db.Column(db.String(64))
+    public_ip = db.Column(db.String(64))
+    private_ip = db.Column(db.String(64))
+    mem_total = db.Column(db.String(64))
+    cpu_type = db.Column(db.Text())
+    num_cpus = db.Column(db.String(64))
+    os_release = db.Column(db.String(64))
+    kernelrelease = db.Column(db.Text())
+
+    def to_json(self):
+        return {
+                'id':self.id,
+                'hostname' : self.hostname,
+                'public_ip' : self.public_ip,
+                'private_ip' : self.private_ip,
+                'mem_total' : self.mem_total,
+                'cpu_type'  : self.cpu_type,
+                'num_cpus' : self.num_cpus,
+                'os_release': self.os_release,
+                'kernelrelease': self.kernelrelease
         }

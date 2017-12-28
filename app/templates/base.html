@@ -62,7 +62,7 @@
                     <li>
                        <a href=""><i class="fa fa-wrench"></i> <span class="nav-label">SaltStack</span><span class="fa arrow"></span><span class="label label-info pull-right">集中化管理</span></a>
                        <ul class="nav nav-second-level collapse">
-                           <li><a href="{{ url_for('main.index') }}">Minion客户端</a></li>
+                           <li><a href="{{ url_for('salt.saltkeylist') }}">Minion客户端</a></li>
                            <li><a href="{{ url_for('main.index') }}">文件分发</a></li>
                            <li><a href="{{ url_for('main.index') }}">应用部署</a></li>
                            <li><a href="{{ url_for('main.index') }}">命令执行</a></li>
@@ -94,8 +94,8 @@
                     <li>
                         <a href="{{ url_for('main.editor') }}"><i class="fa fa-film"></i> <span class="nav-label">文件编辑</span></a>
                     </li>
-                      <li>
-                        <a href="{{ url_for('main.loginlog') }}"><i class="fa fa-film"></i> <span class="nav-label">登录日志</span></a>
+                    <li>
+                        <a href="{{ url_for('main.platform_log') }}"><i class="fa fa-film"></i> <span class="nav-label">平台日志</span></a>
                     </li>
                      <li>
                         <a href="{{ url_for('task.task_history') }}"><i class="fa fa-film"></i> <span class="nav-label">任务历史</span></a>

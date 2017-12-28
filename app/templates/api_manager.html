@@ -62,6 +62,7 @@
 
                                                     <td>
                                                         <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}" name="{{ each_data.app_name }}" value="删除" onclick="del_raw(this)">
+                                                         <input type="button" class="btn btn-xs btn-info"  value="连接测试" onclick="test_con()">
                                                     </td>
                                                 </tr>
                                             {% endfor %}
@@ -146,5 +147,33 @@
       }
     });
 }
+</script>
+
+
+<script>
+    function test_con() {
+        var csrftoken = $('meta[name=csrf-token]').attr('content')
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+            }
+        })
+    $.ajax ({
+            type: 'POST',
+            url: "{{ url_for('salt.apitest') }}",
+            success:function(res){   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容
+                if (res.result) {
+                    layer.msg(res.message)
+                    //swal(res.message, "^o^.", "success");
+                }
+                else {
+                    layer.msg(res.message)
+                    // swal(res.message, ":)", "error");
+                }
+            }
+        });
+    }
 </script>
 {% endblock %}

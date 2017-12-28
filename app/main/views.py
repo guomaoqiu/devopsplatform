@@ -7,7 +7,7 @@ from flask_login import current_user, login_required
 from ..decorators import admin_required , permission_required
 import json,commands,datetime,sys,os
 from .forms import  EditProfileForm, EditProfileAdminForm, ApiForm, DataForm,ResDataForm, EditorUidForm, EditorForm, DataFormOnline,ResDataFormOnline,AccessForm, WebsshForm,UidForm
-from ..models import User, LoginLog, Role, ApiMg, AccessIpList
+from ..models import User, LoginLog, Role, ApiMg, AccessIpList, Hostinfo
 from .. import db
 from app.crypto import prpcrypt
 import time,os,requests
@@ -94,7 +94,20 @@ def usermanager():
     return render_template('user_manager.html',data=data,form=form)
 
 ###############################################################################
+@main.route('/platform_log')
+@login_required
+def platform_log():
+    '''
+    @note: 平台日志
+    '''
+    loginlog = LoginLog.query.order_by(desc(LoginLog.id)).all() # 查询所有
+    login_log_data = []
+    for x in loginlog:
+        login_log_data.append(x.to_json())
 
+    return render_template('platform_log.html',login_log_data=login_log_data)
+
+###############################################################################
 @main.route('/server_list')
 @login_required
 def server_list():
@@ -106,7 +119,71 @@ def server_list():
     [ data.append(i.to_json()) for i in host_list ]
     print data
     return render_template('server_list.html',data=data)
+###############################################################################
+@main.route('/get_server_info',methods=['GET', 'POST'])
+def get_server_info():
+    '''
+    @note: 通过saltapi获取所有minion主机的服务器信息，填入写入数据库中
+    '''
+    # 获取所有server的hostname
+    if request.method == "POST":
+        if not ApiMg.query.filter_by(app_name='saltstack').first():
+            result = {"result": False, "message": u'请确保api信息已录入！'}
 
+            return jsonify(result)
+        else:
+            try:
+                client = SaltApi('saltstack')
+                params = {'client': 'local', 'fun': 'test.ping', 'tgt': '*'}
+                json_data = client.get_allhostname(params)
+                data = dict(json.loads(json_data)['return'][0])
+
+                hostname_list = []
+
+                [hostname_list.append(i) for i in data.keys()]
+                #print hostname_list
+                for host in hostname_list:
+                    if not Hostinfo.query.filter_by(hostname=host).first():
+
+                        all_host_info = dict(client.get_minions(host).items())
+                        print all_host_info
+                        host_record = Hostinfo(
+                            hostname=all_host_info['hostname'],
+                            private_ip=all_host_info['private_ip'],
+                            public_ip=all_host_info['public_ip'],
+                            mem_total=all_host_info['mem_total'],
+                            cpu_type=all_host_info['cpu_type'],
+                            num_cpus=all_host_info['num_cpus'],
+                            os_release=all_host_info['os_release'],
+                            kernelrelease=all_host_info['kernelrelease']
+                        )
+                        db.session.add(host_record)
+                        db.session.commit()
+
+                result = {"result": True, "message": u'刷新完毕！'}
+                return jsonify(result)
+
+            except Exception, e:
+                print e
+                result = {"result": False, "message": u'刷新出错！'}
+                return jsonify(result)
+
+###############################################################################
+
+@main.route('/delete_server',methods=['GET', 'POST'])
+def delete_server():
+    '''
+    @note: 从数据库中删除已经存在的主机
+    '''
+    delete_host = []
+    hostname = json.loads(request.form.get('data'))['hostname']
+    [ delete_host.append(host.encode('raw_unicode_escape')) for host in hostname.split(',')]
+    try:
+        [ db.session.query(Hostinfo).filter(Hostinfo.hostname == host).delete() for host in delete_host ]
+        result = {'result': True, 'message': u"删除所选主机成功" }
+    except Exception, e:
+        result = {'result': False, 'message': u"删除所选主机失败,%s" % e}
+    return jsonify(result)
 ###############################################################################
 
 @main.route('/access_iplist',methods=['GET', 'POST'])
