@@ -16,6 +16,7 @@ from ..salt.saltapi import SaltApi
 from app import celery
 from ..email import send_email
 from app.auth.forms import RegistrationForm
+from zabbix.zabbixapi import ZabbixAction
 from celery.task.control import revoke
 #from ..saltstack import saltapi
 reload(sys)
@@ -355,20 +356,27 @@ def apitest():
     @note: 在登陆状态下只允许管理者进入，否则来到403禁止登陆界面
     '''
     if request.method == 'POST':
-        check_id = json.loads(request.form.get('data'))
-        #api_id = ApiMg.query.filter_by(id=check_id).first()
-        return jsonify({"result": True, "message":check_id })
-        # try:
-        #     #db.session.delete(api_id)
-        #     #print app_name
-        #     return jsonify({"app_name":app_name})
-        #
-        #     #return jsonify({"result": True, "message": "删除成功"})
-        # except Exception, e:
-        #     #db.session.rollback()
-        #     #print e
-        #     #return jsonify({"result": False, "message": "删除失败".format(e)})
-        #     return jsonify({"app_name": app_name})
+        # 前端获取应用API的名称，然后数据库中获取api应用名称，最后然后通过不同API应用的登录方式去检查是否是正常连接
+        check_id = json.loads(request.form.get('data'))["check_id"]
+        app_name = str(ApiMg.query.filter_by(id=check_id).first())
+
+        if app_name == "zabbixapi":
+            client = ZabbixAction()
+            if client.login_test():
+                return jsonify({"result": True, "message": "%s 连接正常" % app_name})
+            else:
+                return jsonify({"result": False, "message": "%s 连接异常，请检查API信息是否正确" % app_name})
+        elif app_name == "saltstackapi":
+            client = SaltApi()
+            if client.login_test():
+                return jsonify({"result": True, "message": "%s 连接正常" % app_name })
+            else:
+                return jsonify({"result": False, "message": "%s 连接异常" % app_name})
+        elif app_name == "":
+            pass
+        else:
+            pass
+
 ###############################################################################
 # 导入数据库
 @main.route('/import_data', methods=['GET', 'POST'])

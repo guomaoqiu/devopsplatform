@@ -9,13 +9,13 @@ requests.packages.urllib3.disable_warnings()
 
 class SaltApi(object):
     """docstring for SaltApi"""
-    def __init__(self,app_name):
+    def __init__(self):
         '''
         @note 获取saltapi连接所需的账户密码及url
         @app_name代表saltapi所应用的场景，例如有两套satl环境时
         '''
         prpcrypt_key = prpcrypt(current_app.config.get('PRPCRYPTO_KEY'))  # 调用crypto 解密
-        api_info = ApiMg.query.filter_by(app_name=app_name).all()
+        api_info = ApiMg.query.filter_by().all()
 
         for each_info in api_info:
             # 连接用户
@@ -25,10 +25,10 @@ class SaltApi(object):
             # 连接url
             self.__salt_url = each_info.to_json()["api_url"]
             # 连接ID
-            self.__token_id = self.get_saltapi_token(app_name)
+            self.__token_id = self.get_saltapi_token()
             
     # 添加api后测试该api是否连接正常        
-    def login_test(self,app_name):
+    def login_test(self):
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
         self.__salt_url += '/login'
         self.__my_headers = {
@@ -36,12 +36,13 @@ class SaltApi(object):
         }
         try:
             req = requests.post(self.__salt_url, headers=self.__my_headers,data=parmes, verify=False)
+            print self.__salt_url
             return True
         except Exception,e: 
             return False
 
 
-    def get_saltapi_token(self,app_name):
+    def get_saltapi_token(self):
         '''
         @note: 登录获取saltapi token
         @summary: 在登录之前查询数据库中的token是否过期(此处6个小时为有效期，配置文件中默认为12个小时)；如果过期则需登录获取，反之直接获取数据库中的
@@ -50,7 +51,6 @@ class SaltApi(object):
         old_api_token = api_info.api_token_res()
         old_token_create_time = int(time.mktime(time.strptime(str(api_info.api_create_time()), '%Y-%m-%d %H:%M:%S')))
         current_time = int(time.time())
-        print type(old_api_token)
         #print (current_time - old_token_create_time)
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
         #print parmes
@@ -65,7 +65,7 @@ class SaltApi(object):
                 req = requests.post(self.__salt_url, headers=self.__my_headers,data=parmes, verify=False)
                 content = json.loads(req.content)
                 token = content["return"][0]['token']
-                print token
+
                 # 更新token至数据库
                 try:
                     api_info = ApiMg.query.filter_by(app_name=app_name).first()

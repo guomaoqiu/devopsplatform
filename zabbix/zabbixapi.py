@@ -30,21 +30,23 @@ class ZabbixAction():
         #zclient = ZabbixAction('http://114.55.0.47:9986', 'Admin', 'ZTNiMGM0')
         self.__url = "http://114.55.0.47:9986"
         self.__user = "Admin"
-        self.__password = "ZTNiMGM0"
+        self.__password = "ZTNiMGM0s"
         # self.__url = config.get("zabbixapi", "ZABBIX_URL")
         # self.__user = config.get("zabbixapi", "ZABBIX_USER")
         # self.__password = config.get("zabbixapi", "ZABBIX_PASSWORD")
 
 #### 登录zabbix
-    def login(self):
+    def login_test(self):
         try:
             self.zapi = ZabbixAPI(self.__url)
             self.zapi.login(self.__user,self.__password)
             #fo.write("【登录ZabbixApi接口成功】\n ")
-            print "【登录ZabbixApi接口成功】\n "
+            print "【登录ZabbixApi接口成功】"
+            return True
         except:
             #fo.write("【登录ZabbixApi接口成功】\n ")
             print "\n【登录zabbix平台出现错误】"
+            return False
             #sys.exit()
 
 #### 获取现zabbix中的所有主机 __get_host:私有属性

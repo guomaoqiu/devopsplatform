@@ -110,9 +110,8 @@
 
 <!-- 删除api信息 -->
 <script>
- function del_raw(_this) {
     var csrftoken = $('meta[name=csrf-token]').attr('content')
-     console.log(csrftoken)
+        console.log(csrftoken)
         $.ajaxSetup({
             beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
@@ -120,92 +119,108 @@
                 }
             }
         })
-    var check_id = $(_this).attr("check_id");
-    var data= {
-            data: JSON.stringify({
-                'check_id': check_id
-            }),
-        }
-    swal({
-      title: "您确定要删除该条API记录？",
-      text: "删除后需要重新录入，请谨慎操作！",
-      type: "warning",
+{# function del_raw(_this) {#}
+{#    var csrftoken = $('meta[name=csrf-token]').attr('content')#}
+{#     console.log(csrftoken)#}
+{#        $.ajaxSetup({#}
+{#            beforeSend: function(xhr, settings) {#}
+{#                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {#}
+{#                    xhr.setRequestHeader("X-CSRFToken", csrftoken)#}
+{#                }#}
+{#            }#}
+{#        })#}
+{#    var check_id = $(_this).attr("check_id");#}
+{#    var data= {#}
+{#            data: JSON.stringify({#}
+{#                'check_id': check_id#}
+{#            }),#}
+{#        }#}
+{#    swal({#}
+{#      title: "您确定要删除该条API记录？",#}
+{#      text: "删除后需要重新录入，请谨慎操作！",#}
+{#      type: "warning",#}
+{##}
+{#      showCancelButton: true,#}
+{#      showLoaderOnConfirm: true,#}
+{#      confirmButtonColor: "#DD6B55",#}
+{#      confirmButtonText: "是的，删除它",#}
+{#      cancelButtonText: "我在想想吧...",#}
+{#      closeOnConfirm: false,#}
+{#      closeOnCancel: true  //关闭取消后还弹出让你确认的效果提示#}
+{#    },#}
+{##}
+{#      function(isConfirm){#}
+{#      if (isConfirm) {    // 如果确认就会去携带者hostname去后台处理#}
+{#        $.ajax ({#}
+{#                type: 'POST',#}
+{#                data: data,#}
+{#                dataType: 'json',#}
+{#                url: "{{ url_for('main.api_manager_del') }}",#}
+{#                success:function(res){   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容#}
+{#                    if (res.result) {#}
+{#                        //console.log(res)#}
+{##}
+{#                        $("input[check_id="+check_id+"]").parents("tr").remove(); //获取要删除的那行节点#}
+{#                        $(_this).parents("tr").remove();#}
+{#                        swal(res.message, "^o^.", "success");#}
+{#                        //location.reload()#}
+{#                    }#}
+{#                    else {#}
+{#                        //console.log(res)#}
+{#                        swal(res.message, ":)", "error");#}
+{#                    }#}
+{#                }#}
+{#            });#}
+{#      }#}
+{#    });#}
 
-      showCancelButton: true,
-      showLoaderOnConfirm: true,
-      confirmButtonColor: "#DD6B55",
-      confirmButtonText: "是的，删除它",
-      cancelButtonText: "我在想想吧...",
-      closeOnConfirm: false,
-      closeOnCancel: true  //关闭取消后还弹出让你确认的效果提示
-    },
 
-      function(isConfirm){
-      if (isConfirm) {    // 如果确认就会去携带者hostname去后台处理
-        $.ajax ({
-                type: 'POST',
-                data: data,
-                dataType: 'json',
-                url: "{{ url_for('main.api_manager_del') }}",
-                success:function(res){   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容
-                    if (res.result) {
-                        //console.log(res)
 
-                        $("input[check_id="+check_id+"]").parents("tr").remove(); //获取要删除的那行节点
-                        $(_this).parents("tr").remove();
-                        swal(res.message, "^o^.", "success");
-                        //location.reload()
-                    }
-                    else {
-                        //console.log(res)
-                        swal(res.message, ":)", "error");
-                    }
-                }
-            });
-      }
-    });
 }
 </script>
 
 
 <script>
-    function testapi(_this) {
+    var csrftoken = $('meta[name=csrf-token]').attr('content')
+        console.log(csrftoken)
         $.ajaxSetup({
-                beforeSend: function(xhr) {
-                 {
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken)
                 }
             }
-        }),
-        var check_id = $(_this).attr("check_id");
+        })
+      function testapi(_this) {
 
-        var data= {
-                data: JSON.stringify({
-                    'check_id': check_id
-                }),
-            }
-        var csrftoken = $('meta[name=csrf-token]').attr('content')
-        console.log(csrftoken)
-        // POST 传递参数
+          var check_id = $(_this).attr("check_id");
 
-        $.ajax ({
-            type: 'POST',
-            data: data,
-            dataType: 'json',
-            url: "{{ url_for('main.apitest') }}",
-            success:function(res){   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容
-                if (res.result) {
-                    console.log(res.message)
-                    //layer.msg(res.message)
-                    //swal(res.message, "^o^.", "success");
-                }
-                else {
-                    console.log(res.message)
-                    //layer.msg(res.message)
-                    // swal(res.message, ":)", "error");
-                }
-            }
-        });
-    }
+          var data = {
+              data: JSON.stringify({
+                  'check_id': check_id
+              }),
+          }
+          var csrftoken = $('meta[name=csrf-token]').attr('content')
+          console.log(csrftoken)
+          // POST 传递参数
+
+          $.ajax({
+              type: 'POST',
+              data: data,
+              dataType: 'json',
+              url: "{{ url_for('main.apitest') }}",
+              success: function (res) {   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容
+                  if (res.result) {
+                      //console.log(res.message)
+                      layer.msg(res.message)
+                      //swal(res.result, "^o^.", "success");
+                  }
+                  else {
+                      //console.log(res.message)
+                      layer.msg(res.message)
+                      //swal(res.message, ":)", "error");
+                  }
+              }
+          });
+      }
 </script>
 {% endblock %}
