@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}zabbix监控主机添加{% endblock %}
+{% block content %}
+<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<script type="text/javascript">var csrftoken = "{{ csrf_token() }}"</script>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-8">
+                    <h2>zabbix监控主机添加</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="{{ url_for("main.index") }}">Home</a>
+                        </li>
+
+                        <li class="active">
+                            <strong>zabbix监控主机添加</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Line scatter diagram</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h5>请先上传需要添加主机的文本文件<code>&lt;'hostlist.xls'&gt;</code>格式如下:</h5>
+                            <h5>请务必保持文件格式如下所示:</h5><br>
+                            <img src="{{ url_for('static',filename='main/img/add.png') }}" alt="add host example" height="50px">
+                            <form action="" method=post enctype=multipart/form-data>
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                                  <p>
+                                      <input  type=file name=file>
+                                      <input type=submit value=upload>
+                                  </p>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                {% if result %}
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>导入结果</h5>
+                        </div>
+                        <div class="ibox-content">
+                        <textarea style="margin: 0px 0px 10px; height: 500px; width: 650px; outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240);font-family:-webkit-body;font-size: large;">
+------ Import Server Start ------
+{% for res in result %}
+{{ res }}
+{% endfor -%}
+------ Import Server Done   ------
+</textarea>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+
+
+{% endblock %}

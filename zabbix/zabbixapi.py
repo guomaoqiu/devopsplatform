@@ -27,9 +27,13 @@ class ZabbixAction():
 
 #### init
     def __init__(self):
-        self.__url = config.get("zabbixapi", "ZABBIX_URL")
-        self.__user = config.get("zabbixapi", "ZABBIX_USER")
-        self.__password = config.get("zabbixapi", "ZABBIX_PASSWORD")
+        #zclient = ZabbixAction('http://114.55.0.47:9986', 'Admin', 'ZTNiMGM0')
+        self.__url = "http://114.55.0.47:9986"
+        self.__user = "Admin"
+        self.__password = "ZTNiMGM0"
+        # self.__url = config.get("zabbixapi", "ZABBIX_URL")
+        # self.__user = config.get("zabbixapi", "ZABBIX_USER")
+        # self.__password = config.get("zabbixapi", "ZABBIX_PASSWORD")
 
 #### 登录zabbix
     def login(self):
@@ -240,3 +244,8 @@ class ZabbixAction():
                 if host_name == hostname:
                     return k
 ###
+
+# zclient=ZabbixAction('http://114.55.0.47:9986','Admin','ZTNiMGM0')
+# zclient.login()
+# for i in zclient.get_host():
+#     print i

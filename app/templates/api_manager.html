@@ -63,8 +63,8 @@
 
 
                                                     <td>
-                                                        <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}" name="{{ each_data.app_name }}" value="删除" onclick="del_raw(this)">
-                                                         <input type="button" class="btn btn-xs btn-info"  value="连接测试" onclick="test_con()">
+                                                        <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}"  value="删除" onclick="del_raw(this)">
+                                                        <input type="button" class="btn btn-xs btn-info"  check_id="{{ each_data.id }}" value="连接测试" onclick="testapi(this)">
                                                     </td>
                                                 </tr>
                                             {% endfor %}
@@ -112,6 +112,7 @@
 <script>
  function del_raw(_this) {
     var csrftoken = $('meta[name=csrf-token]').attr('content')
+     console.log(csrftoken)
         $.ajaxSetup({
             beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
@@ -138,6 +139,7 @@
       closeOnConfirm: false,
       closeOnCancel: true  //关闭取消后还弹出让你确认的效果提示
     },
+
       function(isConfirm){
       if (isConfirm) {    // 如果确认就会去携带者hostname去后台处理
         $.ajax ({
@@ -167,25 +169,39 @@
 
 
 <script>
-    function test_con() {
-        var csrftoken = $('meta[name=csrf-token]').attr('content')
-            $.ajaxSetup({
-                beforeSend: function(xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+    function testapi(_this) {
+        $.ajaxSetup({
+                beforeSend: function(xhr) {
+                 {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken)
                 }
             }
-        })
-    $.ajax ({
+        }),
+        var check_id = $(_this).attr("check_id");
+
+        var data= {
+                data: JSON.stringify({
+                    'check_id': check_id
+                }),
+            }
+        var csrftoken = $('meta[name=csrf-token]').attr('content')
+        console.log(csrftoken)
+        // POST 传递参数
+
+        $.ajax ({
             type: 'POST',
-            url: "{{ url_for('salt.apitest') }}",
+            data: data,
+            dataType: 'json',
+            url: "{{ url_for('main.apitest') }}",
             success:function(res){   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容
                 if (res.result) {
-                    layer.msg(res.message)
+                    console.log(res.message)
+                    //layer.msg(res.message)
                     //swal(res.message, "^o^.", "success");
                 }
                 else {
-                    layer.msg(res.message)
+                    console.log(res.message)
+                    //layer.msg(res.message)
                     // swal(res.message, ":)", "error");
                 }
             }

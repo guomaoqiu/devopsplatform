@@ -69,10 +69,10 @@
                        </ul>
                    </li>
                    <li>
-                      <a href="${SITE_URL}api_connect"><i class="fa fa-bell-o"></i> <span class="nav-label">监控管理</span></span><span class="fa arrow"></span></a>
+                      <a href=""><i class="fa fa-bell-o"></i> <span class="nav-label">监控管理</span></span><span class="fa arrow"></span></a>
                       <ul class="nav nav-second-level collapse">
-                          <li><a href="{{ url_for('main.index') }}">Zabbix Server添加</a></li>
-                          <li><a href="{{ url_for('main.index') }}">Zabbix Server删除</a></li>
+                          <li><a href="{{ url_for('zabbix.zabbixadd') }}">Zabbix Server添加</a></li>
+                          <li><a href="{{ url_for('zabbix.zabbixdel') }}">Zabbix Server删除</a></li>
                       </ul>
                    </li>
                     <li>

@@ -347,6 +347,28 @@ def api_manager_del():
             print e
             return  jsonify({"result":False,"message":"删除失败".format(e)})
 
+# test api
+@main.route('/apitest', methods=['GET', 'POST'])
+#@login_required
+def apitest():
+    '''
+    @note: 在登陆状态下只允许管理者进入，否则来到403禁止登陆界面
+    '''
+    if request.method == 'POST':
+        check_id = json.loads(request.form.get('data'))
+        #api_id = ApiMg.query.filter_by(id=check_id).first()
+        return jsonify({"result": True, "message":check_id })
+        # try:
+        #     #db.session.delete(api_id)
+        #     #print app_name
+        #     return jsonify({"app_name":app_name})
+        #
+        #     #return jsonify({"result": True, "message": "删除成功"})
+        # except Exception, e:
+        #     #db.session.rollback()
+        #     #print e
+        #     #return jsonify({"result": False, "message": "删除失败".format(e)})
+        #     return jsonify({"app_name": app_name})
 ###############################################################################
 # 导入数据库
 @main.route('/import_data', methods=['GET', 'POST'])
