@@ -46,10 +46,10 @@ class EditProfileAdminForm(FlaskForm):
 
 
 class ApiForm(FlaskForm):
-    app_name = StringField('应用名称', validators=[Length(0, 64)])
-    api_user = StringField('Api用户', validators=[Length(0, 64)])
-    api_paas = StringField('API密码', validators=[Length(0, 64)])
-    api_url = StringField('API地址', validators=[Length(0, 64)])
+    app_name = StringField('应用名称', validators=[Required(),Length(0, 64)])
+    api_user = StringField('Api用户', validators=[Required(),Length(0, 64)])
+    api_paas = StringField('API密码', validators=[Required(),Length(0, 64)])
+    api_url = StringField('API地址', validators=[Required(),Length(0, 64)])
     submit = SubmitField('Submit')
 
 class DataForm(FlaskForm):
@@ -72,8 +72,8 @@ class ResDataFormOnline(FlaskForm):
     submit = SubmitField('提交') 
 
 class AccessForm(FlaskForm):
-    ip = StringField('IP地址', validators=[Length(0, 64)])
-    remark = StringField('备注', validators=[Length(0, 64)])
+    ip = StringField('IP地址', validators=[Required(),Length(0, 64)])
+    remark = StringField('备注', validators=[Required(),Length(0, 64)])
     submit = SubmitField('提交') 
 
 class UidForm(FlaskForm):

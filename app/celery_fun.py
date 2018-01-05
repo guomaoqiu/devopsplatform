@@ -20,6 +20,5 @@ class MyCelery():
 	        "task_id": self.task.id,
 	        "task_status": self.task.status
 	    }
-		#print task_name
-	 	#return 'xxx'
+		
 		return jsonify({"result":True,"data":data,"message":u'执行开始'})

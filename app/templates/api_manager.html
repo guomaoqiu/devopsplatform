@@ -5,6 +5,8 @@
 <script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
 <link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk.css?v=1.0.1" rel="stylesheet">
+<link href="https://magicbox.bkclouds.cc/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+
 
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
@@ -77,8 +79,22 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>第三方平台Api信息录入</h5>
+                            <h5>第三方平台Api配置向导</h5>
                         </div>
+                    <div class="king-pearls king-pearls-sm row">
+                        <div class="king-pearl done col-xs-4">
+                            <span class="king-pearl-number">1</span>
+                            <span class="king-pearl-title">填写API配置</span>
+                        </div>
+                        <div class="king-pearl done col-xs-4">
+                            <span class="king-pearl-number">2</span>
+                            <span class="king-pearl-title">提交API配置</span>
+                        </div>
+                        <div class="king-pearl done col-xs-4">
+                            <span class="king-pearl-number">3</span>
+                            <span class="king-pearl-title">完成配置(测试连接)</span>
+                        </div>
+                    </div>
                         <div class="ibox-content">
                             <div id="ct-chart2" class="ct-perfect-fourth">
                                     {% import "bootstrap/wtf.html" as wtf %}

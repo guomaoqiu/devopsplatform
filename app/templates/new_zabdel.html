@@ -1,0 +1,69 @@
+{% extends 'basic.html' %}
+{% block title %}Dashboadr{% endblock %}
+{% block content %}
+
+    <aside class="right-side" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+           xmlns="http://www.w3.org/1999/html">
+
+
+        <section class="col-lg-6 connectedSortable ui-sortable">
+            <div class="row">
+             <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Zabbix Server 删除</h3>
+                </div>
+
+
+                <!-- /.box-header -->
+                   <div class="box-body">
+                 <h5>请填写需要删除的主机<code>&lt;主机名&gt;</code>以 逗号 隔开.</h5>
+                 <form role="form" action='{{ url_for('zabbix.zabbixdel') }}' method='POST'>
+                      <div class="form-group">
+                            <textarea type="text" name="contenet" class="form-control" rows="4" placeholder="host1,host2,host3..." style="margin: 0px 0px 10px; height: 200px; width: 100%; background-color: write;color: black"></textarea>
+                      </div>
+                          <button type="submit" class="btn btn-primary"> Run </button>
+                              {% for message in get_flashed_messages(with_categories=True) %}
+                                <div class="alert alert-{{ message[0] }}">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                   <b>{{ message[1] }} {{ cmd }}</b>
+                                </div>
+                        {% endfor %}
+                </form>
+                   </div>
+
+              </div>
+             </div>
+            </div>
+        </section>
+
+    {% if result %}
+       <section class="col-lg-6 connectedSortable ui-sortable">
+            <div class="row">
+             <div class="col-xs-12">
+              <div class="box">
+
+
+                 <div class="panel panel-info">
+        <div class="panel-heading">
+         <h3 class="panel-title">执行结果 </h3>
+            </div>
+                <div class="panel-body">
+                 <pre class="text-success bg-success">
+                     {% for res in result %}
+{{ res }}
+                    {% endfor %}
+                 </pre>
+
+                      </div>
+                   </div>
+                   </div>
+              </div>
+             </div>
+
+        </section>
+{% endif %}
+
+    </aside>
+{% endblock %}
+

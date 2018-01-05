@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+                                         # -*- coding: utf-8 -*-
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify
 from . import auth
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
@@ -93,10 +93,10 @@ def login():
             users.login_ip=request.headers.get('X-Forwarded-For',request.remote_addr)
             db.session.add(users) # 提交
             db.session.commit()
-            flash("您好，%s。 欢迎登陆国服操作平台！ 您的账户已于%s通过%s地址登录，请注意账号安全，若有异常，及时修改密码!" % (user.username,users.logintime,access_ip),'info')
+            flash("您好，%s。 欢迎登陆xxxxxxx平台！ 您的账户已于%s通过%s地址登录，请注意账号安全，若有异常，及时修改密码!" % (user.username,users.logintime,access_ip),'info')
 
             # 用户每次登录 通知管理员
-            #send_email(current_app.config['FLASKY_ADMIN'], '登录通知','auth/email/login_notice',user=user, ip=request.remote_addr, agent=request.user_agent)
+            send_email(current_app.config['FLASKY_ADMIN'], '登录通知','auth/email/login_notice',user=user, ip=request.remote_addr, agent=request.user_agent)
 
             return redirect(url_for('main.index')) # 如果认证成功则重定向到已认证首页
         else:

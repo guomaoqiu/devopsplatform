@@ -27,7 +27,7 @@ class Config:
     MAIL_PASSWORD =  'Guomaoqiu.310963' #os.environ.get('MAIL_PASSWORD')
     FLASKY_MAIL_SUBJECT_PREFIX = u'[国服操作平台]'
     FLASKY_MAIL_SENDER = '2399447849@qq.com'
-    FLASKY_ADMIN = 'guomaoqiu@moefantasy.com' # os.environ.get('FANXIANG_ADMIN')
+    FLASKY_ADMIN = '2399447849@qq.com' # os.environ.get('FANXIANG_ADMIN')
 
     #加密解密所需的key
     PRPCRYPTO_KEY= '2d4g53sdfs6L6K'
