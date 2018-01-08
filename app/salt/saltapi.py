@@ -12,10 +12,9 @@ class SaltApi(object):
     def __init__(self):
         '''
         @note 获取saltapi连接所需的账户密码及url
-        @app_name代表saltapi所应用的场景，例如有两套satl环境时
         '''
         prpcrypt_key = prpcrypt(current_app.config.get('PRPCRYPTO_KEY'))  # 调用crypto 解密
-        api_info = ApiMg.query.filter_by().all()
+        api_info = ApiMg.query.filter_by(app_name="saltstackapi").all()
 
         for each_info in api_info:
             # 连接用户
@@ -23,22 +22,23 @@ class SaltApi(object):
             # 连接密码
             self.__password = prpcrypt_key.decrypt(each_info.to_json()['api_paas'])
             # 连接url
-            self.__salt_url = each_info.to_json()["api_url"]
+            self.__url = each_info.to_json()["api_url"]
             # 连接ID
             self.__token_id = self.get_saltapi_token()
             
     # 添加api后测试该api是否连接正常        
     def login_test(self):
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
-        self.__salt_url += '/login'
+        self.__url += '/login'
         self.__my_headers = {
             'Accept': 'application/json'
         }
         try:
-            req = requests.post(self.__salt_url, headers=self.__my_headers,data=parmes, verify=False)
-            print self.__salt_url
+            req = requests.post(self.__url, headers=self.__my_headers,data=parmes, verify=False)
+            
             return True
         except Exception,e: 
+            print e
             return False
 
 
@@ -47,7 +47,7 @@ class SaltApi(object):
         @note: 登录获取saltapi token
         @summary: 在登录之前查询数据库中的token是否过期(此处6个小时为有效期，配置文件中默认为12个小时)；如果过期则需登录获取，反之直接获取数据库中的
         '''
-        api_info = ApiMg.query.filter_by(app_name=app_name).first()
+        api_info = ApiMg.query.filter_by(app_name="saltstackapi").first()
         old_api_token = api_info.api_token_res()
         old_token_create_time = int(time.mktime(time.strptime(str(api_info.api_create_time()), '%Y-%m-%d %H:%M:%S')))
         current_time = int(time.time())
@@ -56,13 +56,13 @@ class SaltApi(object):
         #print parmes
         if (current_time - old_token_create_time) > 43200 or old_api_token is None:
 
-            self.__salt_url += '/login'
-            #print self.__user,self.__password,self.__salt_url
+            self.__url += '/login'
+            #print self.__user,self.__password,self.___url
             self.__my_headers = {
                 'Accept': 'application/json'
             }
             try:
-                req = requests.post(self.__salt_url, headers=self.__my_headers,data=parmes, verify=False)
+                req = requests.post(self.___url, headers=self.__my_headers,data=parmes, verify=False)
                 content = json.loads(req.content)
                 token = content["return"][0]['token']
 
@@ -92,9 +92,9 @@ class SaltApi(object):
             'Accept': 'application/json',
             'X-Auth-Token':  self.__token_id
         }
-        self.__salt_url = self.__salt_url.strip('/login')
+        self.___url = self.___url.strip('/login')
         try:
-            req = requests.post(self.__salt_url,data=params,headers=headers,verify=False,timeout=10)
+            req = requests.post(self.___url,data=params,headers=headers,verify=False,timeout=10)
             return req.content
         except Exception, e:
             print e
@@ -108,10 +108,10 @@ class SaltApi(object):
             'Accept': 'application/json',
             'X-Auth-Token': self.__token_id
         }
-        self.__salt_url = self.__salt_url.strip('/login')
+        self.___url = self.___url.strip('/login')
 
         try:
-            req = requests.post(self.__salt_url, data=params, headers=headers, verify=False,timeout=2)
+            req = requests.post(self.___url, data=params, headers=headers, verify=False,timeout=2)
             json_data = dict(json.loads(req.content)['return'][0])['data']['return']
             print json_data
             return json_data
@@ -124,10 +124,10 @@ class SaltApi(object):
             'Accept': 'application/json',
             'X-Auth-Token':  self.__token_id
         }
-        self.__salt_url = self.__salt_url.strip('/login')
+        self.___url = self.___url.strip('/login')
 
         try:
-            req = requests.post(self.__salt_url,data=params,headers=headers,verify=False,timeout=10)
+            req = requests.post(self.___url,data=params,headers=headers,verify=False,timeout=10)
 
             return req.content
         except Exception, e:
@@ -145,9 +145,9 @@ class SaltApi(object):
     #         'Accept': 'application/json',
     #         'X-Auth-Token': self.__token_id
     #     }
-    #     self.__salt_url = self.__salt_url.strip('/login') + '/jobs/' + jid
+    #     self.___url = self.___url.strip('/login') + '/jobs/' + jid
     #     try:
-    #         req = requests.get(self.__salt_url, headers=headers, verify=False,timeout=2)
+    #         req = requests.get(self.___url, headers=headers, verify=False,timeout=2)
     #         json_data = req.content
     #
     #         return json_data
@@ -162,7 +162,7 @@ class SaltApi(object):
             'Accept': 'application/json',
             'X-Auth-Token': self.__token_id
         }
-        url = self.__salt_url.strip('/login') + ('/minions/%s' % host)
+        url = self.___url.strip('/login') + ('/minions/%s' % host)
 
         req = requests.get(url, headers=headers, verify=False,timeout=2)
         json_data = json.loads(req.content)

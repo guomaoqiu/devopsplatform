@@ -4,11 +4,9 @@
 # 再进行判断.
 import xlrd, os
 from pyzabbix import ZabbixAPI
-from ConfigParser import ConfigParser
-config = ConfigParser()
-cf=os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir,os.path.pardir))
-config.read(cf + "/config.ini")
-
+from app.crypto import prpcrypt
+from ..models import ApiMg
+from flask import current_app
 import sys
 reload(sys)  
 sys.setdefaultencoding('utf-8')
@@ -27,13 +25,20 @@ class ZabbixAction():
 
 #### init
     def __init__(self):
-        #zclient = ZabbixAction('http://114.55.0.47:9986', 'Admin', 'ZTNiMGM0')
-        self.__url = "http://114.55.0.47:9986"
-        self.__user = "Admin"
-        self.__password = "ZTNiMGM0s"
-        # self.__url = config.get("zabbixapi", "ZABBIX_URL")
-        # self.__user = config.get("zabbixapi", "ZABBIX_USER")
-        # self.__password = config.get("zabbixapi", "ZABBIX_PASSWORD")
+        prpcrypt_key = prpcrypt(current_app.config.get('PRPCRYPTO_KEY'))
+        #client = ApiMg.query.filter_by(app_name='zabbix').all
+        #for each_info in user:
+        api_info = ApiMg.query.filter_by(app_name='zabbixapi').all()
+        print api_info
+        for each_info in api_info:
+            # 连接用户
+            self.__user = each_info.to_json()['api_user']
+            # 连接密码
+            self.__password = prpcrypt_key.decrypt(each_info.to_json()['api_paas'])
+            # 连接url
+            self.__url = each_info.to_json()["api_url"]
+            
+         
 
 #### 登录zabbix
     def login_test(self):
@@ -43,9 +48,9 @@ class ZabbixAction():
             #fo.write("【登录ZabbixApi接口成功】\n ")
             print "【登录ZabbixApi接口成功】"
             return True
-        except:
+        except Exception,e:
             #fo.write("【登录ZabbixApi接口成功】\n ")
-            print "\n【登录zabbix平台出现错误】"
+            print "\n【登录zabbix平台出现错误】%s" % e
             return False
             #sys.exit()
 

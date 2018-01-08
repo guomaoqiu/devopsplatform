@@ -10,8 +10,8 @@ from .. import db
 @login_required
 def apitest():
     if request.method == 'POST':
-        client = SaltApi(app_name='saltstack')
-        if client.login_test(app_name='saltstack'):
+        client = SaltApi(app_name='saltstackapi')
+        if client.login_test(app_name='saltstackapi'):
              return  jsonify({"result":True,"message":"SaltApi连接正常"})
         else:
              return  jsonify({"result":False,"message":"SaltApi连接异常"})
@@ -23,7 +23,7 @@ def saltkeylist():
     '''
     @note: 运行salt命令
     '''
-    client = SaltApi(app_name='saltstack')
+    client = SaltApi(app_name='saltstackapi')
     try:
         json_data=client.all_key()
         print "未认证的key: " , json_data['minions_denied']

@@ -16,7 +16,7 @@ from ..salt.saltapi import SaltApi
 from app import celery
 from ..email import send_email
 from app.auth.forms import RegistrationForm
-from zabbix.zabbixapi import ZabbixAction
+from ..zabbix.zabbixapi import ZabbixAction
 from celery.task.control import revoke
 #from ..saltstack import saltapi
 reload(sys)
@@ -320,7 +320,7 @@ def api_manager():
         except Exception,e:
             db.session.rollback()
             print e
-            flash('添加Api信息错误','danger')
+            flash('添加Api信息错误 %s' % e ,'danger') 
     res = ApiMg.query.all()
     data = []
     for x in res:
@@ -365,13 +365,13 @@ def apitest():
             if client.login_test():
                 return jsonify({"result": True, "message": "%s 连接正常" % app_name})
             else:
-                return jsonify({"result": False, "message": "%s 连接异常，请检查API信息是否正确" % app_name})
+                return jsonify({"result": False, "message": "%s 连接异常,请检查API信息是否正确" % app_name})
         elif app_name == "saltstackapi":
             client = SaltApi()
             if client.login_test():
                 return jsonify({"result": True, "message": "%s 连接正常" % app_name })
             else:
-                return jsonify({"result": False, "message": "%s 连接异常" % app_name})
+                return jsonify({"result": False, "message": "%s 连接异常,请检查API信息是否正确" % app_name})
         elif app_name == "":
             pass
         else:

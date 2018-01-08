@@ -239,7 +239,6 @@ class ApiMg(db.Model):
     create_time = db.Column(db.DateTime(), default=datetime.now)
     api_url = db.Column(db.String(64), unique=True, index=True)
 
-
     def __repr__(self):
         return '%s' % self.app_name
 

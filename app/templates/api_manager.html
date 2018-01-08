@@ -6,8 +6,6 @@
 <script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
 <link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk.css?v=1.0.1" rel="stylesheet">
 <link href="https://magicbox.bkclouds.cc/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
-
-
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
                     <h2>Api信息管理</h2>
@@ -21,81 +19,83 @@
                         </li>
                     </ol>
                 </div>
-
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-               <div class="col-lg-12">
+             <div class="row">
+             <div class="col-lg-1"></div>
+             <div class="col-lg-10">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                  <div class="ibox-title">
                             <h5>对接平台API信息</h5>
                         </div>
                         <div class="ibox-content">
                             <div id="ct-chart2" class="ct-perfect-fourth">
-                                   <table class="table table-bordered table7_demo">
-                                                <thead>
-                                                    <tr>
-                                                        <th>场景 </th>
-                                                        <th>API 用户</th>
-                                                        <th>API 密码</th>
-                                                        <th>API 添加时间</th>
-                                                        <th>API URL</th>
-                                                        <!-- <th>API Status</th> -->
-                                                        <th>操作</th>
-                                                    </tr>
-                                                </thead>
-                                            <tbody>
-                                                    {% if not data %}
-                                                    <div class="king-notice-box king-notice-sad center">
-                                                        <p style="color:red" class="king-notice-text">
-                                                            尚未发现Api连接配置,请填写连接信息...
-                                                        </p>
-                                                    </div>
-                                                    {% endif %}
-                                                    {% for each_data in data %}
-                                                <tr>
-                                                    <td>{{ each_data.app_name }}</td>
-                                                    <td>{{ each_data.api_user }}</td>
-                                                    <td>**************</td>
-                                                    <td>{{ each_data.create_time }}</td>
-                                                    <td>{{ each_data.api_url }}</td>
-                                                    <!-- <td>active</td> -->
+                               <table class="table table-bordered table7_demo">
+                                    <thead>
+                                        <tr>
+                                            <th>场景 </th>
+                                            <th>API 用户</th>
+                                            <th>API 密码</th>
+                                            <th>API 添加时间</th>
+                                            <th>API URL</th>
+                                            <!-- <th>API Status</th> -->
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            {% if not data %}
+                                            <div class="king-notice-box king-notice-sad center">
+                                                <p style="color:red" class="king-notice-text">
+                                                    尚未发现Api连接配置,请填写连接信息...
+                                                </p>
+                                            </div>
+                                            {% endif %}
+                                            {% for each_data in data %}
+                                        <tr>
+                                            <td>{{ each_data.app_name }}</td>
+                                            <td>{{ each_data.api_user }}</td>
+                                            <td>**************</td>
+                                            <td>{{ each_data.create_time }}</td>
+                                            <td>{{ each_data.api_url }}</td>
+                                            <!-- <td>active</td> -->
 
 
-                                                    <td>
-                                                        <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}"  value="删除" onclick="del_raw(this)">
-                                                        <input type="button" class="btn btn-xs btn-info"  check_id="{{ each_data.id }}" value="连接测试" onclick="testapi(this)">
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                          </table>
-
-
+                                            <td>
+                                                <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}"  value="删除" onclick="del_raw(this)">
+                                                <input type="button" class="btn btn-xs btn-info"  check_id="{{ each_data.id }}" value="连接测试" onclick="testapi(this)">
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-1"></div>
+            </div>
+             <div class="row">
+             <div class="col-lg-1"></div>
+             <div class="col-lg-10">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>第三方平台Api配置向导</h5>
                         </div>
-                    <div class="king-pearls king-pearls-sm row">
-                        <div class="king-pearl done col-xs-4">
-                            <span class="king-pearl-number">1</span>
-                            <span class="king-pearl-title">填写API配置</span>
-                        </div>
-                        <div class="king-pearl done col-xs-4">
-                            <span class="king-pearl-number">2</span>
-                            <span class="king-pearl-title">提交API配置</span>
-                        </div>
-                        <div class="king-pearl done col-xs-4">
-                            <span class="king-pearl-number">3</span>
-                            <span class="king-pearl-title">完成配置(测试连接)</span>
-                        </div>
-                    </div>
                         <div class="ibox-content">
+                               <div class="king-pearls king-pearls-sm row">
+                                    <div class="king-pearl done col-xs-4">
+                                        <span class="king-pearl-number">1</span>
+                                        <span class="king-pearl-title">填写API配置</span>
+                                    </div>
+                                    <div class="king-pearl done col-xs-4">
+                                        <span class="king-pearl-number">2</span>
+                                        <span class="king-pearl-title">提交API配置</span>
+                                    </div>
+                                    <div class="king-pearl done col-xs-4">
+                                        <span class="king-pearl-number">3</span>
+                                        <span class="king-pearl-title">完成配置(测试连接)</span>
+                                    </div>
+                                </div>
                             <div id="ct-chart2" class="ct-perfect-fourth">
                                     {% import "bootstrap/wtf.html" as wtf %}
                                     {{ wtf.quick_form(form) }}
@@ -103,10 +103,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="col-lg-1"></div>
             </div>
         </div>
-
 
 <!-- 删除api信息 -->
 <script>
