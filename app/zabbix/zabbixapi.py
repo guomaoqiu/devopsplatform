@@ -250,9 +250,4 @@ class ZabbixAction():
             for host_name in self.get_hostingroup(v):
                 if host_name == hostname:
                     return k
-###
 
-# zclient=ZabbixAction('http://114.55.0.47:9986','Admin','ZTNiMGM0')
-# zclient.login()
-# for i in zclient.get_host():
-#     print i

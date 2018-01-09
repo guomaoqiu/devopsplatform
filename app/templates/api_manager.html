@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Index{% endblock %}
+{% block title %} 接入平台API信息{% endblock %}
 {% block content %}
 <script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
@@ -15,25 +15,25 @@
                         </li>
 
                         <li class="active">
-                            <strong>对接平台API信息(对接第三方平台)</strong>
+                            <strong>接入平台API信息(第三方平台接入)</strong>
                         </li>
                     </ol>
                 </div>
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
              <div class="row">
-             <div class="col-lg-1"></div>
-             <div class="col-lg-10">
+             <div class="col-lg-2"></div>
+             <div class="col-lg-8">
                     <div class="ibox float-e-margins">
                   <div class="ibox-title">
-                            <h5>对接平台API信息</h5>
+                            <h5>接入平台API信息</h5>
                         </div>
                         <div class="ibox-content">
                             <div id="ct-chart2" class="ct-perfect-fourth">
                                <table class="table table-bordered table7_demo">
                                     <thead>
                                         <tr>
-                                            <th>场景 </th>
+                                            <th>应用 </th>
                                             <th>API 用户</th>
                                             <th>API 密码</th>
                                             <th>API 添加时间</th>
@@ -54,12 +54,9 @@
                                         <tr>
                                             <td>{{ each_data.app_name }}</td>
                                             <td>{{ each_data.api_user }}</td>
-                                            <td>**************</td>
+                                            <td>******</td>
                                             <td>{{ each_data.create_time }}</td>
                                             <td>{{ each_data.api_url }}</td>
-                                            <!-- <td>active</td> -->
-
-
                                             <td>
                                                 <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}"  value="删除" onclick="del_raw(this)">
                                                 <input type="button" class="btn btn-xs btn-info"  check_id="{{ each_data.id }}" value="连接测试" onclick="testapi(this)">
@@ -72,17 +69,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-1"></div>
+                <div class="col-lg-2"></div>
             </div>
              <div class="row">
-             <div class="col-lg-1"></div>
-             <div class="col-lg-10">
+             <div class="col-lg-2"></div>
+             <div class="col-lg-8">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>第三方平台Api配置向导</h5>
                         </div>
                         <div class="ibox-content">
-                               <div class="king-pearls king-pearls-sm row">
+                               <div class="king-pearls king-pearls-sm row"> 
                                     <div class="king-pearl done col-xs-4">
                                         <span class="king-pearl-number">1</span>
                                         <span class="king-pearl-title">填写API配置</span>
@@ -103,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-1"></div>
+                <div class="col-lg-2"></div>
             </div>
         </div>
 

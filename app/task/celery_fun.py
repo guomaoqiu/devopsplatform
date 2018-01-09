@@ -116,4 +116,22 @@ def update_cbt_resource(self):
     return result
 ###########################  任务绑定 ##################
 
+# from celery import Celery, Task
+
+# @celery.task(bind=True)
+# def everytask(self):
+#     """启动worker: celery -A test_celery.celery worker -B --loglevel=debug"""
+#     result=commands.getoutput("echo 'ok'")
+#     print result
+#     return True
+
+# class Trigger(Task):
+#     def run(self):
+#         task = update_cbt_resource.apply_async()
+#         print task
+
+# trigger = Trigger()
+# trigger.run()
+
+
 

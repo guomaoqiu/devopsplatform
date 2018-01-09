@@ -1,14 +1,22 @@
 # -*- coding:utf-8 -*-
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-
+from datetime import timedelta
 
 class CeleryConfig(object):
     """后台任务配置"""
     CELERY_BROKER_URL = 'redis://localhost:6379/2'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
     CELERY_TASK_SERIALIZER = 'json'
-        
+     
+    CELERYBEAT_SCHEDULE = {
+        'add-every-30-seconds': {
+             'task': 'app.task.saltapi_check_task.satlapi_check_task',
+             'schedule': timedelta(seconds=5),
+             'args': ()
+        },
+    }
+
 
 class Config:
     """基本配置"""

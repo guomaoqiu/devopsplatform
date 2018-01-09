@@ -1,26 +1,42 @@
 {% extends 'base.html' %}
-{% block title %}Index{% endblock %}
+{% block title %}平台访问白名单{% endblock %}
 {% block content %}
 <script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
-                    <h2>Dashboards</h2>
+                    <h2>平台访问白名单</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="${SITE_URL}">Home</a>
+                            <a href="{{ url_for('main.index') }}">Home</a>
                         </li>
                         
                         <li class="active">
-                            <strong>维护操作</strong>
+                            <strong>平台访问白名单</strong>
                         </li>
                     </ol>
                 </div>
                
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
+          <div class="row">
+                  <div class="col-lg-3"></div>
+                     <div class="col-lg-6">
+                      <div class="ibox float-e-margins">
+                          <div class="ibox-title">
+                              <h5>添加白名单</h5>
+                          </div>
+                          <div class="ibox-content">
+                            {% import "bootstrap/wtf.html" as wtf %}
+                            {{ wtf.quick_form(form) }}
+                          </div>
+                      </div>
+                  </div>
+                <div class="col-lg-3"></div>
+              </div>
+           <div class="row">
+              <div class="col-lg-3"></div>
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -59,18 +75,9 @@
                         </div>
                     </div>
                 </div>
-                   <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>添加白名单</h5>
-                        </div>
-                        <div class="ibox-content">
-                          {% import "bootstrap/wtf.html" as wtf %}
-                          {{ wtf.quick_form(form) }}
-                        </div>
-                    </div>
-                </div>
+                <div class="col-lg-3"></div>
             </div>
+            
         </div>
 
 <script>

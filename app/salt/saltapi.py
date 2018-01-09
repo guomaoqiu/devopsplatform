@@ -29,15 +29,19 @@ class SaltApi(object):
     # 添加api后测试该api是否连接正常        
     def login_test(self):
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
-        self.__url += '/login'
+        #self.__url += ''
+        
         self.__my_headers = {
             'Accept': 'application/json'
         }
         try:
-            req = requests.post(self.__url, headers=self.__my_headers,data=parmes, verify=False)
-            
+            #import socket;
+            #sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            #result = sock.connect_ex(('127.0.0.1',80))
+            print self.__url
+            #req = requests.post(self.__url, headers=self.__my_headers,data=parmes, verify=False,timeout=0.01)
             return True
-        except Exception,e: 
+        except Exception ,e:
             print e
             return False
 
@@ -57,12 +61,12 @@ class SaltApi(object):
         if (current_time - old_token_create_time) > 43200 or old_api_token is None:
 
             self.__url += '/login'
-            #print self.__user,self.__password,self.___url
+            #print self.__user,self.__password,self.__url
             self.__my_headers = {
                 'Accept': 'application/json'
             }
             try:
-                req = requests.post(self.___url, headers=self.__my_headers,data=parmes, verify=False)
+                req = requests.post(self.__url, headers=self.__my_headers,data=parmes, verify=False)
                 content = json.loads(req.content)
                 token = content["return"][0]['token']
 
@@ -92,9 +96,9 @@ class SaltApi(object):
             'Accept': 'application/json',
             'X-Auth-Token':  self.__token_id
         }
-        self.___url = self.___url.strip('/login')
+        self.__url = self.__url.strip('/login')
         try:
-            req = requests.post(self.___url,data=params,headers=headers,verify=False,timeout=10)
+            req = requests.post(self.__url,data=params,headers=headers,verify=False,timeout=10)
             return req.content
         except Exception, e:
             print e
@@ -103,19 +107,22 @@ class SaltApi(object):
         '''
         @note: 获取所有的salt-key
         '''
+        print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+        print self.__url
         params = {'client': 'wheel', 'fun': 'key.list_all'}
         headers = {
             'Accept': 'application/json',
             'X-Auth-Token': self.__token_id
         }
-        self.___url = self.___url.strip('/login')
+        self.__url = self.__url.strip('/login')
 
         try:
-            req = requests.post(self.___url, data=params, headers=headers, verify=False,timeout=2)
+            req = requests.post(self.__url, data=params, headers=headers, verify=False,timeout=10)
             json_data = dict(json.loads(req.content)['return'][0])['data']['return']
             print json_data
             return json_data
         except Exception,e:
+            print e
             return e
 
     def get_allhostname(self, params):
@@ -124,10 +131,10 @@ class SaltApi(object):
             'Accept': 'application/json',
             'X-Auth-Token':  self.__token_id
         }
-        self.___url = self.___url.strip('/login')
+        self.__url = self.__url.strip('/login')
 
         try:
-            req = requests.post(self.___url,data=params,headers=headers,verify=False,timeout=10)
+            req = requests.post(self.__url,data=params,headers=headers,verify=False,timeout=10)
 
             return req.content
         except Exception, e:
@@ -145,9 +152,9 @@ class SaltApi(object):
     #         'Accept': 'application/json',
     #         'X-Auth-Token': self.__token_id
     #     }
-    #     self.___url = self.___url.strip('/login') + '/jobs/' + jid
+    #     self.__url = self.__url.strip('/login') + '/jobs/' + jid
     #     try:
-    #         req = requests.get(self.___url, headers=headers, verify=False,timeout=2)
+    #         req = requests.get(self.__url, headers=headers, verify=False,timeout=2)
     #         json_data = req.content
     #
     #         return json_data
@@ -162,7 +169,7 @@ class SaltApi(object):
             'Accept': 'application/json',
             'X-Auth-Token': self.__token_id
         }
-        url = self.___url.strip('/login') + ('/minions/%s' % host)
+        url = self.__url.strip('/login') + ('/minions/%s' % host)
 
         req = requests.get(url, headers=headers, verify=False,timeout=2)
         json_data = json.loads(req.content)

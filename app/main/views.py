@@ -496,7 +496,8 @@ def update_online_resource(self):
     @note: 任务进度
     '''
     # 执行热更资源脚本，处理后获取版本号
-    result=commands.getoutput("/bin/bash /root/public_update_jp_hot.sh.sh > /tmp/online_resource.txt && tail -1 /tmp/online_resource.txt")
+    esult=commands.getoutput("echo test")
+    #result=commands.getoutput("/bin/bash /root/public_update_jp_hot.sh.sh > /tmp/online_resource.txt && tail -1 /tmp/online_resource.txt")
     return result
 
 # 正式服热更(修改配置)
@@ -786,14 +787,14 @@ def cleanuid():
 
 ############################################################
 
-@main.route('/test',methods=['POST', 'GET'])
-# @login_required
-def test():
-    if request.method == 'POST':
-        print request.method
-    else:
-        print request.method
-    return "方法为: %s " % request.method
+# @main.route('/test',methods=['POST', 'GET'])
+# # @login_required
+# def test():
+#     if request.method == 'POST':
+#         print request.method
+#     else:
+#         print request.method
+#     return "方法为: %s " % request.method
 
 ############################################################
 

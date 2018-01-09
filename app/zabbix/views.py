@@ -24,7 +24,7 @@ def zabbixadd():
             result.save(path.join(upload_path,secure_filename(result.filename)))
             flash(u'文件上传成功 & 主机导入成功!','success')
             z_add = ZabbixAction()
-            z_add.login()
+            z_add.login_test()
             z_add.create_hosts(path.join(upload_path,secure_filename(result.filename)))
             res = (commands.getoutput('cat /tmp/cache_add_zabbix.txt')).decode('utf-8').split('!')
             return render_template('zabbixadd.html',result=res)
@@ -40,6 +40,7 @@ def zabbixdel():
     if request.method == 'POST':
       server_list = []
       content = request.form['contenet'].split(',')
+
       print content
       for i in content:
         server_list.append(i.strip()) # i.strip() 去除多余的空格符
@@ -47,7 +48,8 @@ def zabbixdel():
         flash(u'请填写至少一个或多个欲删除主机主机名!', 'danger')
         return  render_template('zabbixdel.html')
       z_del = ZabbixAction()
-      z_del.login()
+      z_del.login_test()
+      print server_list
       z_del.delete_host(server_list)
       res = (commands.getoutput('cat /tmp/cache_delete_zabbix.txt')).decode('utf-8').split('!')
       return render_template('zabbixdel.html', result=res)

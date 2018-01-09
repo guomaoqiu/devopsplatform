@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}应用部署{% endblock %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='main/css/bootstrap-progressbar.css') }}"
+      xmlns="http://www.w3.org/1999/html">
+
+{% block content %}
+
+    <aside class="right-side" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+           xmlns="http://www.w3.org/1999/html">
+
+
+
+
+
+<script type="text/javascript">
+var total=10000;
+var breaker=100;
+var turn=100/(total/breaker);
+var progress=0;
+var timer = setInterval(function(){
+{#     $("#b01").click(function(){#}
+    progress=progress+turn;q
+    $("#aa").html(progress+"% 完成");
+    $("#processbar").attr("style", "width:"+progress+"%");
+
+    if (progress>=100) {
+        clearInterval(timer);
+    }
+}, breaker);
+
+</script>
+
+
+        <section class="col-lg-12 connectedSortable ui-sortable">
+
+            <div class="row">
+             <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">应用部署</h3>
+                </div>
+                   <div class="box-body">
+                     <form action="{{ url_for('salt.deploy') }}" method="post">
+                          <div class="form-group">
+                            <label for="lastname" class="col-sm-3 control-label">目标主机</label>
+                            <div class="form-group">
+                             <textarea type="text" name="contenet" class="form-control" rows="4" placeholder="多个ServerIP以逗号分隔(可使用通配符等匹配主机…)" style="margin: 0px 0px 10px; height: 70px; width: 100%; background-color: white;color: black"></textarea>
+                            </div>
+                          </div>
+
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-3 control-label">应用选择</label>
+                            </div><br><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" name="vehicle" value="1"> nginx &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" name="vehicle" value="2"> php-fpm &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" name="vehicle" value="3"> zabbix-agent &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" name="vehicle" value="4"> init-system &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" name="vehicle" value="4"> init-system &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" name="vehicle" value="5"> redis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+
+                                <button type="submit" class="btn btn-primary"> 应用 </button>
+                    </form>
+                        {% for message in get_flashed_messages(with_categories=True) %}
+                                <div class="alert alert-{{ message[0] }}">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                   <b>{{ message[1] }}</b>
+                                </div>
+                        {% endfor %}
+                       </div>
+
+              </div>
+             </div>
+            </div>
+
+
+        {% if result %}
+        </section>
+
+         <section class="col-lg-12 connectedSortable ui-sortable">
+            <div class="row">
+             <div class="col-xs-12">
+              <div class="box box-info">
+                <div class="box-header">
+                  <h3 class="box-title">部署历史</h3>
+                </div>
+                   <div class="box-body">
+                             <div class="rTable">
+                <div class="rTableRow">
+                {% for tit in title %}
+                 <div class="rTableHead"><strong>{{ tit }}</strong></div>
+                {% endfor %}
+
+                     </div>
+                    {% for result in res %}
+                        <div class="rTableRow">
+                        <div class="rTableCell">{{ loop.index }}</div>
+
+                        <div class="rTableCell">{{ result.split(',')[0] }} </div>
+                        <div class="rTableCell">{{ result.split(',')[1] }} </div>
+                        <div class="rTableCell">{{ result.split(',')[2] }} </div>
+                        <div class="rTableCell">{{ result.split(',')[3] }} </div>
+
+                        <div class="rTableCell">
+                             <form action="{{ url_for('salt.deployresult',JID=result.split(',')[2]) }}" method="post">
+                                <input height="10px" type="submit" name="choose" value="查看"  class="btn btn-success btn-sm" >
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                   </div>
+              </div>
+             </div>
+            </div>
+        </section>
+{% endif %}
+    </aside>
+{% endblock %}
+

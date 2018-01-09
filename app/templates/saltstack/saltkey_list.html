@@ -91,7 +91,7 @@
           if (isConfirm) {    // 如果确认就会去携带者hostname去后台处理
             $.ajax ({
                     type:'post',
-                    url:"${SITE_URL}saltkey_list/",
+                    url:"{{ url_for('salt.saltkeylist') }}" ,
                     success:function(res){   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容
                         if (res.result) {
                             swal(res.message, "^0^", "success");

@@ -6,31 +6,24 @@ from flask import render_template,redirect,request,Response,flash,jsonify,url_fo
 from flask_login import login_required
 from saltapi import SaltApi
 from .. import db
-@salt.route('/apitest',methods=['GET','POST'])
-@login_required
-def apitest():
-    if request.method == 'POST':
-        client = SaltApi(app_name='saltstackapi')
-        if client.login_test(app_name='saltstackapi'):
-             return  jsonify({"result":True,"message":"SaltApi连接正常"})
-        else:
-             return  jsonify({"result":False,"message":"SaltApi连接异常"})
+
     
 
-@salt.route('/saltkeylist')
+@salt.route('/saltkeylist',methods=['GET','POST'])
 @login_required
 def saltkeylist():
     '''
     @note: 运行salt命令
     '''
-    client = SaltApi(app_name='saltstackapi')
+    client = SaltApi()
     try:
-        json_data=client.all_key()
-        print "未认证的key: " , json_data['minions_denied']
-        print "已认证key: " , json_data['minions']
-        print "已拒绝key: " , json_data['minions_rejected']
-        print "未认证key: " , json_data['minions_pre']
-        return render_template('saltstack/saltkey_list.html',data=json_data['minions'])
+        data=client.all_key()
+        print "未认证的key: " , data['minions_denied']
+        print "已认证key: " , data['minions']
+        print "已拒绝key: " , data['minions_rejected']
+        print "未认证key: " , data['minions_pre']
+        print data
+        return render_template('saltstack/saltkey_list.html',data=data['minions'])
     except Exception,e:
         return render_template('saltstack/saltkey_list.html',data='')   
 
@@ -41,8 +34,18 @@ def salt_minion_test():
  
     if request.method == 'POST':
         key_name = json.loads(request.form.get('data'))['key_name']
-        client = SaltApi(app_name='saltstack')
+        client = SaltApi()
         testping = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'test.ping', 'tgt': key_name}))['return'][0].values()
         if testping[0]:
             return  jsonify({"result":True,"message":" Minion【%s】连接正常" % key_name })
     return  jsonify({"result":False,"message":"Minion连接异常"})
+
+
+@salt.route('/deploy',methods=['GET','POST'])
+@login_required
+def deploy():
+    return  render_template('saltstack/soft_deploy.html')
+
+
+
+

@@ -64,7 +64,7 @@
                        <ul class="nav nav-second-level collapse">
                            <li><a href="{{ url_for('salt.saltkeylist') }}">Minion客户端</a></li>
                            <li><a href="{{ url_for('main.index') }}">文件分发</a></li>
-                           <li><a href="{{ url_for('main.index') }}">应用部署</a></li>
+                           <li><a href="{{ url_for('salt.deploy') }}">应用部署</a></li>
                            <li><a href="{{ url_for('main.index') }}">命令执行</a></li>
                        </ul>
                    </li>
@@ -104,8 +104,8 @@
                         <a href="#"><i class="fa fa-bell-o"></i> <span class="nav-label">平台配置</span></span><span class="fa arrow"></span></a>
 
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="{{ url_for('main.api_manager')}}"><i class="fa fa-bullseye"></i> <span class="nav-label">API管理</span></a></li>
-                            <li><a href="{{ url_for('main.access_iplist')}}"><i class="fa fa-bullseye"></i> <span class="nav-label">访问名单</span></a></li>
+                            <li><a href="{{ url_for('main.api_manager')}}"><i class="fa fa-bullseye"></i> <span class="nav-label">第三个方API管理</span></a></li>
+                            <li><a href="{{ url_for('main.access_iplist')}}"><i class="fa fa-bullseye"></i> <span class="nav-label">平台访问白名单</span></a></li>
                        </ul>
                     </li>
                     {%endif%}
