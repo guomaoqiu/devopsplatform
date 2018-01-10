@@ -6,6 +6,7 @@ from flask_login import login_required
 from app import celery
 from . import task
 import json, requests
+from celery.task import periodic_task
 ###########################  后台执行任务公共配置 START ###########################
 
 @task.route('/execute_task/<exclude_env>', methods=['GET', 'POST'])
@@ -116,22 +117,23 @@ def update_cbt_resource(self):
     return result
 ###########################  任务绑定 ##################
 
-# from celery import Celery, Task
+@periodic_task(run_every=10)
+# '''
+# @note: 每10s执行一次这个任务函数
 
-# @celery.task(bind=True)
-# def everytask(self):
-#     """启动worker: celery -A test_celery.celery worker -B --loglevel=debug"""
-#     result=commands.getoutput("echo 'ok'")
-#     print result
-#     return True
-
-# class Trigger(Task):
-#     def run(self):
-#         task = update_cbt_resource.apply_async()
-#         print task
-
-# trigger = Trigger()
-# trigger.run()
-
-
+# 设置周期性任务:
+# 1）直接设置秒数
+# 例如刚刚所说的10秒间隔，run_every=10，每10秒执行一次任务。1分钟即是60秒；1小时即是3600秒。
+# 2）通过datetime设置时间间隔
+# 1小时15分钟40秒 = 1*60*60 + 15*60 + 40。这种情况可读性也不高。
+# @periodic_task(run_every=datetime.timedelta(hours=1, minutes=15, seconds=40))
+# 3）celery的crontab表达式(教程:http://yshblog.com/blog/164) 
+# '''
+# 启动 后台任务以及周期性任务命令:~/zero/bin/celery worker -A manager.celery -l debug -E -B
+def check_saltapi():
+    '''
+    @note: 
+    '''
+    r = requests.get('http://blog.sctux.com')
+    print r.text
 

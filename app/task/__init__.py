@@ -6,3 +6,4 @@ task = Blueprint('task', __name__)
 from . import celery_fun
 
 
+

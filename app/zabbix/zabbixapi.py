@@ -6,6 +6,7 @@ import xlrd, os
 from pyzabbix import ZabbixAPI
 from app.crypto import prpcrypt
 from ..models import ApiMg
+from flask import app
 from flask import current_app
 import sys
 reload(sys)  
@@ -25,7 +26,10 @@ class ZabbixAction():
 
 #### init
     def __init__(self):
-        prpcrypt_key = prpcrypt(current_app.config.get('PRPCRYPTO_KEY'))
+
+        prpcrypt_key = prpcrypt(current_app.config['PRPCRYPTO_KEY'])
+        print current_app.name
+        print current_app.config['MAIL_SERVER']
         #client = ApiMg.query.filter_by(app_name='zabbix').all
         #for each_info in user:
         api_info = ApiMg.query.filter_by(app_name='zabbixapi').all()
@@ -60,7 +64,7 @@ class ZabbixAction():
             #print i
             self.host_name_list.append(str(i['name']))
             self.host_id_list.append(str(i['hostid']))
-        all_host = dict(zip(self.host_name_list, self.host_id_list))
+        all_host = dict(zip(self.host_nSame_list, self.host_id_list))
         return all_host
 
 #########################

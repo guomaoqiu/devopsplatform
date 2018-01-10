@@ -902,3 +902,29 @@ def editor():
     return render_template('editor.html',form=form)
 
 ############################################################
+# from celery.task import periodic_task
+# from celery.schedules import crontab
+# from ..salt.saltapi import SaltApi
+# from ..zabbix.zabbixapi import ZabbixAction
+# from flask import render_template, request
+
+# @periodic_task(run_every=10)
+# # '''
+# # @note: 每10s执行一次这个任务函数
+
+# # 设置周期性任务:
+# # 1）直接设置秒数
+# # 例如刚刚所说的10秒间隔，run_every=10，每10秒执行一次任务。1分钟即是60秒；1小时即是3600秒。
+# # 2）通过datetime设置时间间隔
+# # 1小时15分钟40秒 = 1*60*60 + 15*60 + 40。这种情况可读性也不高。
+# # @periodic_task(run_every=datetime.timedelta(hours=1, minutes=15, seconds=40))
+# # 3）celery的crontab表达式(教程:http://yshblog.com/blog/164) 
+# # '''
+# # @celery.task(bind=True)
+# def check_saltapi():
+#     '''
+#     @note: 
+#     '''
+#     print 'ok'
+
+     

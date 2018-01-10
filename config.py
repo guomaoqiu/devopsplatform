@@ -2,25 +2,19 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import timedelta
-
+from celery.schedules import crontab
 class CeleryConfig(object):
     """后台任务配置"""
-    CELERY_BROKER_URL = 'redis://localhost:6379/2'
-    CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
+    CELERY_BROKER_URL = 'redis://localhost:6379/'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379/'
     CELERY_TASK_SERIALIZER = 'json'
-     
-    CELERYBEAT_SCHEDULE = {
-        'add-every-30-seconds': {
-             'task': 'app.task.saltapi_check_task.satlapi_check_task',
-             'schedule': timedelta(seconds=5),
-             'args': ()
-        },
-    }
+
+
 
 
 class Config:
     """基本配置"""
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'A0Zr98j/3yXR~XHH!jmN]LWX/,?RT'
     #SSL_DISABLE = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_RECORD_QUERIES = True
