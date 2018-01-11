@@ -135,5 +135,5 @@ def check_saltapi():
     @note: 
     '''
     r = requests.get('http://blog.sctux.com')
-    print r.text
+    return r
 
