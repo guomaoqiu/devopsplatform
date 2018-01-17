@@ -2,6 +2,9 @@
 目前功能:
 1. 用户注册、登录(邮件确认)
 2. 通过用户权限进行页面视图限制
+3. 第三个方API接入管理
+4. 通过用户添加/设置IP地址进行访问限制
+5. Celery后台任务执行,周期性任务执行
 
 ##### 1.安装依赖包
 ```
@@ -30,5 +33,10 @@ Role.query.all()
 ```
 python manager runserver
 ```
+##### 6.启动后台任务以及周期性任务(-B参数)
+```
+celery worker -A manager.celery -l info -E -B
+```
+###### 注意:一般都是通过supervisor来做管理，然后通过Nginx反代Flask服务
 
 
