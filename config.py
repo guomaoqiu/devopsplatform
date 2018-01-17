@@ -8,10 +8,7 @@ class CeleryConfig(object):
     CELERY_BROKER_URL = 'redis://localhost:6379/'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379/'
     CELERY_TASK_SERIALIZER = 'json'
-
-
-
-
+    
 class Config:
     """基本配置"""
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'A0Zr98j/3yXR~XHH!jmN]LWX/,?RT'
