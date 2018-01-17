@@ -20,14 +20,14 @@ class Config:
     SQLALCHEMY_RECORD_QUERIES = True
     BABEL_DEFAULT_LOCALE = 'zh'
     # 公司邮箱域名后缀，限制只能公司域名才能注册
-    COMPANY_MAIL_SUFFIX='moefantasy.com'
+    COMPANY_MAIL_SUFFIX='xxxxx.com'
     # send mail
     MAIL_SERVER = 'smtp.qq.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USERNAME = '2399447849@qq.com' #os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD =  'Guomaoqiu.310963' #os.environ.get('MAIL_PASSWORD')
-    FLASKY_MAIL_SUBJECT_PREFIX = u'[国服操作平台]'
+    MAIL_PASSWORD =  '' #os.environ.get('MAIL_PASSWORD')
+    FLASKY_MAIL_SUBJECT_PREFIX = u'[DevOpsPlatform]'
     FLASKY_MAIL_SENDER = '2399447849@qq.com'
     FLASKY_ADMIN = '2399447849@qq.com' # os.environ.get('FANXIANG_ADMIN')
 
