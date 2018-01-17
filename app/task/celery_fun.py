@@ -6,6 +6,7 @@ from flask_login import login_required
 from app import celery
 from . import task
 import json, requests
+from celery.schedules import crontab
 from celery.task import periodic_task
 ###########################  后台执行任务公共配置 START ###########################
 
@@ -117,7 +118,7 @@ def update_cbt_resource(self):
     return result
 ###########################  任务绑定 ##################
 
-@periodic_task(run_every=10)
+@periodic_task(run_every=crontab(minute='*', hour='*', day_of_week="*"))
 # '''
 # @note: 每10s执行一次这个任务函数
 
@@ -134,6 +135,13 @@ def check_saltapi():
     '''
     @note: 
     '''
+    import time,datetime
+    time_start = time.time()        # definition end time
+
     r = requests.get('http://blog.sctux.com')
+    time_end = time.time()
+    now = datetime.datetime.now()
+    print u"celery 周期任务调用成功，当前时间：{}".format(now)
+    #print u"耗时" + str(time_end - time_start)
     return r
 
