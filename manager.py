@@ -6,7 +6,6 @@ from flask_migrate import Migrate, MigrateCommand, upgrade
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
-#db = SQLAlchemy(app)
 
 manager = Manager(app,db)
 migrate = Migrate(app,db)

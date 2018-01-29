@@ -10,7 +10,7 @@ from config import CeleryConfig
 from celery import Celery
 from flask_wtf.csrf import CSRFProtect
 
-# from models import Role
+
 
 app = Flask(__name__)
 

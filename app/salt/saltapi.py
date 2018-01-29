@@ -107,8 +107,6 @@ class SaltApi(object):
         '''
         @note: 获取所有的salt-key
         '''
-        print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-        print self.__url
         params = {'client': 'wheel', 'fun': 'key.list_all'}
         headers = {
             'Accept': 'application/json',

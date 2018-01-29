@@ -103,9 +103,8 @@ def platform_log():
     '''
     loginlog = LoginLog.query.order_by(desc(LoginLog.id)).all() # 查询所有
     login_log_data = []
-    for x in loginlog:
-        login_log_data.append(x.to_json())
-
+    for each_log in loginlog:
+        login_log_data.append(each_log.to_json())
     return render_template('platform_log.html',login_log_data=login_log_data)
 
 ###############################################################################
@@ -129,7 +128,7 @@ def get_server_info():
     # 获取所有server的hostname
     if request.method == "POST":
         if not ApiMg.query.filter_by(app_name='saltstack').first():
-            result = {"result": False, "message": u'请确保api信息已录入！'}
+            result = {"result": False, "message": u'请确保API信息已录入！'}
 
             return jsonify(result)
         else:
@@ -213,11 +212,11 @@ def access_iplist():
         try:
             db.session.delete(del_ip)
             print check_id
-            return  jsonify({"result":True,"message":"用户删除成功"})
+            return  jsonify({"result":True,"message":"白名单条目删除成功"})
         except Exception, e:
             db.session.rollback()
             print e
-            return  jsonify({"result":False,"message":"用户删除失败".format(e)})
+            return  jsonify({"result":False,"message":"白名单条目删除失败".format(e)})
     return render_template('access_iplist.html',form=form,data=data)
 
 ###############################################################################
@@ -294,8 +293,6 @@ def edit_profile_admin(id):
 
 ###############################################################################
 
-
-
 # 平台业务逻辑
 @main.route('/api_manager',methods=['GET', 'POST'])
 @login_required
@@ -323,8 +320,8 @@ def api_manager():
             flash('添加Api信息错误 %s' % e ,'danger') 
     res = ApiMg.query.all()
     data = []
-    for x in res:
-        data.append(x.to_json())
+    for each_data in res:
+        data.append(each_data.to_json())
 
     return render_template('api_manager.html',form=form,data=data)
 ###############################################################################
