@@ -76,10 +76,10 @@ def login():
         user = User.query.filter_by(email=form.email.data).first() # 数据库查询
 
         access_ip = request.headers.get('X-Forwarded-For',request.remote_addr) # 查库判断登录IP
-        c = AccessIpList.query.filter_by(ip=access_ip).first()
-        if c is None or c.ip != access_ip:
-           flash('您所在地区【' + access_ip +  '】不能访问该平台'  ,'danger')
-           return redirect('auth/login')
+        # c = AccessIpList.query.filter_by(ip=access_ip).first()
+        # if c is None or c.ip != access_ip:
+        #    flash('您所在地区【' + access_ip +  '】不能访问该平台'  ,'danger')
+        #    return redirect('auth/login')
 
         if user is not None and user.verify_password(form.password.data): # 用户是否存在以及是否正确
             login_user(user,form.remember_me.data) # 记住我功能，bool值
@@ -113,9 +113,9 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         #检查config.py中定义的公司邮箱后缀名
-        if current_app.config['COMPANY_MAIL_SUFFIX'] != str(form.email.data).split('@')[1]:
-            flash('严禁使用非公司邮箱进行注册操作!', 'danger')
-            return render_template('auth/register.html', form=form)
+        # if current_app.config['COMPANY_MAIL_SUFFIX'] != str(form.email.data).split('@')[1]:
+        #     flash('严禁使用非公司邮箱进行注册操作!', 'danger')
+        #     return render_template('auth/register.html', form=form)
 
         user = User(email=form.email.data,
                     username=form.username.data,

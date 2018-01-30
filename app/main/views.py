@@ -317,7 +317,7 @@ def api_manager():
         except Exception,e:
             db.session.rollback()
             print e
-            flash('添加Api信息错误 %s' % e ,'danger') 
+            flash('添加Api信息错误 %s' % e ,'danger')
     res = ApiMg.query.all()
     data = []
     for each_data in res:
@@ -915,13 +915,11 @@ def editor():
 # # 2）通过datetime设置时间间隔
 # # 1小时15分钟40秒 = 1*60*60 + 15*60 + 40。这种情况可读性也不高。
 # # @periodic_task(run_every=datetime.timedelta(hours=1, minutes=15, seconds=40))
-# # 3）celery的crontab表达式(教程:http://yshblog.com/blog/164) 
+# # 3）celery的crontab表达式(教程:http://yshblog.com/blog/164)
 # # '''
 # # @celery.task(bind=True)
 # def check_saltapi():
 #     '''
-#     @note: 
+#     @note:
 #     '''
 #     print 'ok'
-
-     

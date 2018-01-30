@@ -34,6 +34,8 @@ def create_app(config_name):
     celery.conf.update(app.config) # 更新 celery 的配置
 
     db.init_app(app)
+    db.app = app
+    
     bootstrap.init_app(app)
     mail.init_app(app)
     moment.init_app(app)

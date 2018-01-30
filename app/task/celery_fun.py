@@ -76,7 +76,7 @@ def cancel_task():
 		return Response(json.dumps({'result':True,"message": "取消任务完成" }), mimetype='application/json')
 	except Exception,e:
 		return Response(json.dumps({'result': True, "message": u'取消任务失败.{0}'.format(e)}), mimetype='application/json')
-	
+
 
 
 @task.route('/task_history', methods=['GET', 'POST'])
@@ -96,7 +96,7 @@ def task_history():
     FLOWER_ULR="http://127.0.0.1:5003/api/tasks"
     result=requests.get(url=FLOWER_ULR)
     #print dict(result)
-    
+
     s = dict(json.loads(result.content))
     for k,v in s.items():
         data.append(v)
@@ -111,7 +111,7 @@ def task_history():
 def update_cbt_resource(self):
     '''
     @note: 任务进度
-    '''	
+    '''
     # 执行热更资源脚本，处理后获取版本号
     result=commands.getoutput("sleep 10 && echo 'ok'")
     print result
@@ -128,12 +128,12 @@ def update_cbt_resource(self):
 # 2）通过datetime设置时间间隔
 # 1小时15分钟40秒 = 1*60*60 + 15*60 + 40。这种情况可读性也不高。
 # @periodic_task(run_every=datetime.timedelta(hours=1, minutes=15, seconds=40))
-# 3）celery的crontab表达式(教程:http://yshblog.com/blog/164) 
+# 3）celery的crontab表达式(教程:http://yshblog.com/blog/164)
 # '''
 # 启动 后台任务以及周期性任务命令:~/zero/bin/celery worker -A manager.celery -l debug -E -B
 def check_saltapi():
     '''
-    @note: 
+    @note:
     '''
     import time,datetime
     time_start = time.time()        # definition end time
@@ -145,3 +145,16 @@ def check_saltapi():
     #print u"耗时" + str(time_end - time_start)
     return r
 
+
+@periodic_task(run_every=2)
+def apitest():
+    '''
+    @note: 周期性进行数据库的查询操作，后续会作为数据查询过后插入进去的周期性任务计划；主要重点是在工厂函数
+    初始化的时候需要加上db.app = app 这行
+    '''
+    from ..models import User
+    host_list = User.query.all()
+    data = []
+    [ data.append(i.to_json()) for i in host_list ]
+    print data
+    return data
