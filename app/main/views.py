@@ -127,17 +127,17 @@ def get_server_info():
     '''
     # 获取所有server的hostname
     if request.method == "POST":
-        if not ApiMg.query.filter_by(app_name='saltstack').first():
+        if not ApiMg.query.filter_by(app_name='saltstackapi').first():
             result = {"result": False, "message": u'请确保API信息已录入！'}
-
             return jsonify(result)
         else:
+
             try:
-                client = SaltApi('saltstack')
+                client = SaltApi()
                 params = {'client': 'local', 'fun': 'test.ping', 'tgt': '*'}
                 json_data = client.get_allhostname(params)
                 data = dict(json.loads(json_data)['return'][0])
-
+                print data
                 hostname_list = []
 
                 [hostname_list.append(i) for i in data.keys()]
