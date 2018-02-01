@@ -28,12 +28,7 @@ class ZabbixAction():
     def __init__(self):
 
         prpcrypt_key = prpcrypt(current_app.config['PRPCRYPTO_KEY'])
-        print current_app.name
-        print current_app.config['MAIL_SERVER']
-        #client = ApiMg.query.filter_by(app_name='zabbix').all
-        #for each_info in user:
         api_info = ApiMg.query.filter_by(app_name='zabbixapi').all()
-        print api_info
         for each_info in api_info:
             # 连接用户
             self.__user = each_info.to_json()['api_user']
@@ -54,7 +49,7 @@ class ZabbixAction():
             return True
         except Exception,e:
             #fo.write("【登录ZabbixApi接口成功】\n ")
-            print "\n【登录zabbix平台出现错误】%s" % e
+            print "【登录zabbix平台出现错误】%s" % e
             return False
             #sys.exit()
 

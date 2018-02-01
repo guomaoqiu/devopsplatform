@@ -58,12 +58,13 @@ class SaltApi(object):
         old_token_create_time = int(time.mktime(time.strptime(str(api_info.api_create_time()), '%Y-%m-%d %H:%M:%S')))
         current_time = int(time.time())
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
-        if (current_time - old_token_create_time) > 30 or old_api_token == None:
+        if (current_time - old_token_create_time) > 43200 or old_api_token == None:
             self.__url += '/login'
             self.__my_headers = {
                 'Accept': 'application/json'
                 }
             try:
+                print 
                 req = requests.post(self.__url, headers=self.__my_headers,data=parmes, verify=False, timeout=5)
                 content = json.loads(req.content)
                 token = content["return"][0]['token']
@@ -113,7 +114,7 @@ class SaltApi(object):
         print 'xxxxxxxxxxxx'
         try:
             print 'xxxxxxxxxxxxxx'
-            req = requests.post(self.__url, data=params, headers=headers, verify=False,timeout=5)
+            req = requests.post(self.__url, data=params, headers=headers, verify=False,timeout=3)
             json_data = dict(json.loads(req.content)['return'][0])['data']['return']
             print json_data
             return json_data

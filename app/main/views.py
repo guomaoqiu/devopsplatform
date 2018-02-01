@@ -42,8 +42,6 @@ def index():
     '''
     @note: 返回主页内容
     '''
-    #from flask import session
-    #print session
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:

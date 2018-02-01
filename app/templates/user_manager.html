@@ -38,6 +38,7 @@
                                  <th>用户名</th>
                                  <th>角色</th>
                                  <th>邮箱</th>
+                                 <th>激活</th>
                                  <th>创建时间</th>
                                  <th>操作</th>
                               </tr>
@@ -58,6 +59,13 @@
                                         <td style="color:red">管理员</td>
                                       {% endif %}
                                       <td><a href="mailto:{{ each_data.email }}">{{ each_data.email }}</a></td>
+
+                                      {% if each_data.confirmed %}
+                                        <td style="color:green" title="已激活用户">已激活</td>
+                                      {% else %}
+                                        <td style="color:red" title="请用户登录邮箱进行确认">未激活</td>
+                                      {% endif %}
+
                                       <td>{{ each_data.member_since }}</td>
                                       <td>
                                           <input type="button" class="btn btn-xs btn-info"  check_id="{{ each_data.id }}"  value="编辑" onclick="window.location.href='{{ url_for('.edit_profile_admin',id=each_data.id)}}'">

@@ -17,7 +17,7 @@ class Config:
     SQLALCHEMY_RECORD_QUERIES = True
     BABEL_DEFAULT_LOCALE = 'zh'
     # 公司邮箱域名后缀，限制只能公司域名才能注册
-    COMPANY_MAIL_SUFFIX='xxxxx.com'
+    COMPANY_MAIL_SUFFIX='moefantasy.com'
     # send mail
     MAIL_SERVER = 'smtp.qq.com'
     MAIL_PORT = 465

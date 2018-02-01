@@ -189,9 +189,10 @@ class User(UserMixin, db.Model):
                 'id': self.id,
                 'email': self.email,
                 'username': self.username,
-                'role_id':self.role_id,
-                'name':self.name,
-                'member_since':self.member_since,
+                'role_id': self.role_id,
+                'confirmed': self.confirmed, 
+                'name': self.name,
+                'member_since': self.member_since,
 
                 }
 
