@@ -1,80 +1,313 @@
 {% extends 'base.html' %}
 {% block title %}Index{% endblock %}
 {% block content %}
-<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
-<script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
-<script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
+    <script src="{{ url_for('static',filename='opsplatform/js/echarts.js')}} "></script>
+    <script src="{{ url_for('static',filename='opsplatform/js/jquery.js') }}"></script>
+    <script src="{{ url_for('static',filename='opsplatform/js/echarts-all.js')}} "></script>
+        <script src="{{ url_for('static',filename='opsplatform/js/echarts-all.js')}} "></script>
+    <script src="https://img.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
                     <h2>Dashboards</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="{{url_for('main.index')}}">Home</a>
+                            <a href="${SITE_URL}">Home</a>
                         </li>
-
+                        
                         <li class="active">
-                            <strong>Dashboards</strong>
+                            <strong>维护操作</strong>
                         </li>
                     </ol>
                 </div>
-
+               
             </div>
-       <!--  <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Line scatter diagram</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="barMain" style="height:300px"></div>
+                            <div id="container" style="min-width:400px;height:400px"></div>
 
-            <div class="col-sm-3">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-server fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> 业务主机数 </span>
-                            <h2 class="font-bold">462 台</h2>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="widget style1 lazur-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-edit fa-5x"></i>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Stacked bar chart</h5>
                         </div>
-                        <div class="col-xs-8 text-right">
-                            <span> 项目 </span>
-                            <h2 class="font-bold">2 个</h2>
+                        <div class="ibox-content">
+                            <div id="lineMain" style="height:300px"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Horizontal bar chart </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="ct-chart4" class="ct-perfect-fourth"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="widget style1 yellow-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-bar-chart fa-5x"></i>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Simple pie chart</h5>
                         </div>
-                        <div class="col-xs-8 text-right">
-                            <span> 发布 </span>
-                            <h2 class="font-bold">32 次</h2>
+                        <div class="ibox-content">
+                            <div id="ct-chart5" class="ct-perfect-fourth"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-                <div class="col-sm-3">
-                <div class="widget style1 bg-primary">
-                    <div class="row">
-                        <div class="col-xs-4 text-center">
-                            <i class="fa  fa-random fa-5x"></i>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Gauge chart </h5>
                         </div>
-                        <div class="col-xs-8 text-right">
-                            <span> 应用部署 </span>
-                            <h2 class="font-bold">212 次</h2>
+                        <div class="ibox-content">
+                            <div id="ct-chart6" class="ct-perfect-fourth">
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-      </div> -->
 
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                'echarts': 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/pie',
+                'echarts/chart/line'
+            ],
+                drawEcharts
+        );
+        function drawEcharts(ec){
+            drawBar(ec);
+            drawLine(ec);
+        }
+            function drawBar(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                myChart = ec.init(document.getElementById('barMain'));
+                var option = {
+                    title : {
+                        text: '饼图测试',
+                        subtext: '哈哈',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : 'left',
+                        data:[]
+                    },
+                    toolbox: {
+                        show : true,  //是否开启工具栏
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {
+                                show: true,
+                                type: ['pie', 'funnel'],
+                                option: {
+                                    funnel: {
+                                        x: '25%',
+                                        width: '50%',
+                                        funnelAlign: 'left',
+                                        max: 1548
+                                    }
+                                }
+                            },
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    series : []
+                };
+                    // 载入动画---------------------
+                    myChart.showLoading({
+                        text: '正在努力的读取数据中...'   //loading话术
+                    });
+
+                   // 定时器
+                   window.onload=function(){
+                   //每隔2秒检查一下数据
+                   window.setInterval(checkStatus,2000);
+                   };
+
+                function checkStatus() {
+                    // ajax 加载数据
+                    $.ajax({
+                        url: "{{ url_for('dataapi.query3') }}",  //
+                        type: 'get',
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+                        async:false,
+
+                        data: {},
+                            success: function (data) {
+                            var legendData = [];
+                            var seriesData = [];
+
+
+                            if (data != null && data["series"].length > 0) {
+                                legendData = data["legen"];
+                                seriesData.push({
+                                    "name": "ss",
+                                    "type": "pie",
+                                    "radius": '65%',   //饼图半径大小
+                                    "center": ['50%', '60%'],//饼图圆心位置x,y
+                                    "data": function () {
+                                        var t_data = [];
+                                        for (var i = 0, len = data["series"].length; i < len; i++) {
+                                            t_data.push({
+                                                "name": legendData[i],
+                                                "value": data["series"][i]
+                                            });
+                                        }
+                                        return t_data;
+                                    }()
+                                });
+                            }
+
+                            option.legend.data = legendData;
+                            myChart.setOption(option);
+                            myChart.setSeries(seriesData);
+                        },
+                        error: function () {
+                            var legendData = [''];
+                            var seriesData = [
+                                {
+                                    "name": "tst",
+                                    "type": "pie",
+                                    "radius": '55%',   //饼图半径大小
+                                    "center": ['50%', '60%'],//饼图圆心位置x,y
+                                    data: [0]
+                                }
+                            ];
+                            option.legend.data = legendData;
+                            myChart.setOption(option);
+                            myChart.setSeries(seriesData);
+
+                        },
+                        complete: function () {
+                            //停止动画载入提示
+                            myChart.hideLoading();
+                        }
+                    });
+                }
+            }
+        </script>  
+
+
+         <!--  动态曲线图 -->
+        <script type="text/javascript">
+
+                Highcharts.setOptions({
+                    global: {
+                        useUTC: false
+                    }
+                });
+                function activeLastPointToolip(chart) {
+                    var points = chart.series[0].points;
+                    chart.tooltip.refresh(points[points.length -1]);
+                }
+                $('#container').highcharts({
+                    chart: {
+                        type: 'spline',
+                        animation: Highcharts.svg, // don't animate in old IE
+                        marginRight: 10,
+                        events: {
+                            load: function () {
+                                // set up the updating of the chart each second
+                                var series = this.series[0],
+                                    chart = this;
+                                setInterval(function () {
+                                    var x = (new Date()).getTime(), // current time
+                                        y = Math.random();
+                                    series.addPoint([x, y], true, true);
+                                    activeLastPointToolip(chart)
+                                }, 1000);
+                            }
+                        }
+                    },
+                    title: {
+                        text: '动态模拟实时数据'
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        tickPixelInterval: 150
+                    },
+                    yAxis: {
+                        title: {
+                            text: '值'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                Highcharts.numberFormat(this.y, 2);
+                        }
+                    },
+                    legend: {
+                        enabled: true
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    series: [{
+                        name: '随机数据',
+                        data: (function () {
+                            // generate an array of random data
+                            var data = [],
+                                time = (new Date()).getTime(),
+                                i;
+                            for (i = -19; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1000,
+                                    y: Math.random()
+                                });
+                            }
+                            return data;
+                        }())
+                    }]
+                }, function(c) {
+                    activeLastPointToolip(c)
+                });
+        </script>    
 {% endblock %}
+
+

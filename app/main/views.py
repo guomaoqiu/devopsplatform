@@ -35,6 +35,14 @@ def for_admin_only():
 
 ###############################################################################
 
+
+
+
+
+
+
+
+
 @main.route('/')
 # @admin_required
 @login_required
@@ -45,7 +53,7 @@ def index():
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
-        return render_template('dashboard.html')
+        return render_template('index.html')
 
 ###############################################################################
 
