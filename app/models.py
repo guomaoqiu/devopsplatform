@@ -304,3 +304,20 @@ class Hostinfo(db.Model):
                 'os_release': self.os_release,
                 'kernelrelease': self.kernelrelease
         }
+class DataApi(db.Model):
+
+    __tablename__ = 'dataapi'
+    id = db.Column(db.Integer, primary_key=True)
+    data = db.Column(db.String(64), unique=False)
+    create_time = db.Column(db.DateTime(), default=datetime.now)
+
+    def __repr__(self):
+        return '%s' % self.data
+
+    def to_json(self):
+        return {
+            "name": self.data,
+            "create_time": self.create_time
+        }
+
+

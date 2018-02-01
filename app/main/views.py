@@ -35,7 +35,19 @@ def for_admin_only():
 
 ###############################################################################
 
+@main.route('/data')
+def data():
+    from ..models import DataApi
+    ss = DataApi.query.all()
+    data = {"code":1,"msg":"success"}
+    data["data"] = []
 
+    for i in ss:
+        name =  i.to_json()["name"]
+        ctime =  int(time.mktime(time.strptime(str(i.to_json()['create_time']), "%Y-%m-%d %H:%M:%S")))
+        data['data'].append([ctime, name])
+    print data
+    return json.dumps(data)
 
 
 
@@ -53,7 +65,7 @@ def index():
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
-        return render_template('index.html')
+        return render_template('index2.html')
 
 ###############################################################################
 
