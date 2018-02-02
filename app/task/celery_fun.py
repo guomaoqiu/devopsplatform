@@ -151,12 +151,11 @@ def check_saltapi():
 @periodic_task(run_every=2)
 def apitest():
     '''
-    @note: 周期性进行数据库的查询操作，后续会作为数据查询过后插入进去的周期性任务计划；主要重点是在工厂函数
-    初始化的时候需要加上db.app = app 这行
+    @note: 周期性进行数据库的查询操作，后续会作为数据查询过后插入进去的周期性任务计划；
+    主要重点是在工厂函数, 初始化的时候需要加上 db.app = app 这行
     '''
     import random
     res= random.randint(0,99)
-    #print res
 
     from ..models import DataApi
     each_info = DataApi(data=str(res))

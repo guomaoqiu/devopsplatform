@@ -65,7 +65,7 @@ def index():
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
-        return render_template('index2.html')
+        return render_template('index.html')
 
 ###############################################################################
 
