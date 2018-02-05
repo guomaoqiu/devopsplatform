@@ -17,7 +17,7 @@
                         <li>
                             <a href="${SITE_URL}">Home</a>
                         </li>
-                        <div id="container1" style="height: 400px; min-width: 310px"></div>
+                        <!-- <div id="container1" style="height: 400px; min-width: 310px"></div> -->
 
                         <li class="active">
                             <strong>维护操作</strong>
@@ -34,7 +34,7 @@
                             <h5>Line scatter diagram</h5>
                         </div>
                         <div class="ibox-content">
-                            <div id="barMain" style="height:300px"></div>
+                            <!-- <div id="barMain" style="height:300px"></div> -->
                             <div id="container" style="min-width:400px;height:400px"></div>
 
                         </div>
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-<!-- 
+<!--
     <script type="text/javascript">
         // 路径配置
         require.config({
@@ -225,11 +225,13 @@
                     });
                 }
             }
-        </script>  
+        </script>  -->
 
 
          <!--  动态曲线图 -->
-        <script type="text/javascript">
+       <!--  
+       <script type="text/javascript">
+            $(function () {
 
                 Highcharts.setOptions({
                     global: {
@@ -240,79 +242,85 @@
                     var points = chart.series[0].points;
                     chart.tooltip.refresh(points[points.length -1]);
                 }
-                $('#container').highcharts({
-                    chart: {
-                        type: 'spline',
-                        animation: Highcharts.svg, // don't animate in old IE
-                        marginRight: 10,
-                        events: {
-                            load: function () {
-                                // set up the updating of the chart each second
-                                var series = this.series[0],
-                                    chart = this;
-                                setInterval(function () {
-                                    var x = (new Date()).getTime(), // current time
-                                        y = Math.random();
-                                    series.addPoint([x, y], true, true);
-                                    activeLastPointToolip(chart)
-                                }, 1000);
-                            }
-                        }
-                    },
-                    title: {
-                        text: '动态模拟实时数据'
-                    },
-                    xAxis: {
-                        type: 'datetime',
-                        tickPixelInterval: 150
-                    },
-                    yAxis: {
-                        title: {
-                            text: '值'
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 1,
-                            color: '#808080'
-                        }]
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            return '<b>' + this.series.name + '</b><br/>' +
-                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                                Highcharts.numberFormat(this.y, 2);
-                        }
-                    },
-                    legend: {
-                        enabled: true
-                    },
-                    exporting: {
-                        enabled: true
-                    },
-                    series: [{
-                        name: '随机数据',
-                        data: (function () {
-                            // generate an array of random data
-                            var data = [],
-                                time = (new Date()).getTime(),
-                                i;
-                            for (i = -19; i <= 0; i += 1) {
-                                data.push({
-                                    x: time + i * 1000,
-                                    y: Math.random()
-                                });
-                            }
-                            return data;
-                        }())
-                    }]
-                }, function(c) {
-                    activeLastPointToolip(c)
-                });
-        </script>    
+                $.getJSON('/data', function (data) {
+                            $('#container').highcharts({
+                                chart: {
+                                    type: 'spline',
+                                    animation: Highcharts.svg, // don't animate in old IE
+                                    marginRight: 10,
+                                    events: {
+                                        load: function () {
+                                            // set up the updating of the chart each second
+                                            var series = this.series[0],
+                                                chart = this;
+                                            setInterval(function () {
+                                                var x = (new Date()).getTime(), // current time
+                                                    y = Math.random();
+                                                series.addPoint([x, y], true, true);
+                                                activeLastPointToolip(chart)
+                                            }, 1000);
+                                        }
+                                    }
+                                },
+                                title: {
+                                    text: '动态模拟实时数据'
+                                },
+                                xAxis: {
+                                    type: 'datetime',
+                                    tickPixelInterval: 150
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '值'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }]
+                                },
+                                tooltip: {
+                                    formatter: function () {
+                                        return '<b>' + this.series.name + '</b><br/>' +
+                                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                            Highcharts.numberFormat(this.y, 2);
+                                    }
+                                },
+                                legend: {
+                                    enabled: true
+                                },
+                                exporting: {
+                                    enabled: true
+                                },
+                                series: [{
+                                    name: '随机数据',
+                                    data: (function () {
+                                        // generate an array of random data
+                                        var data = [],
+                                            time = (new Date()).getTime(),
+                                            i;
+                                        for (i = -19; i <= 0; i += 1) {
+                                            data.push({
+                                                x: time + i * 1000,
+                                                y: Math.random()
+                                            });
+                                        }
+                                        console.log(data)
+                                        return data;
+                                    }())
+                                }]
+                            }, function(c) {
+                                activeLastPointToolip(c)
+                            });
+                    )};
+                )};
+        </script>   
+        --> 
 
 
- -->
-        <script>
+
+        <!-- <script> 
+
 $(function () {
     // 使用当前时区，否则东八区会差八个小时
     Highcharts.setOptions({
@@ -360,7 +368,96 @@ $(function () {
     });
  
 });
-</script>
+</script> 
+-->
+
+
+
+<script type="text/javascript">
+     
+
+                Highcharts.setOptions({
+                    global: {
+                        useUTC: false
+                    }
+                });
+                function activeLastPointToolip(chart) {
+                    var points = chart.series[0].points;
+                    chart.tooltip.refresh(points[points.length -1]);
+                }
+               
+                            $('#container').highcharts({
+                                chart: {
+                                    type: 'spline',
+                                    animation: Highcharts.svg, // don't animate in old IE
+                                    marginRight: 10,
+                                    events: {
+                                        load: function () {
+                                            // set up the updating of the chart each second
+                                            var series = this.series[0],
+                                                chart = this;
+                                            setInterval(function () {
+                                                var x = (new Date()).getTime(), // current time
+                                                    y = Math.random();
+                                                series.addPoint([x, y], true, true);
+                                                activeLastPointToolip(chart)
+                                            }, 1000);
+                                        }
+                                    }
+                                },
+                                title: {
+                                    text: '动态模拟实时数据'
+                                },
+                                xAxis: {
+                                    type: 'datetime',
+                                    tickPixelInterval: 150
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '值'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }]
+                                },
+                                tooltip: {
+                                    formatter: function () {
+                                        return '<b>' + this.series.name + '</b><br/>' +
+                                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                            Highcharts.numberFormat(this.y, 2);
+                                    }
+                                },
+                                legend: {
+                                    enabled: true
+                                },
+                                exporting: {
+                                    enabled: true
+                                },
+                                series: [{
+                                    name: '随机数据',
+                                    data: (function () {
+                                        // generate an array of random data
+                                        var data = [],
+                                            time = (new Date()).getTime(),
+                                            i;
+                                        for (i = -19; i <= 0; i += 1) {
+                                            data.push({
+                                                x: time + i * 1000,
+                                                y: Math.random()
+                                            });
+                                        }
+                                        
+                                        return data;
+                                    }())
+                                }]
+                            }, function(c) {
+                                activeLastPointToolip(c)
+                            });
+                    
+                
+        </script>   
 {% endblock %}
 
 

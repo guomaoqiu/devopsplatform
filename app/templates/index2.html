@@ -1,49 +1,18 @@
+<html>
+<head>
+<title>51reboot</title>
+<meta charset='utf-8'>
+</head>
 
+<body>
+hello world
 
-    <script src="https://img.hcharts.cn/highstock/jquery.js"></script>
-    <script src="https://img.hcharts.cn/highstock/highstock.js"></script>
-    <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+<div id="container" style="height: 400px; min-width: 310px"></div>
+<script src="{{  url_for('static',filename='opsplatform/js/jquery.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/highstock.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/exporting.js') }}"></script>
 
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-lg-8">
-                    <h2>Dashboards</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <a href="${SITE_URL}">Home</a>
-                        </li>
-                        <div id="container1" style="height: 400px; min-width: 310px"></div>
-
-                        <li class="active">
-                            <strong>维护操作</strong>
-                        </li>
-                    </ol>
-                </div>
-               
-            </div>
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Line scatter diagram</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <div id="barMain" style="height:300px"></div>
-                            <div id="container" style="min-width:400px;height:400px"></div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-       
-     
-        </div>
-  
-
-
- 
-        <script>
+<script>
 $(function () {
     // 使用当前时区，否则东八区会差八个小时
     Highcharts.setOptions({
@@ -54,32 +23,34 @@ $(function () {
     $.getJSON('/data', function (data) {
         console.log(data)
         // Create the chart
-        $('#container1').highcharts('StockChart', {
+        $('#container').highcharts('StockChart', {
         chart:{
         events:{
- 
+
             load:function(){
- 
+
                 var series = this.series[0]
+                console.log(this.series[0])
                 setInterval(function(){
                 $.getJSON('/data',function(res){
+
                     $.each(res,function(i,v){
                         series.addPoint(v)
                     })
                 })
-                },2000)
+                },5000)
             }
         }
         },
- 
+
             rangeSelector : {
                 selected : 1
             },
- 
+
             title : {
                 text : '内存数据'
             },
- 
+
             series : [{
                 name : '本机内存',
                 data : data,
@@ -89,9 +60,12 @@ $(function () {
             }]
         });
     });
- 
+
 });
 </script>
+
+</body>
+</html>
 
 
 

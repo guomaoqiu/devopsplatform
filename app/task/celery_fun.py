@@ -158,7 +158,7 @@ def apitest():
     res= random.randint(0,99)
 
     from ..models import DataApi
-    each_info = DataApi(data=str(res))
+    each_info = DataApi(data=int(res))
     try:
         db.session.add(each_info)
         db.session.commit()

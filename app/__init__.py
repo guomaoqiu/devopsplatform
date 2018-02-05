@@ -10,11 +10,10 @@ from config import CeleryConfig
 from celery import Celery
 from flask_wtf.csrf import CSRFProtect
 
-
-
 app = Flask(__name__)
 
 celery = Celery(app.name, broker=CeleryConfig.CELERY_BROKER_URL,backend=CeleryConfig.CELERY_RESULT_BACKEND)
+
 
 csrf = CSRFProtect()
 db = SQLAlchemy()

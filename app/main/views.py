@@ -18,7 +18,7 @@ from ..email import send_email
 from app.auth.forms import RegistrationForm
 from ..zabbix.zabbixapi import ZabbixAction
 from celery.task.control import revoke
-#from ..saltstack import saltapi
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -35,19 +35,41 @@ def for_admin_only():
 
 ###############################################################################
 
+tmp_time = 0
 @main.route('/data')
 def data():
+    global tmp_time
     from ..models import DataApi
-    ss = DataApi.query.all()
-    data = {"code":1,"msg":"success"}
-    data["data"] = []
+
+    print tmp_time/1000
+    if tmp_time > 0:
+        ss = (db.session.query(DataApi).filter(DataApi.create_time > tmp_time/1000).all())
+        print "当前时间",time.time()
+        
+    else:
+        #pass
+        ss = (db.session.query(DataApi).all())
+   
+    
+
+    data = []
 
     for i in ss:
-        name =  i.to_json()["name"]
+        name =  int(i.to_json()["name"])
         ctime =  int(time.mktime(time.strptime(str(i.to_json()['create_time']), "%Y-%m-%d %H:%M:%S")))
-        data['data'].append([ctime, name])
+        print name,ctime
+        data.append([ctime, name])
+
+    #print arr
     print data
-    return json.dumps(data)
+    if len(data)>0:
+        tmp_time = data[-1][0]
+        print tmp_time
+
+        #print tmp_time
+
+     
+    return jsonify(data)
 
 
 

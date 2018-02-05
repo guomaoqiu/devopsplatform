@@ -311,8 +311,12 @@ class DataApi(db.Model):
     data = db.Column(db.String(64), unique=False)
     create_time = db.Column(db.DateTime(), default=datetime.now)
 
-    def __repr__(self):
-        return '%s' % self.data
+    # def __repr__(self):
+    #     return {
+    #         "name": self.data,
+    #         "create_time": self.create_time
+    #     }
+
 
     def to_json(self):
         return {
