@@ -20,6 +20,10 @@ class ZabbixAction():
 
     host_name_list = []
     host_id_list = []
+    hostgroup_name_list = []
+    hostgroup_id_list = []
+    item_name_list = []
+    item_id_list = []
 
     file_name = file
 
@@ -36,6 +40,7 @@ class ZabbixAction():
             self.__password = prpcrypt_key.decrypt(each_info.to_json()['api_paas'])
             # 连接url
             self.__url = each_info.to_json()["api_url"]
+        print '初始化完成'
             
          
 
@@ -44,23 +49,53 @@ class ZabbixAction():
         try:
             self.zapi = ZabbixAPI(self.__url)
             self.zapi.login(self.__user,self.__password)
-            #fo.write("【登录ZabbixApi接口成功】\n ")
             print "【登录ZabbixApi接口成功】"
             return True
         except Exception,e:
-            #fo.write("【登录ZabbixApi接口成功】\n ")
             print "【登录zabbix平台出现错误】%s" % e
             return False
-            #sys.exit()
 
-#### 获取现zabbix中的所有主机 __get_host:私有属性
-    def get_host(self):
-        for i in self.zapi.host.get():
-            #print i
+#### 获取现zabbix中的所有主机 
+    def get_host(self,*args):
+        for i in self.zapi.host.get(output="extend"):
             self.host_name_list.append(str(i['name']))
             self.host_id_list.append(str(i['hostid']))
-        all_host = dict(zip(self.host_nSame_list, self.host_id_list))
+        all_host = dict(zip(self.host_name_list, self.host_id_list))
         return all_host
+
+#### 获取现zabbix中的所有主机组
+    def get_hostgruop(self):
+        for i in self.zapi.hostgroup.get(output="extend"):
+            self.hostgroup_name_list.append(str(i['name']))
+            self.hostgroup_id_list.append(str(i['groupid']))
+        all_group = dict(zip(self.hostgroup_id_list, self.hostgroup_name_list))
+        #print all_group  
+        return all_group
+
+
+#### 获取现zabbix中的每个主机的所有item
+    def get_host_item_id(self, hostids):
+        for i in self.zapi.item.get(hostids=hostids,output="extend"):
+            self.item_name_list.append(str(i["name"]))
+            self.item_id_list.append(str(i["itemid"]))
+        all_item = dict(zip(self.item_id_list, self.item_name_list))
+        return all_item
+
+
+#### 获取现zabbix中的每个主机的所有item
+    def get_host_history(self, itemids,limit):
+        data = {
+            "output": "extend",
+            "history": 0,
+            "itemids": itemids,
+            "limit": limit,
+            "sortfield": "clock",
+            "sortorder": "DESC",
+        }
+        ret = self.zapi.history.get(**data)
+        print ret
+        return ret
+
 
 #########################
 #    ZabbixAdd   Host   #
@@ -221,10 +256,10 @@ class ZabbixAction():
         return ret
 
 ##### 通过组id获取相关组内的所有主机
-    def get_hostingroup(self,groupids):
+    def get_hostingroup(self,groupid):
         data = {
         "output": ["groupid",'name'],
-        "groupids": groupids
+        "groupids": groupid
         }
         host_list=[]
         ret = self.zapi.host.get(**data)

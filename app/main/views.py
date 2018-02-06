@@ -35,41 +35,41 @@ def for_admin_only():
 
 ###############################################################################
 
-tmp_time = 0
-@main.route('/data')
-def data():
-    global tmp_time
-    from ..models import DataApi
+# tmp_time = 0
+# @main.route('/data')
+# def data():
+#     global tmp_time
+#     from ..models import DataApi
 
-    print tmp_time/1000
-    if tmp_time > 0:
-        ss = (db.session.query(DataApi).filter(DataApi.create_time > tmp_time/1000).all())
-        print "当前时间",time.time()
+#     print tmp_time/1000
+#     if tmp_time > 0:
+#         ss = (db.session.query(DataApi).filter(DataApi.create_time > tmp_time/1000).all())
+#         print "当前时间",time.time()
         
-    else:
-        #pass
-        ss = (db.session.query(DataApi).all())
+#     else:
+#         #pass
+#         ss = (db.session.query(DataApi).all())
    
     
 
-    data = []
+#     data = []
 
-    for i in ss:
-        name =  int(i.to_json()["name"])
-        ctime =  int(time.mktime(time.strptime(str(i.to_json()['create_time']), "%Y-%m-%d %H:%M:%S")))
-        print name,ctime
-        data.append([ctime, name])
+#     for i in ss:
+#         name =  int(i.to_json()["name"])
+#         ctime =  int(time.mktime(time.strptime(str(i.to_json()['create_time']), "%Y-%m-%d %H:%M:%S")))
+#         print name,ctime
+#         data.append([ctime, name])
 
-    #print arr
-    print data
-    if len(data)>0:
-        tmp_time = data[-1][0]
-        print tmp_time
+#     #print arr
+#     print data
+#     if len(data)>0:
+#         tmp_time = data[-1][0]
+#         print tmp_time
 
-        #print tmp_time
+#         #print tmp_time
 
      
-    return jsonify(data)
+#     return jsonify(data)
 
 
 

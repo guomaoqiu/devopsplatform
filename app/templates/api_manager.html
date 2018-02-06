@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} 接入平台API信息{% endblock %}
 {% block content %}
-<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/jquery.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
 <link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk.css?v=1.0.1" rel="stylesheet">
@@ -208,6 +208,8 @@
                   if (res.result) {
                       //console.log(res.message)
                       layer.msg(res.message)
+                      //alert('test')
+                      //ayer.msg('test')
                       //swal(res.result, "^o^.", "success");
                   }
                   else {

@@ -4,7 +4,7 @@ from flask_login import login_required
 import commands
 from os import path
 from werkzeug.utils import secure_filename
-
+import json
 #from app.scripts.zabbixapi import ZabbixAction
 
 from . import zabbix
@@ -54,3 +54,82 @@ def zabbixdel():
       res = (commands.getoutput('cat /tmp/cache_delete_zabbix.txt')).decode('utf-8').split('!')
       return render_template('zabbixdel.html', result=res)
     return render_template('zabbixdel.html')
+
+# 获取zabbix所有{主机:主机id}
+@zabbix.route('/zabbix_host_get',methods=['GET','POST'])
+@login_required
+def zabbix_host_get():
+      print 'xxxxx'
+      host_get = ZabbixAction()
+      host_get.login_test()
+      host_get.get_host()
+      return json.dumps(host_get.get_host()) 
+
+# 获取zabbix所有{主机组:组id}
+@zabbix.route('/zabbix_hostgruop_get',methods=['GET','POST'])
+@login_required
+def zabbix_hostgruop_get():
+      hostgroup_get = ZabbixAction()
+      hostgroup_get.login_test()
+      hostgroup_get.get_host()
+      return json.dumps(hostgroup_get.get_hostgruop()) 
+
+# 获取zabbix主机组里面包含的主机，url后面直接跟组id
+@zabbix.route('/zabbix_hostingruop_get/<groupid>',methods=['GET','POST'])
+@login_required
+def zabbix_hostingruop_get(groupid):
+      print groupid
+      host_in_group_get = ZabbixAction()
+      host_in_group_get.login_test()
+      return json.dumps(host_in_group_get.get_hostingroup(groupid)) 
+
+@zabbix.route('/zabbix_get_hostitemid/<hostids>',methods=['GET','POST'])
+@login_required
+def zabbix_get_hostitemid(hostids):
+      print hostids
+      client = ZabbixAction()
+      client.login_test()
+      return json.dumps(client.get_host_item_id(hostids)) 
+
+
+# 获取item历史记录, limit指定查询的历史条目数
+@zabbix.route('/zabbix_get_history/<itemids>/<limit>',methods=['GET','POST'])
+@login_required
+def zabbix_get_history(itemids,limit):
+      client = ZabbixAction()
+      client.login_test()
+      res = json.dumps(client.get_host_history(itemids,limit)) 
+      return res
+
+@zabbix.route('/testgr')
+def testgr():
+    return render_template('data3.html')
+
+
+
+
+@zabbix.route('/data')
+def data():
+    arr = {}
+    import time, random
+    curr_time = int(round(time.time() * 1000)) 
+    
+    #http://127.0.0.1:5000/zabbix_get_history/68362/5
+
+    arr['data_1'] = [[curr_time , random.randint(0,1)]]
+    arr['data_2'] = [[curr_time , random.randint(0,1)]]
+    # arr['data_3'] = [[curr_time , random.randint(0,99)]]
+
+    client = ZabbixAction()
+    client.login_test()
+    res = client.get_host_history(itemids="68362",limit="100")
+    for i in res:
+        arr['data_3'] = [[int(i["clock"]) * 1000 , float(i['value'])]]
+
+
+
+    print arr
+    return json.dumps(arr)
+
+
+

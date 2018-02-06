@@ -20,7 +20,8 @@
     <link rel="stylesheet" type="text/css" href="{{  url_for('static',filename='opsplatform/css/sweetalert.css') }}">
 </head>
 
-<body onload="show()">
+<body>
+<!-- <body onload="show()"> 时间显示-->
     <div id="wrapper">
         <nav class="navbar-default navbar-static-side" role="navigation">
 
@@ -145,6 +146,7 @@
 {{ moment.include_moment() }}
 {% endblock %}
 
+    <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
 
     <!-- 消息闪现 -->
     <script src="{{  url_for('static',filename='opsplatform/js/sweetalert.min.js') }}"></script>
@@ -154,10 +156,7 @@
     <script src="{{  url_for('static',filename='opsplatform/js/bootstrap.min.js') }}"></script>
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-    <!-- echart -->
-    <script src="{{ url_for('static',filename='opsplatform/js/echarts.js')}} "></script>
-    <!-- <script src="{{ url_for('static',filename='opsplatform/js/jquery.js') }}"></script> -->
-    <script src="{{ url_for('static',filename='opsplatform/js/echarts-all.js')}} "></script>
+    
     <!-- Flot -->
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/flot/jquery.flot.js') }}"></script>
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/flot/jquery.flot.tooltip.min.js') }}"></script>
@@ -169,7 +168,6 @@
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/peity/jquery.peity.min.js') }}"></script>
     <script src="{{  url_for('static',filename='opsplatform/js/demo/peity-demo.js') }}"></script>
 
-    <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="{{  url_for('static',filename='opsplatform/js/inspinia.js') }}"></script>
