@@ -1,4 +1,10 @@
-                                         # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: views.py
+# @Date:   2018-02-07 11:13:08
+# @Last Modified by:   guomaoqiu
+# @Last Modified time: 2018-02-07 11:14:52
+
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify
 from . import auth
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm

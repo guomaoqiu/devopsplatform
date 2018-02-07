@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @Date:   2018-01-17 10:50:51
+# @Last Modified by:   guomaoqiu
+# @Last Modified time: 2018-02-07 10:59:50
 from flask import render_template
 from . import auth
 

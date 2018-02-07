@@ -125,11 +125,16 @@ def data():
     res = client.get_host_history(itemids="68362",limit="100")
     for i in res:
         arr['data_3'] = [[int(i["clock"]) * 1000 , float(i['value'])]]
-
-
-
     print arr
     return json.dumps(arr)
 
+
+@zabbix.route('/haha')
+def haha():
+    client=ZabbixAction()
+    if client.login_test():
+      return "认证成功"
+    else:
+      return "认证失败"
 
 

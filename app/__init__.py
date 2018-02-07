@@ -14,7 +14,6 @@ app = Flask(__name__)
 
 celery = Celery(app.name, broker=CeleryConfig.CELERY_BROKER_URL,backend=CeleryConfig.CELERY_RESULT_BACKEND)
 
-
 csrf = CSRFProtect()
 db = SQLAlchemy()
 bootstrap = Bootstrap()
@@ -49,14 +48,13 @@ def create_app(config_name):
     from salt import salt as salt_blueprint
     from task import task as task_blueprint
     from zabbix import zabbix as zabbix_blueprint
-    from dataapi import dataapi as dataapi_blueprint
-
+    from data import data as data_blueprint
 
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(main_blueprint)
     app.register_blueprint(salt_blueprint)
     app.register_blueprint(task_blueprint)
     app.register_blueprint(zabbix_blueprint)
-    app.register_blueprint(dataapi_blueprint)
+    app.register_blueprint(data_blueprint)
 
     return app
