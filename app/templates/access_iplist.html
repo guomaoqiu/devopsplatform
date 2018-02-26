@@ -112,14 +112,14 @@
  <script>
      function del_ip(_this) {
 
-        var csrftoken = $('meta[name=csrf-token]').attr('content')
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-                }
-            }
-        })
+        // var csrftoken = $('meta[name=csrf-token]').attr('content')
+        // $.ajaxSetup({
+        //     beforeSend: function(xhr, settings) {
+        //         if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+        //             xhr.setRequestHeader("X-CSRFToken", csrftoken)
+        //         }
+        //     }
+        // })
 
         var check_id = $(_this).attr("check_id");
         var data= {

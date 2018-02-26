@@ -69,10 +69,10 @@ def zabbix_host_get():
 @zabbix.route('/zabbix_hostgruop_get',methods=['GET','POST'])
 @login_required
 def zabbix_hostgruop_get():
-      hostgroup_get = ZabbixAction()
-      hostgroup_get.login_test()
-      hostgroup_get.get_host()
-      return json.dumps(hostgroup_get.get_hostgruop()) 
+        hostgroup_get = ZabbixAction()
+        hostgroup_get.login_test()
+        hostgroup_get.get_host()
+        return json.dumps(hostgroup_get.get_hostgruop()) 
 
 # 获取zabbix主机组里面包含的主机，url后面直接跟组id
 @zabbix.route('/zabbix_hostingruop_get/<groupid>',methods=['GET','POST'])

@@ -15,7 +15,7 @@
     <link href="{{  url_for('static',filename='opsplatform/js/plugins/gritter/jquery.gritter.css') }}" rel="stylesheet">
     <link href="{{  url_for('static',filename='opsplatform/css/animate.css') }}" rel="stylesheet">
     <link href="{{  url_for('static',filename='opsplatform/css/style.css') }}" rel="stylesheet">
-    <link href="{{  url_for('static',filename='opsplatform/css/bk.css') }}" rel="stylesheet">
+    <!-- <link href="{{  url_for('static',filename='opsplatform/css/bk.css') }}" rel="stylesheet"> -->
     <link href="{{  url_for('static',filename='main/img/thumbs-up.jpg') }}" type="image/x-icon" rel="icon">
     <link rel="stylesheet" type="text/css" href="{{  url_for('static',filename='opsplatform/css/sweetalert.css') }}">
 </head>
@@ -23,7 +23,7 @@
 <body>
 <!-- <body onload="show()"> 时间显示-->
     <div id="wrapper">
-        <nav class="navbar-default navbar-static-side" role="navigation">
+        <nav class="navbar-default navbar-static-side" role="navigation"> 
 
             <div class="sidebar-collapse">
                 <ul class="nav metismenu" id="side-menu">
@@ -40,6 +40,8 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="" onclick="add_apiinfo()"><i class="fa fa-user"></i> xxxxx</a></li>
+
                                 <li><a href="{{ url_for('main.user', username=current_user.username) }}"><i class="fa fa-user"></i>  个人资料</a></li>
                                 <li><a href="{{ url_for('auth.change_password') }}"><i class="fa fa-key"></i>  密码更改</a></li>
                                 <li><a href="{{ url_for('auth.change_email_request') }}"><i class="fa fa-envelope"></i>  邮箱更改</a></li>
@@ -51,7 +53,7 @@
                         </div>
                     </li>
                     <li>  <!-- 默认为主页 -->
-                        <a href="{{ url_for('main.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span></a>
+                        <a href="{{ url_for('main.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">仪表盘</span></a>
                     </li>
                     <li>
                         <a href=""><i class="fa fa-table"></i> <span class="nav-label">资产管理</span><span class="fa arrow"></span></a>
@@ -138,7 +140,7 @@
 
 {% endblock %}
 <div class="footer">
-                <div class="pull-right">© 2017 - 2018 版权所有 <a href="http://blog.sctux.com/" target="_blank">郭茂秋</a>
+                <div class="pull-right">© 2017 - 2018 版权所有 <a href="http://blog.sctux.com/" target="_blank">郭茂秋x</a>
                 <!-- </div> -->
             </div>
 </div>
@@ -191,6 +193,25 @@
 
     <!-- Toastr -->
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/toastr/toastr.min.js') }}"></script>
+    
+    <!-- CSRF_TOKEN -->
+    <script src="{{  url_for('static',filename='opsplatform/js/csrf_token.js') }}"></script>
 
+
+
+<script>
+  function add_apiinfo() {
+      layer.open({
+        type: 2,
+        area: ['850px', '400px'],
+        fixed: true, //不固/
+        closeBtn: 0,
+        shadeClose: true,
+        maxmin: true,
+        skin: 'layui-layer-rim',
+        content: ".fdsaf"
+        });
+  }
+</script>
 </body>
 </html>

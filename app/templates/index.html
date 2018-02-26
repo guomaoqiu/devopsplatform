@@ -15,12 +15,10 @@
                     <h2>Dashboards</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="${SITE_URL}">Home</a>
+                            <a href="{{ url_for('main.index')}}">Home</a>
                         </li>
-                        <!-- <div id="container1" style="height: 400px; min-width: 310px"></div> -->
-
                         <li class="active">
-                            <strong>维护操作</strong>
+                            <strong>Dashboards</strong>
                         </li>
                     </ol>
                 </div>
@@ -35,13 +33,12 @@
                         </div>
                         <div class="ibox-content">
                             <div id="barMain" style="height:300px"></div>
-                            <div id="container" style="min-width:400px;height:400px"></div>
-
+                            <!-- <div id="container" style="min-width:400px;height:400px"></div> -->
                         </div>
                     </div>
                 </div>
             </div>
-
+<!-- 
             <div class="row">
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
@@ -87,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     <script type="text/javascript">
@@ -160,14 +157,14 @@
                    // 定时器
                    window.onload=function(){
                    //每隔2秒检查一下数据
-                   window.setInterval(checkStatus,2000);
+                   window.setInterval(checkStatus,200000);
                    };
 
                 function checkStatus() {
                     // ajax 加载数据
                     $.ajax({
-                        url: "{{ url_for('dataapi.query3') }}",  //
-                        type: 'get',
+                        url: "{{ url_for('data.graphics_1') }}",  //
+                        type: 'post',
                         contentType: "application/json;charset=UTF-8",
                         dataType: "json",
                         async:false,
