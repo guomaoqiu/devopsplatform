@@ -5,6 +5,8 @@
 <script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
+<link href="{{  url_for('static',filename='opsplatform/css/bk.css') }}" rel="stylesheet">
+
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
                     <h2>平台日志</h2>
@@ -12,7 +14,6 @@
                         <li>
                             <a href="{{url_for('main.index')}}">Home</a>
                         </li>
-
                         <li class="active">
                             <strong>平台日志</strong>
                         </li>
@@ -38,10 +39,12 @@
                                   <!-- 日志说明 -->
                                   <div class="tab-pane active" id="messages">
                                     <div class="king-instruction king-instruction-success">
-                                        <h5>应用部署日志</h5>
+                                        <h5><span>登录日志</span></h5>
+                                        <p>&nbsp;&nbsp;* 记录用户登录该平台的信息</p>
+                                        <h5><span>应用部署日志</span></h5>
                                         <p>&nbsp;&nbsp;* master将minion的执⾏结果存放在本地/var/cache/salt/master/jobs目录<br>&nbsp;&nbsp;&nbsp; 默认缓存24⼩时(可以通过修改master配置⽂件keepjobs选项调整)
                                         若超过缓存时间,将查询不到本次部署记录...</p>
-                                        <h5>命令执行日志</h5>
+                                        <h5><span>命令执行日志</span></h5>
                                         <p>&nbsp;&nbsp;* 命令执行日志主要记录了: </p>
                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、命令执行时间</p>
                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、命令执行目标</p>

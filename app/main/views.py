@@ -1,4 +1,9 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: views.py
+# @Date:   2018-02-08 16:55:13
+# @Last Modified by:   guomaoqiu
+# @Last Modified time: 2018-02-26 12:24:52
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -115,7 +120,7 @@ def server_list():
     host_list = Hostinfo.query.all()
     data = []
     [ data.append(i.to_json()) for i in host_list ]
-    print data
+    
     return render_template('server_list.html',data=data)
 ###############################################################################
 @main.route('/get_server_info',methods=['GET', 'POST'])
