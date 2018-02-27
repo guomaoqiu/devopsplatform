@@ -1,5 +1,10 @@
 # -*- coding:utf-8 -*-
 # author: guomaoqiu
+# from gevent import monkey
+# from gevent.pywsgi import WSGIServer
+# from geventwebsocket.handler import WebSocketHandler
+
+
 from flask_script import Manager, Shell
 from app import create_app, db, celery
 from app.models import User, Role, Permission,LoginLog
@@ -29,4 +34,7 @@ def dev():
   live_server.serve(open_url=False)
 
 if __name__ == '__main__':
+
     manager.run()
+    #http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
+    #http_server.serve_forever()

@@ -32,7 +32,7 @@
                           <!-- <img src="{{ url_for('static',filename='opsplatform/img/images.jpeg') }}" width="120"> -->
                           <!-- <img class="img-rounded profile-thumbnail" src="{{ current_user.gravatar(size=256) }}" width="50"> -->
                             <div class="dropdown profile-element">
-                            <span><img alt="image" class="img-circle" src="{{ current_user.gravatar(size=256) }}"  width="100" /></span>
+                            <span><img alt="image" class="img-circle" src="{{ current_user.gravatar(size=256) }}"  width="135" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold">{% if current_user.name %}{{ current_user.name }}{% else %}{{ current_user.username }}{% endif %}</strong></span>
@@ -135,7 +135,9 @@
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " title='收起'><i class="fa fa-bars" ></i> </a>
         </div>
             <ul class="nav navbar-top-links navbar-right">
-            <li><a><i class="fa fa-email"></i>Hello <code>{% if current_user.name %}{{ current_user.name }}{% else %}{{ current_user.username }}{% endif %}</code></a></li>
+            <li><i class="fa fa-email"></i>Hello <code>{% if current_user.name %}{{ current_user.name }}{% else %}{{ current_user.username }}{% endif %}</code></li>
+            <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out"></i>  退出</a></li>
+
         </nav>
         </div>
         {% for message in get_flashed_messages(with_categories=True) %}
