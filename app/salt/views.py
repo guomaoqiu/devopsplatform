@@ -16,7 +16,6 @@ def saltkeylist():
     if request.method == "POST":
         if not ApiMg.query.filter_by(app_name='saltstackapi').first():
             return jsonify({"result": False, "message": u'请确保API信息已录入！'})
-
     try:
         client = SaltApi()
         data=client.all_key()
@@ -44,7 +43,6 @@ def salt_minion_test():
         if testping[0]:
             return  jsonify({"result":True,"message":" Minion【%s】连接正常" % key_name })
     return  jsonify({"result":False,"message":"Minion连接异常"})
-
 
 @salt.route('/deploy',methods=['GET','POST'])
 @login_required

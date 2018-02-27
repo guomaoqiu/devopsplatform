@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-02-07 11:14:52
+# @Last Modified time: 2018-02-27 10:18:45
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify
 from . import auth
@@ -32,6 +32,7 @@ def before_request():
 @auth.route('/unconfirmed')
 def unconfirmed():
     '''
+    
     @note: 发送确认邮件后登陆未确认
     '''
     if current_user.is_anonymous or current_user.confirmed:
@@ -122,7 +123,6 @@ def register():
         # if current_app.config['COMPANY_MAIL_SUFFIX'] != str(form.email.data).split('@')[1]:
         #     flash('严禁使用非公司邮箱进行注册操作!', 'danger')
         #     return render_template('auth/register.html', form=form)
-
         user = User(email=form.email.data,
                     username=form.username.data,
                     password=form.password.data)

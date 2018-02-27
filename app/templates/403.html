@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>访问权限不足(403页)</title>
-<link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk.css" rel="stylesheet"> 
-</head>
-<body style="font-family:Microsoft Yahei;" class="king-errorpage-middle">
-    <div class="king-exception-box king-login-page">
-        <img src="http://o.qcloud.com/static_api/bk/style_custom/images/expre_login_failure.jpg">
-       <h1>敏感系统 权限不足</h1>
-    	<p>你的角色所拥有的权限不足或系统出现故障暂时不可用</p>
-    <!-- <a href="javascript:;" class="king-btn king-info king-noborder">申请权限</a>&nbsp;<a href="javascript:;" class="king-btn king-default">查看详情</a> -->
-    </div>
-</body>
-
-</html>
-
-
-
-
+<title>403-权限不足</title>
+<link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk.css" rel="stylesheet">
+<div class="king-exception-box king-403-page">
+    <img src="https://magicbox.bk.tencent.com/static_api/v3/components/exception_403/images/expre_403.png">
+    <h1>敏感系统权限不足</h1>
+    <p>你的角色所拥有的权限不足或系统出现故障暂时不可用</p>
+    <a href="{{ url_for('main.index')}}" class="king-btn king-info king-noborder">返回主页</a>
+</div>

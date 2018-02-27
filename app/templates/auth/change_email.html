@@ -20,18 +20,26 @@
         </div>
 
     </div>
-
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="ibox float-e-margins">
-
-                    <div class="ibox-content">
-                        {{ wtf.quick_form(form) }}
+        <div class="wrapper wrapper-content animated fadeInRight">
+             <div class="row">
+             <div class="col-lg-4"></div>
+             <div class="col-lg-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>邮箱更改</h5>
+                        </div>
+                        <div class="ibox-content">
+               
+                            <div id="ct-chart2" class="ct-perfect-fourth">
+                                    {% import "bootstrap/wtf.html" as wtf %}
+                                    {{ wtf.quick_form(form) }}
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="col-lg-4"></div>
             </div>
-          </div>
-    </div>
+        </div>
+
 
 {% endblock %}

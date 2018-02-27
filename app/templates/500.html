@@ -1,7 +1,8 @@
-{% block title %} 500 {% endblock %}
-
-{% block content %}
-<div class="page-header">
-    <h1>Internal Server Error</h1>
+<title>500-服务器故障</title>
+<link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk.css" rel="stylesheet">
+<div class="king-exception-box king-500-page">
+    <img src="https://magicbox.bk.tencent.com/static_api/v3/components/exception_500/images/expre_500.png">
+    <h1>系统出现异常</h1>
+    <p>请记录下错误场景并及时与开发人员联系</p>
+    <a href="{{ url_for('main.index') }}" class="king-btn king-info king-noborder">返回首页</a>
 </div>
-{% endblock %}

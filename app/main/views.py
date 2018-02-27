@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-02-26 12:24:52
+# @Last Modified time: 2018-02-27 11:08:35
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -51,6 +51,62 @@ def index():
         return redirect('auth/login')
     else:
         return render_template('index.html')
+
+
+###############################################################################
+
+@main.route('/page_403')
+# @admin_required
+@login_required
+def page_403():
+    '''
+    @note: 返回主页内容
+    '''
+    if not current_user.is_authenticated:
+        return redirect('auth/login')
+    else:
+        return render_template('403.html')
+
+###############################################################################
+
+@main.route('/page_404')
+# @admin_required
+@login_required
+def page_404():
+    '''
+    @note: 返回主页内容
+    '''
+    if not current_user.is_authenticated:
+        return redirect('auth/login')
+    else:
+        return render_template('404.html')  
+###############################################################################
+
+@main.route('/page_500')
+# @admin_required
+@login_required
+def page_500():
+    '''
+    @note: 返回主页内容
+    '''
+    if not current_user.is_authenticated:
+        return redirect('auth/login')
+    else:
+        return render_template('500.html') 
+
+###############################################################################
+
+@main.route('/building')
+# @admin_required
+@login_required
+def building():
+    '''
+    @note: 返回主页内容
+    '''
+    if not current_user.is_authenticated:
+        return redirect('auth/login')
+    else:
+        return render_template('building.html')         
 
 ###############################################################################
 
@@ -126,7 +182,7 @@ def server_list():
 @main.route('/get_server_info',methods=['GET', 'POST'])
 def get_server_info():
     '''
-    @note: 通过saltapi获取所有minion主机的服务器信息，填入写入数据库中
+    @note: 通过saltapi获取所有minion主机的服务器信息写入数据库中
     '''
     # 获取所有server的hostname
     if request.method == "POST":

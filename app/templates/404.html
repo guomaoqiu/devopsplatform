@@ -1,7 +1,10 @@
-{% block title %} DevopsDemo {% endblock %}
-
-{% block content %}
-<div class="page-header">
-    <h1>Not Found</h1>
+<title>404-页面未找到</title>
+<link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk.css" rel="stylesheet">
+<div class="king-exception-box king-login-fail">
+    <img src="https://magicbox.bk.tencent.com/static_api/v3/components/exception_login_1/images/expre_login.png">
+    <h1>页面未找到</h1>
+    <p class="login-tip">
+        您访问的页面不存在
+        <a href="{{ url_for('main.index')}}" class="king-btn king-info king-btn-mini f12">返回首页</a> 
+    </p>
 </div>
-{% endblock %}

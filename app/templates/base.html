@@ -78,6 +78,7 @@
                           <li><a href="{{ url_for('zabbix.zabbixdel') }}">Zabbix Server删除</a></li>
                       </ul>
                    </li>
+
                    <!-- 
                     <li>
                         <a href=""><i class="fa fa-wrench"></i> <span class="nav-label">CBT日常操作</span><span class="fa arrow"></span></a>
@@ -115,7 +116,15 @@
                        </ul>
                     </li>
                     {%endif%}
-
+                         <li>
+                      <a href=""><i class="fa fa-ioxhost"></i> <span class="nav-label">其他页面</span></span><span class="fa arrow"></span></a>
+                      <ul class="nav nav-second-level collapse">
+                          <li><a href="{{ url_for('main.page_403') }}">403页面</a></li>
+                          <li><a href="{{ url_for('main.page_404') }}">404页面</a></li>
+                          <li><a href="{{ url_for('main.page_500') }}">500页面</a></li>
+                          <li><a href="{{ url_for('main.building') }}">Building页面</a></li>
+                      </ul>
+                   </li>
                 </ul>
             </div>
         </nav>
@@ -139,22 +148,27 @@
 {% block content %}
 
 {% endblock %}
-<div class="footer">
-                <div class="pull-right">© 2017 - 2018 版权所有 <a href="http://blog.sctux.com/" target="_blank">郭茂秋x</a>
-                <!-- </div> -->
+            <div class="footer">
+                <div class="pull-right">© 2018 - 2019 版权所有
+                    <a href="http://blog.sctux.com/" target="_blank">郭茂秋</a>
+                    <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes">
+                                 <i class="fa fa-headphones"></i>  <span style="font-size: small">联系管理员 
+                                     <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" title="">
+                                     <img border="0" src="http://wpa.qq.com/pa?p=2:471166308:51">
+                                 </a>
+                                 </span>
+                          </a>
             </div>
-</div>
+        </div>
 {% block scripts %}
 {{ moment.include_moment() }}
 {% endblock %}
 
     <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
-
     <!-- 消息闪现 -->
     <script src="{{  url_for('static',filename='opsplatform/js/sweetalert.min.js') }}"></script>
 
     <!-- Mainly scripts -->
-
     <script src="{{  url_for('static',filename='opsplatform/js/bootstrap.min.js') }}"></script>
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
@@ -169,7 +183,6 @@
     <!-- Peity -->
     <script src="{{  url_for('static',filename='opsplatform/js/plugins/peity/jquery.peity.min.js') }}"></script>
     <script src="{{  url_for('static',filename='opsplatform/js/demo/peity-demo.js') }}"></script>
-
 
     <!-- Custom and plugin javascript -->
     <script src="{{  url_for('static',filename='opsplatform/js/inspinia.js') }}"></script>
