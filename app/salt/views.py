@@ -48,3 +48,17 @@ def salt_minion_test():
 @login_required
 def deploy():
     return  render_template('saltstack/soft_deploy.html')
+
+
+
+@salt.route('/file_push',methods=['GET','POST'])
+@login_required
+def file_push():
+    '''
+    @note: 文件分发
+    '''
+    client = SaltApi()
+    testping = client.saltCmd(params={'client': 'local', 'fun': 'cp.get_file', 'tgt': '*' ,'arg':'salt://file1 /tmp/file1'})
+    print testping
+    return testping
+        

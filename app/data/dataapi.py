@@ -3,13 +3,11 @@
 # @File Name: dataapi.py
 # @Date:   2018-02-07 17:53:34
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-02-08 16:22:14
+# @Last Modified time: 2018-02-27 18:17:28
 
 import json, random, time
 from ..models import DataApi
 from .. import db
-
-
 
 
 #######################################################
