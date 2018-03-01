@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: forms.py
+# @Date:   2018-02-01 14:38:19
+# @Last Modified by:   guomaoqiu
+# @Last Modified time: 2018-03-01 12:14:50
 from flask_wtf import FlaskForm
 from flask_wtf.recaptcha import RecaptchaField
 from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField, PasswordField
@@ -77,7 +82,7 @@ class ResDataFormOnline(FlaskForm):
 
 class AccessForm(FlaskForm):
     ip = StringField('IP地址', validators=[Required(),Length(0, 64)])
-    remark = StringField('备注', validators=[Required(),Length(0, 64)])
+    remark = StringField('描述', validators=[Required(),Length(0, 64)])
     submit = SubmitField('提交') 
 
 class UidForm(FlaskForm):

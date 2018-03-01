@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from . import salt
 import time, json
-from ..models import ApiMg
+from ..models import ApiMg,Hostinfo
 from flask import render_template,redirect,request,Response,flash,jsonify,url_for
 from flask_login import login_required
 from saltapi import SaltApi
@@ -47,7 +47,11 @@ def salt_minion_test():
 @salt.route('/deploy',methods=['GET','POST'])
 @login_required
 def deploy():
-    return  render_template('saltstack/soft_deploy.html')
+    host_list = Hostinfo.query.all()
+    data = []
+    [ data.append(i.to_json()) for i in host_list ]
+
+    return  render_template('saltstack/soft_deploy.html',data=data)
 
 
 
@@ -57,8 +61,8 @@ def file_push():
     '''
     @note: 文件分发
     '''
-    client = SaltApi()
-    testping = client.saltCmd(params={'client': 'local', 'fun': 'cp.get_file', 'tgt': '*' ,'arg':'salt://file1 /tmp/file1'})
-    print testping
-    return testping
+    #client = SaltApi()
+    #testping = client.saltCmd(params={'client': 'local', 'fun': 'cp.get_file', 'tgt': '*' ,'arg':'salt://file1 /tmp/file1'})
+    #print testping
+    return render_template('saltstack/file_push.html')
         

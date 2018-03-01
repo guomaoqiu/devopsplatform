@@ -14,7 +14,7 @@ def permission_required(permission):
             return f(*args, **kwargs)
         return decorated_function
     return decorator
-
+    
 # 调用上面装饰器函数
 def admin_required(f):
     return permission_required(Permission.ADMINISTER)(f) # 带参数，且传递函数

@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
-{% block title %}平台访问白名单{% endblock %}
+{% block title %}访问控制列表{% endblock %}
 {% block content %}
 <script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
-                    <h2>平台访问白名单</h2>
+                    <h2>访问控制列表</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="{{ url_for('main.index') }}">Home</a>
                         </li>
                         
                         <li class="active">
-                            <strong>平台访问白名单</strong>
+                            <strong>访问控制列表</strong>
                         </li>
                     </ol>
                 </div>
@@ -25,7 +25,7 @@
                      <div class="col-lg-6">
                       <div class="ibox float-e-margins">
                           <div class="ibox-title">
-                              <h5>添加白名单</h5>
+                              <h5>添加允许访问IP</h5>
                           </div>
                           <div class="ibox-content">
                             {% import "bootstrap/wtf.html" as wtf %}
@@ -40,7 +40,7 @@
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>访问列表</h5>
+                            <h5>允许访问IP列表</h5>
                         </div>
                         <div class="ibox-content">
                             <table id="table2_demo2" class="table table-bordered table-hover">
@@ -50,7 +50,7 @@
                                                    <th>IP</th>
                                                    <th>创建用户</th>
                                                    <th>创建时间</th>
-                                                   <th>备注</th>
+                                                   <th>描述</th>
                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
@@ -62,7 +62,7 @@
                                                             <td>{{ each_data.create_user }}</td>
                                                             <td>{{ each_data.create_time }}</td>
                                                             <td>{{ each_data.remark }}</td>
-                                                            <td><input type="button" class="king-btn king-danger" check_id="{{ each_data.id }}" onclick=del_ip(this) value="删除"></td>
+                                                            <td><input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}" onclick=del_ip(this) value="删除"></td>
                                                         </tr>
                                                     {% endfor %}
                                                 </tbody>

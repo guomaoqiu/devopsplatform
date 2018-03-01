@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-02-27 11:29:28
+# @Last Modified time: 2018-03-01 11:00:25
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify
 from . import auth
@@ -250,7 +250,6 @@ def change_email(token):
 @auth.route('/delete_user',methods=['GET', 'POST'])
 @login_required
 def delete_user():
-
     '''
     @note: 删除用户
     '''

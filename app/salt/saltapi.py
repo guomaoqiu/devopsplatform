@@ -27,20 +27,24 @@ class SaltApi(object):
             # 连接ID
             self.__token_id = self.get_saltapi_token()
 
+            print self.__url,self.__user,self.__password,self.__token_id
+
     # 添加api后测试该api是否连接正常
     def login_test(self):
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
+        #print self.__url,self.__user,self.__password,self.__token_id
         self.__my_headers = {
             'Accept': 'application/json'
         }
         try:
             # 进行登录请求，请求时超时时间为5s
+            self.__url += '/login'
             req = requests.post(self.__url, headers=self.__my_headers,data=parmes, verify=False, timeout=5)
             if req.status_code == 200:
                 return True
             else:
                 # 状态码非200返回False
-                print req.status_code
+                print req.content
                 return False
         # 超时/连接信息
         except Exception ,e:
@@ -58,13 +62,13 @@ class SaltApi(object):
         old_token_create_time = int(time.mktime(time.strptime(str(api_info.api_create_time()), '%Y-%m-%d %H:%M:%S')))
         current_time = int(time.time())
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
+        print current_time - old_token_create_time
         if (current_time - old_token_create_time) > 43200 or old_api_token == None:
             self.__url += '/login'
             self.__my_headers = {
                 'Accept': 'application/json'
                 }
             try:
-                print 
                 req = requests.post(self.__url, headers=self.__my_headers,data=parmes, verify=False, timeout=5)
                 content = json.loads(req.content)
                 token = content["return"][0]['token']

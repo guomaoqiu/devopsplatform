@@ -28,7 +28,6 @@ var timer = setInterval(function(){
         clearInterval(timer);
     }
 }, breaker);
-
 </script>
 
 
@@ -96,7 +95,6 @@ var timer = setInterval(function(){
                     {% for result in res %}
                         <div class="rTableRow">
                         <div class="rTableCell">{{ loop.index }}</div>
-
                         <div class="rTableCell">{{ result.split(',')[0] }} </div>
                         <div class="rTableCell">{{ result.split(',')[1] }} </div>
                         <div class="rTableCell">{{ result.split(',')[2] }} </div>

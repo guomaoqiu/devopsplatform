@@ -48,9 +48,9 @@
                                             <tr>
                                                 <td>
                                                     <select id="k1" size="25" style="width:160px;" multiple="multiple">
-                                                        % for each_host in all_host:
-                                                        <option value="${each_host}" id="${each_host}">${each_host}</option>
-                                                        % endfor
+                                                        {% for each_host in data %}
+                                                        <option value="${each_host}" id="${each_host}">{{ data }}</option>
+                                                        {% endfor %}
                                                     </select>
                                                 </td>
                                                 <td>
