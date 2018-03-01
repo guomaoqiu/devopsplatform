@@ -287,6 +287,7 @@ class Hostinfo(db.Model):
     public_ip = db.Column(db.String(64))
     private_ip = db.Column(db.String(64))
     mem_total = db.Column(db.String(64))
+    used_memory = db.Column(db.String(64))
     cpu_type = db.Column(db.Text())
     num_cpus = db.Column(db.String(64))
     os_release = db.Column(db.String(64))
@@ -299,11 +300,13 @@ class Hostinfo(db.Model):
                 'public_ip' : self.public_ip,
                 'private_ip' : self.private_ip,
                 'mem_total' : self.mem_total,
+                'used_memory': self.used_memory,
                 'cpu_type'  : self.cpu_type,
                 'num_cpus' : self.num_cpus,
                 'os_release': self.os_release,
                 'kernelrelease': self.kernelrelease
         }
+        
 class DataApi(db.Model):
 
     __tablename__ = 'dataapi'

@@ -44,13 +44,11 @@ class SaltApi(object):
                 return True
             else:
                 # 状态码非200返回False
-                print req.content
                 return False
         # 超时/连接信息
         except Exception ,e:
             print e
             return False
-
 
     def get_saltapi_token(self):
         '''
@@ -83,13 +81,11 @@ class SaltApi(object):
                 print '超过过期时间，需要更新token & 或 Token 此前为空',token
                 return token
             except Exception,e:
-                #print e
                 return e
         else:
             print 'token还在有效期内直接从数据库获取',old_api_token
             old_api_token = api_info.api_token_res()
             return old_api_token
-
 
     # run salt cmd
     def saltCmd(self, params):
@@ -115,9 +111,7 @@ class SaltApi(object):
             'X-Auth-Token': self.__token_id
         }
         self.__url = self.__url.strip('/login')
-        print 'xxxxxxxxxxxx'
         try:
-            print 'xxxxxxxxxxxxxx'
             req = requests.post(self.__url, data=params, headers=headers, verify=False,timeout=3)
             json_data = dict(json.loads(req.content)['return'][0])['data']['return']
             print json_data
@@ -182,6 +176,8 @@ class SaltApi(object):
         num_cpus = json_data['return'][0]["%s" % host]["num_cpus"]
         cpu_type= json_data['return'][0]["%s" % host]["cpu_model"].encode('raw_unicode_escape')
         mem_total = json_data['return'][0]["%s" % host]["mem_total"]
+        used_memory = json_data['return'][0]["%s" % host]["used_memory"]
+        print used_memory
         private_ip = json_data['return'][0]["%s" % host]["ip4_interfaces"]["eth0"][0].encode('raw_unicode_escape')
         info = {
             'hostname': hostname,
@@ -191,6 +187,8 @@ class SaltApi(object):
             'cpu_type':cpu_type,
             'private_ip': private_ip,
             'public_ip': '',
+            'used_memory': used_memory,
             'kernelrelease': kernelrelease
         }
+        print info
         return info
