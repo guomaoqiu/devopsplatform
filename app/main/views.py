@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-01 17:53:01
+# @Last Modified time: 2018-03-02 10:07:34
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -226,7 +226,7 @@ def get_server_info():
 
             except Exception, e:
                 print e
-                result = {"result": False, "message": u'刷新出错！'}
+                result = {"result": False, "message": u'刷新出错！{0}'.format(e)}
                 return jsonify(result)
 
 ###############################################################################
