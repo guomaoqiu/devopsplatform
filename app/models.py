@@ -26,9 +26,9 @@ class Role(db.Model):
     def insert_roles():
         '''
         # 创建数据库时需要指定编码为UTF8;
-        # CREATE DATABASE `xiangce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-        # grant all on local_ops.* to local_ops@'127.0.0.1' identified by 'local_ops';
-        # flush privileges;
+        CREATE DATABASE `flask4` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+        grant all on flask4.* to flask@'%' identified by 'flask';
+        flush privileges;
         #
         #python manage.py shell
         from manager import Role
@@ -287,7 +287,7 @@ class Hostinfo(db.Model):
     public_ip = db.Column(db.String(64))
     private_ip = db.Column(db.String(64))
     mem_total = db.Column(db.String(64))
-    used_memory = db.Column(db.String(64))
+    available_memory = db.Column(db.String(64))
     cpu_type = db.Column(db.Text())
     num_cpus = db.Column(db.String(64))
     os_release = db.Column(db.String(64))
@@ -300,7 +300,7 @@ class Hostinfo(db.Model):
                 'public_ip' : self.public_ip,
                 'private_ip' : self.private_ip,
                 'mem_total' : self.mem_total,
-                'used_memory': self.used_memory,
+                'available_memory': self.available_memory,
                 'cpu_type'  : self.cpu_type,
                 'num_cpus' : self.num_cpus,
                 'os_release': self.os_release,

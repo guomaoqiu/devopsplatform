@@ -45,7 +45,7 @@
                                                    <th>内网IP</th>
                                                    <th>外网IP</th>
                                                    <th>总内存</th>
-                                                   <th>已用内存</th>
+                                                   <!-- <th>可用内存</th> -->
                                                    <th>CPU类型</th>
                                                    <th>CPU颗数</th>
                                                    <th>系统版本</th>
@@ -66,7 +66,7 @@
                                                             <td>{{ each_data['private_ip'] }}</td>
                                                             <td>{{ each_data['public_ip'] }}</td>
                                                             <td>{{ each_data['mem_total'] }} M</td>
-                                                            <td>{{ each_data['used_memory'] }} M</td>
+                                                            <!-- <td>{{ each_data['available_memory'] }} M</td> -->
                                                             <td>{{ each_data['cpu_type'] }}</td>
                                                             <td>{{ each_data['num_cpus'] }}</td>
                                                             <td>{{ each_data['os_release'] }}</td>
@@ -326,7 +326,7 @@
             shadeClose: true,
             maxmin: true,
             skin: 'layui-layer-rim',
-            content: '../display_hostdetail/?host=' + hostname
+            content: '../display_hostdetail/' +hostname
             });
       }
     </script>
@@ -342,7 +342,7 @@
             shadeClose: true,
             maxmin: true,
             skin: 'layui-layer-rim',
-            content: '../salt_cmd/?hostname=' + key_name
+            content: '../salt_cmd/' + key_name
             });
       }
     </script>

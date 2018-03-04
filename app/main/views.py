@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-02 10:07:34
+# @Last Modified time: 2018-03-02 17:06:49
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -51,7 +51,6 @@ def index():
         return redirect('auth/login')
     else:
         return render_template('index.html')
-
 
 ###############################################################################
 
@@ -176,9 +175,21 @@ def server_list():
     host_list = Hostinfo.query.all()
     data = []
     [ data.append(i.to_json()) for i in host_list ]
-    print data
-    
     return render_template('server_list.html',data=data)
+
+###############################################################################
+
+@main.route('/display_hostdetail/<hostname>')
+@login_required
+def display_hostdetail(hostname):
+    '''
+    @note: 获取传递过来主机的信息信息
+    '''
+    
+    host_list = Hostinfo.query.filter_by(hostname=hostname).first()
+    print host_list.to_json()
+    return jsonify(host_list.to_json())
+
 ###############################################################################
 @main.route('/get_server_info',methods=['GET', 'POST'])
 def get_server_info():
@@ -212,7 +223,7 @@ def get_server_info():
                             private_ip=all_host_info['private_ip'],
                             public_ip=all_host_info['public_ip'],
                             mem_total=all_host_info['mem_total'],
-                            used_memory=all_host_info['used_memory'],
+                            available_memory=all_host_info['available_memory'],
                             cpu_type=all_host_info['cpu_type'],
                             num_cpus=all_host_info['num_cpus'],
                             os_release=all_host_info['os_release'],
@@ -273,11 +284,11 @@ def access_iplist():
         try:
             db.session.delete(del_ip)
             print check_id
-            return  jsonify({"result":True,"message":"白名单条目删除成功"})
+            return  jsonify({"result":True,"message":"访问IP删除成功"})
         except Exception, e:
             db.session.rollback()
             print e
-            return  jsonify({"result":False,"message":"白名单条目删除失败".format(e)})
+            return  jsonify({"result":False,"message":"访问IP删除失败".format(e)})
     return render_template('access_iplist.html',form=form,data=data)
 
 ###############################################################################
