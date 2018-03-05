@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <head>
-    <script src="${STATIC_URL}opsplatform/js/layer.js"></script>
-    <script src="${STATIC_URL}opsplatform/js/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="${STATIC_URL}opsplatform/css/sweetalert.css">
-    <script src="${STATIC_URL}opsplatform/js/jquery-1.10.2.min.js"></script>
-    <link href="${STATIC_URL}opsplatform/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${STATIC_URL}opsplatform/css/bk.css?v=1.0.1" rel="stylesheet">
-
+    <script src="{{  url_for('static',filename='opsplatform/js/csrf_token.js') }}"></script>
+    <script src="{{ url_for('static',filename='opsplatform/js/layer.js')}}"></script>
+    <script src="{{ url_for('static',filename='opsplatform/js/sweetalert.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='opsplatform/css/sweetalert.css')}}">
+    <script src="{{ url_for('static',filename='opsplatform/js/jquery-1.10.2.min.js')}}"></script>
+    <link href="{{ url_for('static',filename='opsplatform/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='opsplatform/css/bk.css')}}" rel="stylesheet">
 </head>
 
 <body class="gray-bg">
 <style>
 .test_box {
-
     min-height: 600px;
     max-height: 600px;
     margin-left: auto;
@@ -35,13 +35,13 @@
     <div class="wrapper wrapper-content  animated fadeInRight">
         <div class="king-container clearfix">
             <div class="panel panel-info m5">
-                <div class="panel-heading"> 正在对主机 <code>${hostname}</code> 执行Linux命令; 请勿执行敲击回车执行,请点击按钮<code>Run</code></div>
+                <div class="panel-heading"> 正在对主机 <code> {{ hostname|safe }} </code> 执行Linux命令; 请勿执行敲击回车执行,请点击按钮<code>Run</code></div>
                 <div class="panel-body p5">
                      <form class="form-horizontal">
                         <div class="form-group clearfix">
                             <div class="col-sm-10">
                                 <input type="text" class="form-control bk-valign-top"  placeholder="Linux Command" > </div>
-                                <input type="button" class="btn btn-xl btn-success" value="Run" name="${hostname}" onclick="cmd(this)">
+                                <input type="button" class="btn btn-xl btn-success" value="Run" name="{{ hostname}}" onclick="cmd(this)">
                         </div>
                     </form>
                     <div class="panel-body p5">
@@ -64,7 +64,7 @@
 
      $.ajax ({
                 type:'post',
-                url:"${SITE_URL}salt_cmd/",
+                url:"{{ url_for('salt.run_saltcmd')}}",
                 data: data,
                 success:function (res) {
                    if (res.result) {

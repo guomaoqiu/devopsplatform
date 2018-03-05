@@ -66,3 +66,26 @@ def file_push():
     #print testping
     return render_template('saltstack/file_push.html')
         
+
+
+@salt.route('/saltcmd/<hostname>',methods=['GET','POST'])
+@login_required
+def saltcmd(hostname):
+    '''
+    @note: 文件分发
+    '''
+    print hostname
+    if request.method == "POST":
+        print request.method
+    return render_template('saltstack/saltcmd.html',hostname=hostname)
+
+@salt.route('/run_saltcmd',methods=['GET','POST'])
+@login_required
+def run_saltcmd():
+    '''
+    @note: 文件分发
+    '''
+    
+    if request.method == "POST":
+        print request.method
+    return render_template('saltstack/saltcmd.html',)              

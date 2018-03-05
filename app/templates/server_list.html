@@ -320,7 +320,7 @@
             var hostname = $(_this).attr("name");
             layer.open({
             type: 2,
-            area: ['1100px', '700px'],
+            area: ['800px', '500px'],
             fixed: true, //不固/
             closeBtn: 0,
             shadeClose: true,
@@ -333,16 +333,16 @@
 
     <script>
       function salt_cmd(_this) {
-          var key_name = $(_this).attr("name");
+          var hostname = $(_this).attr("name");
             layer.open({
             type: 2,
-            area: ['1270px', '850px'],
+            area: ['800px', '500px'],
             fixed: true,
             closeBtn: 0,
             shadeClose: true,
             maxmin: true,
             skin: 'layui-layer-rim',
-            content: '../salt_cmd/' + key_name
+            content: '../saltcmd/' + hostname
             });
       }
     </script>
