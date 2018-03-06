@@ -1,11 +1,13 @@
 # -*- coding:utf-8 -*-
 from . import salt
 import time, json
-from ..models import ApiMg,Hostinfo
+from flask_login import current_user
+from ..models import ApiMg,Hostinfo,RuncmdLog
 from flask import render_template,redirect,request,Response,flash,jsonify,url_for
 from flask_login import login_required
 from saltapi import SaltApi
 from .. import db
+import os
 
 @salt.route('/saltkeylist',methods=['GET','POST'])
 @login_required
@@ -87,5 +89,22 @@ def run_saltcmd():
     '''
     
     if request.method == "POST":
-        print request.method
+        cmd=json.loads(request.form.get('data'))['cmd']
+        hostname=json.loads(request.form.get('data'))['hostname']
+        
+        # 读取命令黑名单
+        with open(os.path.split(os.path.realpath(__file__))[0] + "/" + "block_cmd.txt", 'r') as f:
+            for each_cmd in f.readlines():
+                print each_cmd.strip('\n')
+                if cmd in each_cmd:
+                    return jsonify({"result": False,"message": u'禁止在此平台运行该命令'})
+                client = SaltApi()        
+                run_cmd = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd}))['return'][0].values()
+                t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+
+                run_cmd_log = RuncmdLog(runcmd_target=hostname,runcmd_cmd=cmd, runcmd_user=current_user.name,runcmd_result=run_cmd)
+                db.session.add(run_cmd_log)
+                db.session.commit()
+                return jsonify({"result": True,"data": run_cmd,"run_time": t,"message": u'执行成功'})
+
     return render_template('saltstack/saltcmd.html',)              

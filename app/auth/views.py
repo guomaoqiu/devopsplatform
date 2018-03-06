@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-01 11:00:25
+# @Last Modified time: 2018-03-06 11:12:13
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify
 from . import auth

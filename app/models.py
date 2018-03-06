@@ -314,17 +314,31 @@ class DataApi(db.Model):
     data = db.Column(db.String(64), unique=False)
     create_time = db.Column(db.DateTime(), default=datetime.now)
 
-    # def __repr__(self):
-    #     return {
-    #         "name": self.data,
-    #         "create_time": self.create_time
-    #     }
-
-
     def to_json(self):
         return {
             "name": self.data,
             "create_time": self.create_time
         }
 
+
+# 命令执行记录
+# runcmd log
+class RuncmdLog(db.Model):
+    __tablename__ = 'runcmdlog'
+    id = db.Column(db.Integer, primary_key=True)
+    runcmd_target =  db.Column(db.String(64))
+    runcmd_cmd = db.Column(db.String(64))
+    runcmd_time = db.Column(db.DateTime(), default=datetime.now)
+    runcmd_user =db.Column(db.String(64))
+    runcmd_result = db.Column(db.Text())
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "runcmd_target": self.runcmd_target,
+            "runcmd_cmd":self.runcmd_cmd,
+            "runcmd_time":self.runcmd_time,
+            "runcmd_user": self.runcmd_user,
+            "runcmd_result": self.runcmd_result
+        }
 

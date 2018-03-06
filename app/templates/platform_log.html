@@ -28,7 +28,7 @@
                     <ul class="nav nav-tabs" id="myTab">
                         <li class="active"><a href="#messages">说明</a></li>
                           <li><a href="#loginlog">登陆日志</a></li>
-                        <li><a href="#deploy_log">应用部署日志</a></li>
+                        <!-- <li><a href="#deploy_log">应用部署日志</a></li> -->
                         <li><a href="#settings">命令执行日志</a></li>
                     </ul>
 
@@ -101,7 +101,7 @@
                                         <thead>
                                             <tr>
 
-                                                 <th>#</th>
+                                               <th>#</th>
                                                <th>目标主机</th>
                                                <th>部署应用</th>
                                                <th>部署用户</th>
@@ -134,10 +134,10 @@
                                   <!-- 命令执行日志 -->
                                   <div class="tab-pane" id="settings">
                                          <table id="runcmd_log_t"  class="table table-bordered table-hover">
-                                        点击对应的<code>【查看结果】</code>即可查看此次部署任务的返回结果
+                                        点击对应的<code>【查看结果】</code>即可查看命令历史执行结果
                                         <thead>
                                             <tr>
-                                               <th>#</th>
+                                               <!-- <th>#</th> -->
                                                <th>目标主机</th>
                                                <th>执行命令</th>
                                                <th>执行用户</th>
@@ -146,19 +146,19 @@
                                             </tr>
                                         </thead>
                                          <tbody id="t_body">
-                                                % for each_runcmd in runcmd_list:
+                                                {%  for each_runcmd in rumcmd_log_data %}
                                                     <tr>
-                                                        <td></td>
-                                                        <td>${each_runcmd['runcmd_target']}</td>
-                                                        <td>${each_runcmd['runcmd_cmd']}</td>
-                                                        <td>${each_runcmd['runcmd_user']}</td>
-                                                        <td>${each_runcmd['runcmd_time']}</td>
+                                                        <!-- <td>{{each_runcmd['id']}}</td> -->
+                                                        <td>{{each_runcmd['runcmd_target']}}</td>
+                                                        <td>{{each_runcmd['runcmd_cmd']}}</td>
+                                                        <td>{{each_runcmd['runcmd_user']}}</td>
+                                                        <td>{{each_runcmd['runcmd_time']}}</td>
                                                        <!-- <td>${each_runcmd['runcmd_result']}</td>-->
                                                         <td>
-                                                            <input type="button" class="btn btn-xs btn-info" runcmd=${each_runcmd['runcmd_cmd']} url=${SITE_URL} name="${each_runcmd['runcmd_target']}" runcmd_result="${each_runcmd['runcmd_result']}" value="查看结果" onclick="get_result(this)">
+                                                            <input type="button" class="btn btn-xs btn-info" runcmd={{ each_runcmd['runcmd_cmd'] }} url=${SITE_URL} name="{{each_runcmd['runcmd_target']}}" runcmd_result="{{ each_runcmd['runcmd_result'] }}" value="查看结果" onclick="get_result(this)">
                                                         </td>
                                                     </tr>
-                                                % endfor
+                                                {% endfor %}
                                             </tbody>
                                             <tfoot >
 

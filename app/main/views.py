@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-02 17:06:49
+# @Last Modified time: 2018-03-06 11:29:18
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -12,7 +12,7 @@ from flask_login import current_user, login_required
 from ..decorators import admin_required , permission_required
 import json,commands,datetime,sys,os
 from .forms import  EditProfileForm, EditProfileAdminForm, ApiForm, DataForm,ResDataForm, EditorUidForm, EditorForm, DataFormOnline,ResDataFormOnline,AccessForm, WebsshForm,UidForm
-from ..models import User, LoginLog, Role, ApiMg, AccessIpList, Hostinfo
+from ..models import User, LoginLog, Role, ApiMg, AccessIpList, Hostinfo, RuncmdLog
 from .. import db
 from app.crypto import prpcrypt
 import time,os,requests
@@ -159,11 +159,20 @@ def platform_log():
     '''
     @note: 平台日志
     '''
+    # 登陆日志
     loginlog = LoginLog.query.order_by(desc(LoginLog.id)).all() # 查询所有
     login_log_data = []
     for each_log in loginlog:
         login_log_data.append(each_log.to_json())
-    return render_template('platform_log.html',login_log_data=login_log_data)
+
+    #
+    rumcmd_log_data = []
+    rumcmdlog = RuncmdLog.query.order_by(desc(RuncmdLog.id)).all()
+    for each_log in rumcmdlog:
+        rumcmd_log_data.append(each_log.to_json())
+    return render_template('platform_log.html',
+                            login_log_data=login_log_data,
+                            rumcmd_log_data=rumcmd_log_data)
 
 ###############################################################################
 @main.route('/server_list')
