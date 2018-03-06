@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-06 11:29:18
+# @Last Modified time: 2018-03-06 12:06:27
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -232,7 +232,6 @@ def get_server_info():
                             private_ip=all_host_info['private_ip'],
                             public_ip=all_host_info['public_ip'],
                             mem_total=all_host_info['mem_total'],
-                            available_memory=all_host_info['available_memory'],
                             cpu_type=all_host_info['cpu_type'],
                             num_cpus=all_host_info['num_cpus'],
                             os_release=all_host_info['os_release'],
