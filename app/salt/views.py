@@ -52,9 +52,7 @@ def deploy():
     host_list = Hostinfo.query.all()
     data = []
     [ data.append(i.to_json()) for i in host_list ]
-
     return  render_template('saltstack/soft_deploy.html',data=data)
-
 
 
 @salt.route('/file_push',methods=['GET','POST'])
@@ -87,7 +85,6 @@ def run_saltcmd():
     '''
     @note: 命令执行
     '''
-    
     if request.method == "POST":
         cmd=json.loads(request.form.get('data'))['cmd']
         hostname=json.loads(request.form.get('data'))['hostname']
@@ -101,12 +98,9 @@ def run_saltcmd():
                 client = SaltApi()        
                 print cmd,hostname
                 run_cmd = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd}))['return'][0].values()
-                #run_cmd = client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd})
                 t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-
                 run_cmd_log = RuncmdLog(runcmd_target=hostname,runcmd_cmd=cmd, runcmd_user=current_user.name,runcmd_result=run_cmd)
                 db.session.add(run_cmd_log)
                 db.session.commit()
                 return jsonify({"result": True,"data": run_cmd,"run_time": t,"message": u'执行成功'})
     return render_template('saltstack/saltcmd.html')
-          

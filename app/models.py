@@ -85,7 +85,7 @@ class User(UserMixin, db.Model):
             self.avatar_hash = hashlib.md5(
                 self.email.encode('utf-8')).hexdigest()
 
-    @property
+    @property 
     def password(self):
         raise AttributeError('password is not a readable attribute')
 

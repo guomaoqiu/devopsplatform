@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-06 12:06:27
+# @Last Modified time: 2018-03-06 16:44:03
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -144,11 +144,8 @@ def usermanager():
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
-
         token = user.generate_confirmation_token()
-
         send_email(user.email, '账户确认','auth/email/confirm', user=user, token=token)
-
         flash('已通过电子邮件向注册用户发送确认电子邮件.','info')
     return render_template('user_manager.html',data=data,form=form)
 
@@ -164,12 +161,13 @@ def platform_log():
     login_log_data = []
     for each_log in loginlog:
         login_log_data.append(each_log.to_json())
-
-    #
+    
+    #命令执行日志
     rumcmd_log_data = []
     rumcmdlog = RuncmdLog.query.order_by(desc(RuncmdLog.id)).all()
     for each_log in rumcmdlog:
         rumcmd_log_data.append(each_log.to_json())
+
     return render_template('platform_log.html',
                             login_log_data=login_log_data,
                             rumcmd_log_data=rumcmd_log_data)
@@ -264,6 +262,7 @@ def delete_server():
     except Exception, e:
         result = {'result': False, 'message': u"删除所选主机失败,%s" % e}
     return jsonify(result)
+
 ###############################################################################
 
 @main.route('/access_iplist',methods=['GET', 'POST'])

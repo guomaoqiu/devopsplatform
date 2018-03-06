@@ -69,22 +69,15 @@
             }
         }
     })
-
     function cmd(_this) {
         var cmd = $(":text").val();
         var hostname = $(_this).attr("name");
-        // var data = {
-        //     "cmd": cmd,
-        //     "hostname": hostname
-        // };
-
-          var data = {
-              data: JSON.stringify({
-                    "cmd": cmd,
-                    "hostname": hostname
-              }),
-          }
-
+        var data = {
+            data: JSON.stringify({
+                "cmd": cmd,
+                "hostname": hostname
+            }),
+        }
      $.ajax ({
                 type:'post',
                 dataType: 'json',
