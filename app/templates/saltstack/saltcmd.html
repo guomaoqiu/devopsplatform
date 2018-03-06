@@ -31,9 +31,10 @@
     color:green;
 }
 </style>
-
+    
     <div class="wrapper wrapper-content  animated fadeInRight">
         <div class="king-container clearfix">
+            {% if has_api %}
             <div class="panel panel-info m5">
                 <div class="panel-heading"> 正在对主机 <code> {{ hostname|safe }} </code> 执行Linux命令; 请勿执行敲击回车执行,请点击按钮<code>Run</code></div>
                 <div class="panel-body p5">
@@ -49,6 +50,12 @@
                     </div>
                 </div>
             </div>
+            {% else %}
+            <div class="panel panel-danger m5">
+                <div class="panel-heading"> SaltAPI信息未录入，无法进行对主机 {{ hostname|safe }} 发送执行命令</div>
+            
+            </div>
+            {% endif %}
         </div>
     </div>
 </body>

@@ -74,18 +74,18 @@ def file_push():
 @login_required
 def saltcmd(hostname):
     '''
-    @note: 文件分发
+    @note: 命令执行页面
     '''
-    print hostname
-    if request.method == "POST":
-        print request.method
-    return render_template('saltstack/saltcmd.html',hostname=hostname)
+    if ApiMg.query.filter_by(app_name='saltstackapi').first():
+        return render_template('saltstack/saltcmd.html',has_api=True,hostname=hostname)
+    else:
+        return render_template('saltstack/saltcmd.html',has_api=False,hostname=hostname)     
 
 @salt.route('/run_saltcmd',methods=['GET','POST'])
 @login_required
 def run_saltcmd():
     '''
-    @note: 文件分发
+    @note: 命令执行
     '''
     
     if request.method == "POST":
@@ -108,5 +108,5 @@ def run_saltcmd():
                 db.session.add(run_cmd_log)
                 db.session.commit()
                 return jsonify({"result": True,"data": run_cmd,"run_time": t,"message": u'执行成功'})
-
-    return render_template('saltstack/saltcmd.html',)              
+    return render_template('saltstack/saltcmd.html')
+          

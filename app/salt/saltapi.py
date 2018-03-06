@@ -176,8 +176,6 @@ class SaltApi(object):
         num_cpus = json_data['return'][0]["%s" % host]["num_cpus"]
         cpu_type= json_data['return'][0]["%s" % host]["cpu_model"].encode('raw_unicode_escape')
         mem_total = json_data['return'][0]["%s" % host]["mem_total"]
-        available_memory = json_data['return'][0]["%s" % host]["available_memory"]
-        print available_memory
         private_ip = json_data['return'][0]["%s" % host]["ip4_interfaces"]["eth0"][0].encode('raw_unicode_escape')
         info = {
             'hostname': hostname,
@@ -187,7 +185,6 @@ class SaltApi(object):
             'cpu_type':cpu_type,
             'private_ip': private_ip,
             'public_ip': '',
-            'available_memory': available_memory,
             'kernelrelease': kernelrelease
         }
         print info
