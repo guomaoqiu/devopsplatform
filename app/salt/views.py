@@ -99,7 +99,9 @@ def run_saltcmd():
                 if cmd in each_cmd:
                     return jsonify({"result": False,"message": u'禁止在此平台运行该命令'})
                 client = SaltApi()        
+                print cmd,hostname
                 run_cmd = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd}))['return'][0].values()
+                #run_cmd = client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd})
                 t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
                 run_cmd_log = RuncmdLog(runcmd_target=hostname,runcmd_cmd=cmd, runcmd_user=current_user.name,runcmd_result=run_cmd)
