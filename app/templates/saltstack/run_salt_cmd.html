@@ -172,6 +172,17 @@
                 "command_arr": command
             })
         };
+           // 判断用户是否选择了主机或者应用
+        if (host_arr.length == 0 || command.length == 0 ){
+                swal({
+                  title: "主机或命令不能为空，请重新输入或选择...",
+                  timer: 1700,
+                    type:'error',
+                  showConfirmButton: false
+                });
+            exit;  // 如果为空，直接退出js
+        }
+
 
         swal({
               title: "你确定在主机【 " + host_arr + "】" + "\n执行命令:" + "【" + command + "】",
