@@ -228,7 +228,7 @@ def get_server_info():
                         host_record = Hostinfo(
                             hostname=all_host_info['hostname'],
                             private_ip=all_host_info['private_ip'],
-                            public_ip=all_host_info['public_ip'],
+                            external_ip=all_host_info['external_ip'],
                             mem_total=all_host_info['mem_total'],
                             cpu_type=all_host_info['cpu_type'],
                             num_cpus=all_host_info['num_cpus'],
