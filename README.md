@@ -29,11 +29,21 @@ from manager import Role
 Role.insert_roles()
 Role.query.all()
 ```
-##### 5.Run
+
+##### 5.发布salt grains 获取主机特定或自身的一些属性信息
+```
+mkdir /srv/salt/_grains/
+cp  init/get_server.py  /srv/salt/_grains/
+# 同步
+salt '*' saltutil.sync_all
+# 检查自定义grains是否发布成功
+salt '*' grains.items
+```
+##### 6.Run
 ```
 python manager runserver
 ```
-##### 6.启动后台任务以及周期性任务(-B参数)
+##### 7.启动后台任务以及周期性任务(-B参数)
 ```
 celery worker -A manager.celery -l info -E -B
 ```
