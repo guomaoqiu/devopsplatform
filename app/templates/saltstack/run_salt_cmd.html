@@ -1,11 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}Index{% endblock %}
 {% block content %}
+    <style>
+    .test_box {
+        min-height: 600px;
+        max-height: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 3px;
+        outline: 0;
+        border: 1px solid #a0b3d6;
+        font-size: 14px;
+        word-wrap: break-word;
+        overflow-x: hidden;
+        overflow-y: auto;
+        white-space: pre-line;
+        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+        -webkit-user-modify: read-write-plaintext-only;
+        background-color: #161616;
+        color:#1fe01f;
+    }
+    </style>
     <script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
     <link href="https://magicbox.bkclouds.cc/static_api/v3/assets/jquery.sumoselect-2.0.0/sumoselect.css" rel="stylesheet">
     <script src="https://magicbox.bkclouds.cc/static_api/v3/assets/jquery.sumoselect-2.0.0/jquery.sumoselect.min.js"></script>
     <link href="https://magicbox.bkclouds.cc/static_api/v3/assets/select2-3.5.2/select2.css" rel="stylesheet">
     <script src="https://magicbox.bkclouds.cc/static_api/v3/assets/select2-3.5.2/select2.js"></script>
+{#    <script src="{{ url_for('static',filename='opsplatform/js/jquery-1.10.2.min.js')}}"></script>#}
+{#    <link href="{{ url_for('static',filename='opsplatfo86rm/css/bootstrap.min.css')}}" rel="stylesheet">#}
+
+
+
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-8">
                     <h2>配置管理</h2>
@@ -20,16 +45,13 @@
                         </li>
                     </ol>
                 </div>
-
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
-
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>可部署应用:
-                            </h5>
+                            <h5>主机选择</h5>
 
                         </div>
                         <div class="ibox-content">
@@ -79,8 +101,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-8">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>执行结果</h5>
+                        </div>
+                        <div class="ibox-content">
+
+                        <div class="test_box" contenteditable="true"><br/></div>
+
+{#                                <textarea class="test_box" style="margin: 1px 2px 10px; height: 550px; width: 100%; background-color: #161616;color:green"></textarea>#}
+
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+    </div>
+
 <script language="javascript">
     $(document).ready(function(){
         $("#b1").click(function(){
@@ -120,101 +158,61 @@
 </script>
 <script>
     function start_deploy() {
+        var command = $(" #cmd_content ").val();
         // 获取选中的主机
         var host_arr = new Array(); //数组定义标准形式，不要写成Array arr = new Array();
         $("#k2 option").each(function () {
             host_arr.push($(this).val());
 
         });
-        // 获取选中的应用
-        var soft_arr = new Array(); //数组定义标准形式，不要写成Array arr = new Array();
-        $("#kk2 option").each(function () {
-            soft_arr.push($(this).val());
-
-        });
-
-        // 组装数据
-        var data ={
-            "host_arr": host_arr.join(','),
-            "soft_arr": soft_arr.join(',')
+        // 数据组装
+        var data = {
+            data: JSON.stringify({
+                "host_arr": host_arr.join(','),
+                "command_arr": command
+            })
         };
 
-        // 判断用户是否选择了主机或者应用
-{#        if (host_arr.length == 0 || soft_arr.length == 0 ){#}
-{#                swal({#}
-{#                  title: "主机和应用不能为空，请重新选择...",#}
-{#                  timer: 1500,#}
-{#                    type:'error',#}
-{#                  showConfirmButton: false#}
-{#                });#}
-{#            exit;  // 如果为空，直接退出js#}
-{#        }#}
         swal({
-              title: "你确定在主机【 " + host_arr + "】" + "\n部署" + "【" + soft_arr + "】",
-             // text: "删除后需要再次认证...",
+              title: "你确定在主机【 " + host_arr + "】" + "\n执行命令:" + "【" + command + "】",
               type: "warning",
               showCancelButton: true,
               showLoaderOnConfirm: true,
               confirmButtonColor: "#1ab394",
-              confirmButtonText: "是的，部署它们",
+              confirmButtonText: "是的，执行",
               cancelButtonText: "我在想想吧...",
               closeOnConfirm: false,
               closeOnCancel: true  //关闭取消后还弹出让你确认的效果提示
             },
               function(isConfirm){
               if (isConfirm) {    // 如果确认就会去携带者hostname去后台处理
-
-
                      swal({
-                                  title: "好的，执行中...",
-                                  timer: 1000,
-                                    type:'success',
-                                  showConfirmButton: false
-                                });
+                          title: "好的，执行中...",
+                          timer: 1000,
+                          type:'success',
+                          showConfirmButton: false
+                          });
 
                $.ajax ({
                         type:'post',
                         data: data,
                         dataType:'json',
-                        url:"${SITE_URL}soft_deploy/",
-                        success:function(res){   //将处理的结果进行判断，根据执行失败，成功现实的提示不同的内容
-                            if (res.result) {
-                               swal({
-                                  title: "好的，部署任务正在后台运行...",
-                                  timer: 1000,
-                                    type:'success',
-                                  showConfirmButton: false
-                                });
-
-                               //------------遍历数组 .each的使用-------------
-                               var anArray = res['data'];
-
-                                     $.each(anArray,function(index,value) {
-                                         // id
-                                         console.log(value['id']);
-                                         //msg
-                                         console.log(value['msg']);
-                                         //job_id
-                                         console.log(value['job_id'])
-
-                                        $('tbody.deploy_info').append("<tr><td>" +value['id']+ "</td><td>" +value['msg']+ "</td><td>" + "<button " +  "class=" + "btn-primary" + " name=" + value['job_id'] + " onclick=job_info(this)" +">" + value['job_id'] + "</button>" + "</td></tr>")
-
-                                     });
-                                   // $("#project").append(tbody);
-
-
-
-                                 // 点击确定之后清空两个文本框的内容
-                                 $("#k2").empty();
-                                 $("#kk2").empty();
+                        url:"{{ url_for("salt.run_salt_cmd") }}",
+                        success:function (res) {
+                         if (res.result) {
+                                var json_data = JSON.stringify(JSON.parse(res.data), null, 2);
+                                $(".test_box").append(
+                                        '执行命令: ',command,"\n",'目标主机: ',host_arr.join(','),"\n",
+                                        '执行时间: ',res.run_time,"\n",'执行结果: ',"\n",json_data, "\n",
+                                        '----------------------------------------------------------------------------------\n'
+                                );
+                                $(".test_box").scrollTop(50000000);
 
                             }
                             else {
-                                swal('erro');
-                                //alert('not ok');
-                                //swal(res.message, "", "error");
+                                swal(res.message, cmd, 'error');
                             }
-                        }
+                }
                     });
               }
             });
@@ -222,13 +220,14 @@
 </script>
 
 
-<!-- 通过jid获取结果-->
-<script>
-    function job_info(_this){
-        var job_id = $(_this).attr("name");
-        layer.msg("你要查看的jid为: "+job_id)
-    }
-</script>
+
+{#<!-- 通过jid获取结果-->#}
+{#<script>#}
+{#    function job_info(_this){#}
+{#        var job_id = $(_this).attr("name");#}
+{#        layer.msg("你要查看的jid为: "+job_id)#}
+{#    }#}
+{#</script>#}
 {% endblock %}
 
 

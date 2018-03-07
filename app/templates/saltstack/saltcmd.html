@@ -77,8 +77,8 @@
                 "cmd": cmd,
                 "hostname": hostname
             }),
-        }
-     $.ajax ({
+        };
+                $.ajax ({
                 type:'post',
                 dataType: 'json',
                 url:"{{ url_for('salt.run_saltcmd')}}",

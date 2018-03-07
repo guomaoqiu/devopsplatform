@@ -96,7 +96,7 @@ def run_saltcmd():
                 if cmd in each_cmd:
                     return jsonify({"result": False,"message": u'禁止在此平台运行该命令'})
                 client = SaltApi()        
-                print cmd,hostname
+                #print cmd,hostname
                 run_cmd = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd}))['return'][0].values()
                 t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                 run_cmd_log = RuncmdLog(runcmd_target=hostname,runcmd_cmd=cmd, runcmd_user=current_user.name,runcmd_result=run_cmd)
@@ -109,8 +109,21 @@ def run_saltcmd():
 @salt.route('/run_salt_cmd', methods=['GET', 'POST'])
 @login_required
 def run_salt_cmd():
+    if request.method == "POST":
+        t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        cmd = json.loads(request.form.get('data'))['command_arr']
+        hostname = json.loads(request.form.get('data'))['host_arr'].split(',')
+        host_list = []
+        [host_list.append(each_host) for each_host in json.loads(request.form.get('data'))['host_arr'].split(',')]
+
+        client = SaltApi()
+        run_cmd = client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt':hostname,'expr_form':'list' , 'arg': cmd})
+
+        return jsonify({"result": True, "data": run_cmd, "run_time": t, "message": u'执行成功'})
+
     host_list = Hostinfo.query.all()
     data = []
     [ data.append(i.to_json()) for i in host_list ]
-    print data
+
+
     return render_template('saltstack/run_salt_cmd.html', data=data)
