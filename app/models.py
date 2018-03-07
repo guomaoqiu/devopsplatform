@@ -284,7 +284,7 @@ class Hostinfo(db.Model):
     __tablename__ = 'server_info_list'
     id = db.Column(db.Integer, primary_key=True)
     hostname = db.Column(db.String(64))
-    public_ip = db.Column(db.String(64))
+    external_ip = db.Column(db.String(64))
     private_ip = db.Column(db.String(64))
     mem_total = db.Column(db.String(64))
     cpu_type = db.Column(db.Text())
@@ -296,7 +296,7 @@ class Hostinfo(db.Model):
         return {
                 'id':self.id,
                 'hostname' : self.hostname,
-                'public_ip' : self.public_ip,
+                'external_ip' : self.external_ip,
                 'private_ip' : self.private_ip,
                 'mem_total' : self.mem_total,
                 'cpu_type'  : self.cpu_type,

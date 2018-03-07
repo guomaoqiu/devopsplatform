@@ -1,4 +1,5 @@
+
 hostname
 echo
 rm -rf
-rm -f
+top

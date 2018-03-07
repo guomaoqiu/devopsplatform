@@ -169,13 +169,13 @@ class SaltApi(object):
         req = requests.get(url, headers=headers, verify=False,timeout=2)
         json_data = json.loads(req.content)
 
-
         hostname = host.encode('raw_unicode_escape')
         release = json_data['return'][0]["%s" % host]["osfullname"].encode('raw_unicode_escape') + ' ' + json_data['return'][0]["%s" % host]["osrelease"].encode('raw_unicode_escape')
         kernelrelease = json_data['return'][0]["%s" % host]["kernelrelease"].encode('raw_unicode_escape')
         num_cpus = json_data['return'][0]["%s" % host]["num_cpus"]
         cpu_type= json_data['return'][0]["%s" % host]["cpu_model"].encode('raw_unicode_escape')
         mem_total = json_data['return'][0]["%s" % host]["mem_total"]
+        external_ip = json_data['return'][0]["%s" % host]["external_ip"]
         private_ip = json_data['return'][0]["%s" % host]["ip4_interfaces"]["eth0"][0].encode('raw_unicode_escape')
         info = {
             'hostname': hostname,
@@ -184,7 +184,7 @@ class SaltApi(object):
             'num_cpus': num_cpus,
             'cpu_type':cpu_type,
             'private_ip': private_ip,
-            'public_ip': '',
+            'external_ip': external_ip,
             'kernelrelease': kernelrelease
         }
         print info
