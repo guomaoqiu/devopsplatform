@@ -104,3 +104,13 @@ def run_saltcmd():
                 db.session.commit()
                 return jsonify({"result": True,"data": run_cmd,"run_time": t,"message": u'执行成功'})
     return render_template('saltstack/saltcmd.html')
+
+
+@salt.route('/run_salt_cmd', methods=['GET', 'POST'])
+@login_required
+def run_salt_cmd():
+    host_list = Hostinfo.query.all()
+    data = []
+    [ data.append(i.to_json()) for i in host_list ]
+    print data
+    return render_template('saltstack/run_salt_cmd.html', data=data)

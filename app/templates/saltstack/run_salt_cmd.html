@@ -11,21 +11,21 @@
                     <h2>配置管理</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="${SITE_URL}">Home</a>
+                            <a href="{{ url_for('main.index') }}">Home</a>
                         </li>
-                        
+
                         <li class="active">
                             <strong>应用部署</strong>
 
                         </li>
                     </ol>
                 </div>
-               
+
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>可部署应用:
@@ -33,23 +33,18 @@
 
                         </div>
                         <div class="ibox-content">
-{#                            <div id="ct-chart1" class="ct-perfect-fourth">#}
-{#                                <img src="${STATIC_URL}img/nginx.png" style="width: 110px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
-{#                                <img src="${STATIC_URL}img/logo_zabbix_petit.gif" style="width: 110px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
-{#                                <img src="${STATIC_URL}img/467px-Redis_Logo.svg.png" style="width: 110px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
-{#                                <img src="${STATIC_URL}img/mongodblogo-580x358.png" style="width: 110px">#}
-{#                            </div>#}
-                            <hr>
+
+                                 <input type="text" class="form-control" id="cmd_content" placeholder="Command">
+                                <hr>
                                  <table>
                                      <tr>
-                                      <td><button class="btn btn-xs btn-primary" style="width:160px;">主机列表</button>
                                       <form>
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <select id="k1" size="25" style="width:160px;" multiple="multiple">
+                                                    <select id="k1" size="28" style="width:160px;" multiple="multiple">
                                                         {% for each_host in data %}
-                                                        <option value="${each_host}" id="${each_host}">{{ data }}</option>
+                                                        <option value="{{ each_host['hostname'] }}" id="{{ each_host['id'] }}">{{ each_host['hostname'] }}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </td>
@@ -67,39 +62,12 @@
                                         </table>
                                       </form>
                                     </td>
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                    <td><button class="btn btn-xs btn-primary" style="width:160px;">应用列表</button>
-                                      <form >
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <select id="kk1" size="25" style="width:160px;" multiple="multiple">
-                                                        % for each_host in soft:
-                                                        <option value="${each_host}" id="${each_host}">${each_host}</option>
-                                                        % endfor
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input class="btn btn-xs btn-primary" type="button" id="bb1" value=" => "/>
-                                                    <input class="btn btn-xs btn-primary" type="button" id="bb3" value="==>>"/><br/>
-                                                    <input class="btn btn-xs btn-success" type="button" id="bb2" value=" <= "/>
-                                                    <input class="btn btn-xs btn-success" type="button" id="bb4" value="<<=="/>
-                                                </td>
-                                                <td>
-                                                    <select id="kk2" value="Ning4" size="28" style="width:160px;" multiple="multiple">
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                     </form>
-                                   </td>
-                                   <td style="width: auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                      <td>
                                        <form >
                                         <table>
                                             <tr>
                                                 <td>
-                                                 <input type="button" class="btn btn-xl btn-success"  value="开始部署" onclick="start_deploy()">
+                                                 <input type="button" class="btn btn-xl btn-success"  value="执行" onclick="start_deploy()">
                                                 </td>
                                             </tr>
                                         </table>
@@ -172,15 +140,15 @@
         };
 
         // 判断用户是否选择了主机或者应用
-        if (host_arr.length == 0 || soft_arr.length == 0 ){
-                swal({
-                  title: "主机和应用不能为空，请重新选择...",
-                  timer: 1500,
-                    type:'error',
-                  showConfirmButton: false
-                });
-            exit;  // 如果为空，直接退出js
-        }
+{#        if (host_arr.length == 0 || soft_arr.length == 0 ){#}
+{#                swal({#}
+{#                  title: "主机和应用不能为空，请重新选择...",#}
+{#                  timer: 1500,#}
+{#                    type:'error',#}
+{#                  showConfirmButton: false#}
+{#                });#}
+{#            exit;  // 如果为空，直接退出js#}
+{#        }#}
         swal({
               title: "你确定在主机【 " + host_arr + "】" + "\n部署" + "【" + soft_arr + "】",
              // text: "删除后需要再次认证...",
@@ -198,7 +166,7 @@
 
 
                      swal({
-                                  title: "好的，部署任务正在后台运行...",
+                                  title: "好的，执行中...",
                                   timer: 1000,
                                     type:'success',
                                   showConfirmButton: false
