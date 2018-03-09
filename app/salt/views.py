@@ -32,7 +32,6 @@ def saltkeylist():
         flash("未能正常连接saltapi,请检查api配置",'danger')
         return render_template('saltstack/saltkey_list.html',data='')
 
-
 # saltstack minion connection test
 @salt.route('/salt_minion_test',methods=['GET','POST'])
 @login_required
@@ -92,11 +91,9 @@ def run_saltcmd():
         # 读取命令黑名单
         with open(os.path.split(os.path.realpath(__file__))[0] + "/" + "block_cmd.txt", 'r') as f:
             for each_cmd in f.readlines():
-                print each_cmd.strip('\n')
-                if cmd in each_cmd:
+                if cmd in each_cmd :
                     return jsonify({"result": False,"message": u'禁止在此平台运行该命令'})
                 client = SaltApi()        
-                #print cmd,hostname
                 run_cmd = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd}))['return'][0].values()
                 t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                 run_cmd_log = RuncmdLog(runcmd_target=hostname,runcmd_cmd=cmd, runcmd_user=current_user.name,runcmd_result=run_cmd)
@@ -109,6 +106,9 @@ def run_saltcmd():
 @salt.route('/run_salt_cmd', methods=['GET', 'POST'])
 @login_required
 def run_salt_cmd():
+    '''
+    @note: 批量命令执行
+    '''
     if request.method == "POST":
         t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         cmd = json.loads(request.form.get('data'))['command_arr']
