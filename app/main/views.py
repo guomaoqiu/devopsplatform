@@ -195,7 +195,13 @@ def display_hostdetail(hostname):
     
     host_list = Hostinfo.query.filter_by(hostname=hostname).first()
     print host_list.to_json()
-    return jsonify(host_list.to_json())
+    client = SaltApi()
+    params = {'client': 'local', 'fun': 'test.ping', 'tgt': hostname }
+    json_data = client.get_allhostname(params)
+    data = dict(json.loads(json_data)['return'][0])
+    if data.values()[0]:
+        host_status = True
+        return render_template("server_info.html",data = host_list.to_json(),host_status=host_status)
 
 ###############################################################################
 @main.route('/get_server_info',methods=['GET', 'POST'])
