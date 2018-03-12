@@ -87,19 +87,22 @@ def run_saltcmd():
     if request.method == "POST":
         cmd=json.loads(request.form.get('data'))['cmd']
         hostname=json.loads(request.form.get('data'))['hostname']
-        
+
+        t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         # 读取命令黑名单
         with open(os.path.split(os.path.realpath(__file__))[0] + "/" + "block_cmd.txt", 'r') as f:
             for each_cmd in f.readlines():
                 if cmd in each_cmd :
                     return jsonify({"result": False,"message": u'禁止在此平台运行该命令'})
-                client = SaltApi()        
-                run_cmd = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd}))['return'][0].values()
-                t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-                run_cmd_log = RuncmdLog(runcmd_target=hostname,runcmd_cmd=cmd, runcmd_user=current_user.name,runcmd_result=run_cmd)
-                db.session.add(run_cmd_log)
-                db.session.commit()
-                return jsonify({"result": True,"data": run_cmd,"run_time": t,"message": u'执行成功'})
+                try:
+                    client = SaltApi()
+                    run_cmd = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt': '%s' % hostname, 'arg': '%s' % cmd}))['return'][0].values()
+                    run_cmd_log = RuncmdLog(runcmd_target=hostname,runcmd_cmd=cmd, runcmd_user=current_user.name,runcmd_result=run_cmd)
+                    db.session.add(run_cmd_log)
+                    db.session.commit()
+                    return jsonify({"result": True,"data": run_cmd,"run_time": t,"message": u'执行成功'})
+                except Exception,e:
+                    return jsonify({"result": False, "data": "", "run_time": "", "message": u'执行失败'.format(e)})
     return render_template('saltstack/saltcmd.html')
 
 
@@ -115,11 +118,12 @@ def run_salt_cmd():
         hostname = json.loads(request.form.get('data'))['host_arr'].split(',')
         host_list = []
         [host_list.append(each_host) for each_host in json.loads(request.form.get('data'))['host_arr'].split(',')]
-
-        client = SaltApi()
-        run_cmd = client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt':hostname,'expr_form':'list' , 'arg': cmd})
-
-        return jsonify({"result": True, "data": run_cmd, "run_time": t, "message": u'执行成功'})
+        try:
+            client = SaltApi()
+            run_cmd = client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt':hostname,'expr_form':'list' , 'arg': cmd})
+            return jsonify({"result": True, "data": run_cmd, "run_time": t, "message": u'执行成功'})
+        except Exception,e:
+            return jsonify({"result": False, "data": '', "run_time": '', "message": u'执行失败'.format(e)})
 
     host_list = Hostinfo.query.all()
     data = []
