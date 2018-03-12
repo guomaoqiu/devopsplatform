@@ -81,6 +81,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first() # 数据库查询
+        print request.args.get('next')
 
         access_ip = request.headers.get('X-Forwarded-For',request.remote_addr) # 查库判断登录IP
         # c = AccessIpList.query.filter_by(ip=access_ip).first()
