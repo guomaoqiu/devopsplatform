@@ -210,19 +210,24 @@
                         dataType:'json',
                         url:"{{ url_for("salt.run_salt_cmd") }}",
                         success:function (res) {
-                         if (res.result) {
-                                var json_data = JSON.stringify(JSON.parse(res.data), null, 2);
-                                $(".test_box").append(
-                                        '执行命令: ',command,"\n",'目标主机: ',host_arr.join(','),"\n",
-                                        '执行时间: ',res.run_time,"\n",'执行结果: ',"\n",json_data, "\n",
-                                        '----------------------------------------------------------------------------------\n'
-                                );
-                                $(".test_box").scrollTop(50000000);
+                            if (res.data == null){
+                                swal(res.message,'T_T','error');
+                            }
+                             if (res.result) {
 
-                            }
-                            else {
-                                swal(res.message, cmd, 'error');
-                            }
+                                    var json_data = JSON.stringify(JSON.parse(res.data), null, 2);
+                                    $(".test_box").append(
+                                            '执行命令: ',command,"\n",'目标主机: ',host_arr.join(','),"\n",
+                                            '执行时间: ',res.run_time,"\n",'执行结果: ',"\n",json_data, "\n",
+                                            '----------------------------------------------------------------------------------\n'
+                                    );
+                                    $(".test_box").scrollTop(50000000);
+
+                                }
+{#                            else {#}
+{#                             alert('xxxxx');#}
+{#                                console.log(res.message);#}
+{#                            }#}
                 }
                     });
               }

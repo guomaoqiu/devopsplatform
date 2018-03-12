@@ -102,7 +102,7 @@ def run_saltcmd():
                     db.session.commit()
                     return jsonify({"result": True,"data": run_cmd,"run_time": t,"message": u'执行成功'})
                 except Exception,e:
-                    return jsonify({"result": False, "data": "", "run_time": "", "message": u'执行失败'.format(e)})
+                    return jsonify({"result": False, "data": "", "run_time": "", "message": u'执行失败\n{0}'.format(e)})
     return render_template('saltstack/saltcmd.html')
 
 
@@ -118,12 +118,12 @@ def run_salt_cmd():
         hostname = json.loads(request.form.get('data'))['host_arr'].split(',')
         host_list = []
         [host_list.append(each_host) for each_host in json.loads(request.form.get('data'))['host_arr'].split(',')]
-        try:
-            client = SaltApi()
-            run_cmd = client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt':hostname,'expr_form':'list' , 'arg': cmd})
+        client = SaltApi()
+        run_cmd = client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt':hostname,'expr_form':'list' , 'arg': cmd})
+        if run_cmd is None:
+            return jsonify({"result": False, "data": run_cmd, "run_time": t, "message": u'执行失败,请检查API连接是否正常'})
+        else:
             return jsonify({"result": True, "data": run_cmd, "run_time": t, "message": u'执行成功'})
-        except Exception,e:
-            return jsonify({"result": False, "data": '', "run_time": '', "message": u'执行失败'.format(e)})
 
     host_list = Hostinfo.query.all()
     data = []
