@@ -1,4 +1,9 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: config.py
+# @Date:   2018-02-28 11:57:30
+# @Last Modified by:   guomaoqiu
+# @Last Modified time: 2018-03-13 17:44:13
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import timedelta
