@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-13 14:18:36
+# @Last Modified time: 2018-03-13 17:24:30
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -147,7 +147,9 @@ def platform_log():
     #命令执行日志
     rumcmd_log_data = []
     rumcmdlog = RuncmdLog.query.order_by(desc(RuncmdLog.id)).all()
+
     for each_log in rumcmdlog:
+        print each_log.to_json()['runcmd_time']
         rumcmd_log_data.append(each_log.to_json())
 
     return render_template('platform_log.html',
@@ -371,9 +373,9 @@ def api_manager():
         data.append(each_data.to_json())
 
     return render_template('api_manager.html',form=form,data=data)
+
 ###############################################################################
 
-# delete api
 @main.route('/api_manager_del',methods=['GET', 'POST'])
 @login_required
 def api_manager_del():
@@ -390,7 +392,7 @@ def api_manager_del():
             print e
             return  jsonify({"result":False,"message":"删除失败".format(e)})
 
-# test api
+###############################################################################
 @main.route('/apitest', methods=['GET', 'POST'])
 @login_required
 def apitest():
@@ -797,7 +799,7 @@ def uideditor2():
             file = open(file_path, 'wb')
             print form.file_data
             file.write(form.file_data.data.replace('\r\n','\n'))
-            file.close()
+            file.close() 
             os.system("scp %s %s" % (file_path,remote_dir))
             flash("【SUCCESS】: 提交成功", "success")
             return render_template('uideditor2.html',
