@@ -215,7 +215,6 @@ def get_server_info():
             result = {"result": False, "message": u'请确保API信息已录入！'}
             return jsonify(result)
         else:
-
             try:
                 client = SaltApi()
                 params = {'client': 'local', 'fun': 'test.ping', 'tgt': '*'}
@@ -246,7 +245,6 @@ def get_server_info():
                                                                                        
                 result = {"result": True, "message": u'刷新完毕！'}
                 return jsonify(result)
-
             except Exception, e:
                 print e
                 result = {"result": False, "message": u'刷新出错！{0}'.format(e)}
@@ -578,7 +576,7 @@ def update_online_resource(self):
     @note: 任务进度
     '''
     # 执行热更资源脚本，处理后获取版本号
-    esult=commands.getoutput("echo test")
+    result=commands.getoutput("echo test")
     #result=commands.getoutput("/bin/bash /root/public_update_jp_hot.sh.sh > /tmp/online_resource.txt && tail -1 /tmp/online_resource.txt")
     return result
 
@@ -705,7 +703,6 @@ def updatecode():
     return  render_template('updatecode.html')
 
 ############################################################
-
 ########## 维护/开服 ########
 
 @main.route('/maintain',methods=['GET', 'POST'])

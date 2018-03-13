@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% block content %}
+<script src="{{  url_for('static',filename='opsplatform/js/jquery-2.1.1.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/jquery.dataTables.js') }}"></script>
+<script src="{{  url_for('static',filename='opsplatform/js/dataTables.bootstrap.js') }}"></script>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-8">
+                    <h2>Dashboards</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="${SITE_URL}">Home</a>
+                        </li>
+                        
+                        <li class="active">
+                            <strong>DashBoard</strong>
+                        </li>
+                    </ol>
+                </div>
+               
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                 <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+{#                        <div class="ibox-title">#}
+{#                            <h5>Line scatter diagram</h5>#}
+{#                        </div>#}
+                        <div class="ibox-content">
+                            <div class="king-widget9" style="min-width:900px;">
+                                <div class="king-widget9-content">
+                                    <div class="clearfix">
+                                        <div class="king-text-wrap">
+                                            <h2>376次</h2>
+                                            <div class="text-wrap">
+                                                <div class="text-wrap-left">
+                                                    <p>执行中：20</p>
+                                                    <p>成功：21</p>
+                                                    <p>失败：1</p>
+                                                </div>
+                                                <div class="text-wrap-right">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="king-icon-wrap">
+                                            <span class="king-widget-warning">
+                                                   <i class="fa fa-tasks"></i>
+                                               </span>
+                                            <h5>执行任务</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="king-widget9-content">
+                                    <div class="clearfix">
+                                        <div class="king-text-wrap">
+                                            <h2>123个</h2>
+                                            <div class="text-wrap">
+                                                <div class="text-wrap-left">
+                                                    <p>发布：20</p>
+                                                    <p>开区：21</p>
+                                                    <p>扩容：1</p>
+                                                    <p>缩容：3</p>
+                                                </div>
+                                                <div class="text-wrap-right">
+                                                    <p>迁移：20</p>
+                                                    <p>合服：21</p>
+                                                    <p>故障处理：122</p>
+                                                    <p>其他：3</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="king-icon-wrap">
+                                            <span class="king-widget-success">
+                                                   <i class="fa fa-puzzle-piece"></i>
+                                               </span>
+                                            <h5>创建模板</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="king-widget9-content">
+                                    <div class="clearfix">
+                                        <div class="king-text-wrap">
+                                            <h2>123个</h2>
+                                            <div class="text-wrap">
+                                                <div class="text-wrap-left">
+                                                    <p>发布：20</p>
+                                                    <p>开区：21</p>
+                                                    <p>扩容：1</p>
+                                                    <p>缩容：3</p>
+                                                </div>
+                                                <div class="text-wrap-right">
+                                                    <p>迁移：20</p>
+                                                    <p>合服：21</p>
+                                                    <p>故障处理：122</p>
+                                                    <p>其他：3</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="king-icon-wrap">
+                                            <span class="king-widget-info">
+                                                   <i class="fa fa-briefcase"></i>
+                                               </span>
+                                            <h5>轻应用</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Stacked bar chart</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="ct-chart3" class="ct-perfect-fourth"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Horizontal bar chart </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="ct-chart4" class="ct-perfect-fourth"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Simple pie chart</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="ct-chart5" class="ct-perfect-fourth"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Gauge chart </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="ct-chart6" class="ct-perfect-fourth">
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+

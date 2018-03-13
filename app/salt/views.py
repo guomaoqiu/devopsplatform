@@ -102,7 +102,7 @@ def run_saltcmd():
                     db.session.commit()
                     return jsonify({"result": True,"data": run_cmd,"run_time": t,"message": u'执行成功'})
                 except Exception,e:
-                    return jsonify({"result": False, "data": "", "run_time": "", "message": u'执行失败\n{0}'.format(e)})
+                    return jsonify({"result": False, "data": "", "run_time": "", "message": u'执行失败,请检查API连接是否正常'})
     return render_template('saltstack/saltcmd.html')
 
 
