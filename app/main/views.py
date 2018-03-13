@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-06 16:44:03
+# @Last Modified time: 2018-03-13 14:18:36
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -33,9 +33,7 @@ sys.setdefaultencoding("utf-8")
 @login_required
 @admin_required
 def for_admin_only():
-    '''
-    @note: 在登陆状态下只允许管理者进入，否则来到403禁止界面
-    '''
+    """在登陆状态下只允许管理者进入，否则来到403禁止界面"""
     return render_template('admin.html')
 
 ###############################################################################
@@ -44,9 +42,7 @@ def for_admin_only():
 # @admin_required
 @login_required
 def index():
-    '''
-    @note: 返回主页内容
-    '''
+    """返回主页内容 """
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
@@ -58,9 +54,7 @@ def index():
 # @admin_required
 @login_required
 def page_403():
-    '''
-    @note: 返回主页内容
-    '''
+    """403页面"""
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
@@ -72,9 +66,7 @@ def page_403():
 # @admin_required
 @login_required
 def page_404():
-    '''
-    @note: 返回主页内容
-    '''
+    """404页面"""
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
@@ -85,9 +77,7 @@ def page_404():
 # @admin_required
 @login_required
 def page_500():
-    '''
-    @note: 返回主页内容
-    '''
+    """500页面"""
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
@@ -99,9 +89,7 @@ def page_500():
 # @admin_required
 @login_required
 def building():
-    '''
-    @note: 返回主页内容
-    '''
+    """页面建设页面"""
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
@@ -111,9 +99,7 @@ def building():
 
 @main.route('/user/<username>')
 def user(username):
-    '''
-    @note: 返回用户信息页面
-    '''
+    """返回用户信息页面"""
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('user.html', user=user)
 
@@ -122,9 +108,7 @@ def user(username):
 @main.route('/usermanager',methods=['GET', 'POST'])
 @login_required
 def usermanager():
-    '''
-    @note: 用户管理
-    '''
+    """用户管理""" 
     # 列出用户
     user = User.query.all()
     data = []
@@ -134,7 +118,7 @@ def usermanager():
     print data
     form = RegistrationForm()
     if form.validate_on_submit():
-        #检查config.py中定义的公司邮箱后缀名
+        # 检查config.py中定义的公司邮箱后缀名
         if current_app.config['COMPANY_MAIL_SUFFIX'] != str(form.email.data).split('@')[1]:
             flash('严禁使用非公司邮箱进行注册操作!', 'danger')
             return render_template('auth/register.html', form=form)
@@ -153,9 +137,7 @@ def usermanager():
 @main.route('/platform_log')
 @login_required
 def platform_log():
-    '''
-    @note: 平台日志
-    '''
+    """平台日志"""
     # 登陆日志
     loginlog = LoginLog.query.order_by(desc(LoginLog.id)).all() # 查询所有
     login_log_data = []
@@ -176,9 +158,7 @@ def platform_log():
 @main.route('/server_list')
 @login_required
 def server_list():
-    '''
-    @note: 主机列表
-    '''
+    """主机列表"""
     host_list = Hostinfo.query.all()
     data = []
     [ data.append(i.to_json()) for i in host_list ]
@@ -189,10 +169,7 @@ def server_list():
 @main.route('/display_hostdetail/<hostname>')
 @login_required
 def display_hostdetail(hostname):
-    '''
-    @note: 获取传递过来主机的信息信息
-    '''
-    
+    """获取传递过来主机信息"""
     host_list = Hostinfo.query.filter_by(hostname=hostname).first()
     print host_list.to_json()
     client = SaltApi()
@@ -206,9 +183,7 @@ def display_hostdetail(hostname):
 ###############################################################################
 @main.route('/get_server_info',methods=['GET', 'POST'])
 def get_server_info():
-    '''
-    @note: 通过saltapi获取所有minion主机的服务器信息写入数据库中
-    '''
+    """通过saltapi获取所有minion主机的服务器信息写入数据库中"""
     # 获取所有server的hostname
     if request.method == "POST":
         if not ApiMg.query.filter_by(app_name='saltstackapi').first():
@@ -254,9 +229,7 @@ def get_server_info():
 
 @main.route('/delete_server',methods=['GET', 'POST'])
 def delete_server():
-    '''
-    @note: 从数据库中删除已经存在的主机
-    '''
+    """从数据库中删除已经存在的主机"""
     delete_host = []
     hostname = json.loads(request.form.get('data'))['hostname']
     [ delete_host.append(host.encode('raw_unicode_escape')) for host in hostname.split(',')]
@@ -307,9 +280,7 @@ def access_iplist():
 @main.route('/loginlog',methods=['GET', 'POST'])
 @login_required
 def loginlog():
-    '''
-    @note: 查询登录日志
-    '''
+    """查询登录日志"""
     if request.method == 'POST':
         return "ok"
         #return redirect('http://www.baidu.com')
@@ -327,9 +298,7 @@ def loginlog():
 @main.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    '''
-    @note: 普通用户编辑
-    '''
+    """普通用户编辑"""
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.name = form.name.data
@@ -349,9 +318,7 @@ def edit_profile():
 @login_required
 @admin_required
 def edit_profile_admin(id):
-    '''
-    @note: 管理员编辑
-    '''
+    """管理员编辑"""
     user = User.query.get_or_404(id)
     form = EditProfileAdminForm(user=user)
     if form.validate_on_submit():
@@ -380,11 +347,8 @@ def edit_profile_admin(id):
 @main.route('/api_manager',methods=['GET', 'POST'])
 @login_required
 def api_manager():
-    '''
-    @note: 对接第三方API管理函数
-    '''
+    """对接第三方API管理函数"""
     form = ApiForm()
-    #i#f form.validate_on_submit():
     if form.validate_on_submit():
         apiinfo = ApiMg(app_name=form.app_name.data,
                     api_user=form.api_user.data,
@@ -413,9 +377,7 @@ def api_manager():
 @main.route('/api_manager_del',methods=['GET', 'POST'])
 @login_required
 def api_manager_del():
-    '''
-    @note: 在登陆状态下只允许管理者进入，否则来到403禁止登陆界面
-    '''
+    """删除API"""    
     if request.method == 'POST':
         check_id = json.loads(request.form.get('data'))['check_id']
         api_id = ApiMg.query.filter_by(id=check_id).first()
@@ -430,11 +392,9 @@ def api_manager_del():
 
 # test api
 @main.route('/apitest', methods=['GET', 'POST'])
-#@login_required
+@login_required
 def apitest():
-    '''
-    @note: 在登陆状态下只允许管理者进入，否则来到403禁止登陆界面
-    '''
+    """测试API是否连接正常"""
     if request.method == 'POST':
         # 前端获取应用API的名称，然后数据库中获取api应用名称，最后然后通过不同API应用的登录方式去检查是否是正常连接
         check_id = json.loads(request.form.get('data'))["check_id"]

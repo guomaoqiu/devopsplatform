@@ -65,7 +65,7 @@ class PasswordResetForm(FlaskForm):
         if User.query.filter_by(email=field.data).first() is None:
             raise ValidationError('Unknown email address.')
 
-
+# 邮箱重置
 class ChangeEmailForm(FlaskForm):
     email = StringField('New Email', validators=[Required(), Length(1, 64),
                                                  Email()])

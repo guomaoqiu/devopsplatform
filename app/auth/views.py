@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-06 11:12:13
+# @Last Modified time: 2018-03-13 11:33:18
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify
 from . import auth
@@ -17,9 +17,7 @@ from ..email import send_email
 #
 @auth.before_app_request
 def before_request():
-    '''
-    @note: 修饰的函数会在请求处理之前被调用
-    '''
+    """修饰的函数会在请求处理之前被调用"""
     if current_user.is_authenticated:
         current_user.ping()
         if not current_user.confirmed \
@@ -31,10 +29,7 @@ def before_request():
 
 @auth.route('/unconfirmed')
 def unconfirmed():
-    '''
-    
-    @note: 发送确认邮件后登陆未确认
-    '''
+    """发送确认邮件后登陆未确认"""
     if current_user.is_anonymous or current_user.confirmed:
         return redirect(url_for('main.index'))
     return render_template('auth/unconfirmed.html')
@@ -44,9 +39,7 @@ def unconfirmed():
 @auth.route('/confirm/<token>')
 @login_required
 def confirm(token):
-    '''
-    @note: 点击确认邮件链接后
-    '''
+    """点击确认邮件链接后"""
     if current_user.confirmed:
         return redirect(url_for('main.index'))
     if current_user.confirm(token):
@@ -61,9 +54,7 @@ def confirm(token):
 @auth.route('/confirm')
 @login_required
 def resend_confirmation():
-    '''
-    @note: 从新发送确认邮件
-    '''
+    """从新发送确认邮件"""
     token = current_user.generate_confirmation_token()
 
     send_email(current_user.email, 'Confirm Your Account',
@@ -75,9 +66,7 @@ def resend_confirmation():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    '''
-    @note: 用户登录
-    '''
+    """用户登录"""
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first() # 数据库查询
@@ -115,9 +104,7 @@ def login():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    '''
-    @note: 用户注册
-    '''
+    """用户注册"""
     form = RegistrationForm()
     if form.validate_on_submit():
         #检查config.py中定义的公司邮箱后缀名
@@ -139,9 +126,7 @@ def register():
 
 @auth.route('/logout')
 def logout():
-    '''
-    @note: 用户登出
-    '''
+    """用户登出"""
     logout_user()
     flash('logout success...', 'success')
     return redirect(url_for('auth.login'))
@@ -151,9 +136,7 @@ def logout():
 @auth.route('/change-password', methods=['GET', 'POST'])
 @login_required
 def change_password():
-    '''
-    @note: 登录状态更改密码
-    '''
+    """登录状态更改密码"""
     form = ChangePasswordForm()
     if form.validate_on_submit():
         if current_user.verify_password(form.old_password.data):
@@ -169,9 +152,7 @@ def change_password():
 
 @auth.route('/reset', methods=['GET', 'POST'])
 def password_reset_request():
-    '''
-    @note: 发起重置密码请求
-    '''
+    """发起重置密码请求"""
     if not current_user.is_anonymous:
         return redirect(url_for('main.index'))
     form = PasswordResetRequestForm()
@@ -192,9 +173,7 @@ def password_reset_request():
 
 @auth.route('/reset/<token>', methods=['GET', 'POST'])
 def password_reset(token):
-    '''
-    @note: 发起重置密码请求后携带token确认
-    '''
+    """发起重置密码请求后携带token确认"""
     if not current_user.is_anonymous:
         return redirect(url_for('main.index'))
     form = PasswordResetForm()
@@ -215,9 +194,7 @@ def password_reset(token):
 @auth.route('/change-email', methods=['GET', 'POST'])
 @login_required
 def change_email_request():
-    '''
-    @note: 更改邮箱
-    '''
+    """更改邮箱 发送邮件"""
     form = ChangeEmailForm()
     if form.validate_on_submit():
         if current_user.verify_password(form.password.data):
@@ -237,9 +214,7 @@ def change_email_request():
 @auth.route('/change-email/<token>')
 @login_required
 def change_email(token):
-    '''
-    @note: 更改邮箱
-    '''
+    """更改邮箱 token确认"""
     if current_user.change_email(token):
         flash('您的电子邮件地址已更新.','info')
     else:
@@ -251,9 +226,7 @@ def change_email(token):
 @auth.route('/delete_user',methods=['GET', 'POST'])
 @login_required
 def delete_user():
-    '''
-    @note: 删除用户
-    '''
+    """删除用户"""
     if request.method == 'POST':
         check_id = json.loads(request.form.get('data'))['check_id']
         del_user = User.query.filter_by(id=check_id).first()
