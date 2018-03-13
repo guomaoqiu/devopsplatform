@@ -12,9 +12,7 @@ import os
 @salt.route('/saltkeylist',methods=['GET','POST'])
 @login_required
 def saltkeylist():
-    '''
-    @note: 运行salt命令
-    '''
+    """运行salt命令"""
     if request.method == "POST":
         if not ApiMg.query.filter_by(app_name='saltstackapi').first():
             return jsonify({"result": False, "message": u'请确保API信息已录入！'})
@@ -32,11 +30,10 @@ def saltkeylist():
         flash("未能正常连接saltapi,请检查api配置",'danger')
         return render_template('saltstack/saltkey_list.html',data='')
 
-# saltstack minion connection test
 @salt.route('/salt_minion_test',methods=['GET','POST'])
 @login_required
 def salt_minion_test():
-
+    """saltstack minion connection test"""
     if request.method == 'POST':
         key_name = json.loads(request.form.get('data'))['key_name']
         client = SaltApi()
@@ -45,21 +42,11 @@ def salt_minion_test():
             return  jsonify({"result":True,"message":" Minion【%s】连接正常" % key_name })
     return  jsonify({"result":False,"message":"Minion连接异常"})
 
-@salt.route('/deploy',methods=['GET','POST'])
-@login_required
-def deploy():
-    host_list = Hostinfo.query.all()
-    data = []
-    [ data.append(i.to_json()) for i in host_list ]
-    return  render_template('saltstack/soft_deploy.html',data=data)
-
 
 @salt.route('/file_push',methods=['GET','POST'])
 @login_required
 def file_push():
-    '''
-    @note: 文件分发
-    '''
+    """ 文件上传分发 """
     #client = SaltApi()
     #testping = client.saltCmd(params={'client': 'local', 'fun': 'cp.get_file', 'tgt': '*' ,'arg':'salt://file1 /tmp/file1'})
     #print testping
@@ -70,9 +57,7 @@ def file_push():
 @salt.route('/saltcmd/<hostname>',methods=['GET','POST'])
 @login_required
 def saltcmd(hostname):
-    '''
-    @note: 命令执行页面
-    '''
+    """ 返回命令执行页面 """
     if ApiMg.query.filter_by(app_name='saltstackapi').first():
         return render_template('saltstack/saltcmd.html',has_api=True,hostname=hostname)
     else:
@@ -81,9 +66,7 @@ def saltcmd(hostname):
 @salt.route('/run_saltcmd',methods=['GET','POST'])
 @login_required
 def run_saltcmd():
-    '''
-    @note: 命令执行
-    '''
+    """ 命令执行(单个主机) """
     if request.method == "POST":
         cmd=json.loads(request.form.get('data'))['cmd']
         hostname=json.loads(request.form.get('data'))['hostname']
@@ -109,9 +92,7 @@ def run_saltcmd():
 @salt.route('/run_salt_cmd', methods=['GET', 'POST'])
 @login_required
 def run_salt_cmd():
-    '''
-    @note: 批量命令执行
-    '''
+    """批量命令执行(单个/多个主机)"""
     if request.method == "POST":
         t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         cmd = json.loads(request.form.get('data'))['command_arr']
@@ -124,10 +105,7 @@ def run_salt_cmd():
             return jsonify({"result": False, "data": run_cmd, "run_time": t, "message": u'执行失败,请检查API连接是否正常'})
         else:
             return jsonify({"result": True, "data": run_cmd, "run_time": t, "message": u'执行成功'})
-
     host_list = Hostinfo.query.all()
     data = []
     [ data.append(i.to_json()) for i in host_list ]
-
-
     return render_template('saltstack/run_salt_cmd.html', data=data)

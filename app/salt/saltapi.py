@@ -9,11 +9,9 @@ import datetime
 requests.packages.urllib3.disable_warnings()
 
 class SaltApi(object):
-    """docstring for SaltApi"""
+    """ SaltApi类 """
     def __init__(self):
-        '''
-        @note 获取saltapi连接所需的账户密码及url
-        '''
+        """获取saltapi连接所需的账户密码及url"""
         prpcrypt_key = prpcrypt(current_app.config.get('PRPCRYPTO_KEY'))  # 调用crypto 解密
         api_info = ApiMg.query.filter_by(app_name="saltstackapi").all()
 
@@ -27,12 +25,11 @@ class SaltApi(object):
             # 连接ID
             self.__token_id = self.get_saltapi_token()
 
-            print self.__url,self.__user,self.__password,self.__token_id
+            #print self.__url,self.__user,self.__password,self.__token_id
 
-    # 添加api后测试该api是否连接正常
     def login_test(self):
+        """添加api后测试该api是否连接正常"""
         parmes={'eauth': 'pam' ,'username':self.__user,'password':self.__password}
-        #print self.__url,self.__user,self.__password,self.__token_id
         self.__my_headers = {
             'Accept': 'application/json'
         }
@@ -51,10 +48,10 @@ class SaltApi(object):
             return False
 
     def get_saltapi_token(self):
-        '''
+        """
         @note: 登录获取saltapi token
         @summary: 在登录之前查询数据库中的token是否过期(此处6个小时为有效期，配置文件中默认为12个小时)；如果过期则需登录获取，反之直接获取数据库中的
-        '''
+        """
         api_info = ApiMg.query.filter_by(app_name="saltstackapi").first()
         old_api_token = api_info.api_token_res()
         old_token_create_time = int(time.mktime(time.strptime(str(api_info.api_create_time()), '%Y-%m-%d %H:%M:%S')))
@@ -87,9 +84,8 @@ class SaltApi(object):
             old_api_token = api_info.api_token_res()
             return old_api_token
 
-    # run salt cmd
     def saltCmd(self, params):
-        '''执行salt操作'''
+        """执行salt操作"""
         headers = {
             'Accept': 'application/json',
             'X-Auth-Token':  self.__token_id
@@ -100,11 +96,9 @@ class SaltApi(object):
             return req.content
         except Exception, e:
             print e
-    # 获取所有的key
+    
     def all_key(self):
-        '''
-        @note: 获取所有的salt-key
-        '''
+        """获取所有的salt-key"""
         params = {'client': 'wheel', 'fun': 'key.list_all'}
         headers = {
             'Accept': 'application/json',
@@ -121,7 +115,7 @@ class SaltApi(object):
             return e
 
     def get_allhostname(self, params):
-        '''执行salt操作'''
+        """执行salt操作"""
         headers = {
             'Accept': 'application/json',
             'X-Auth-Token':  self.__token_id
@@ -157,9 +151,7 @@ class SaltApi(object):
     #         print e
     #
     def get_minions(self, host):
-        '''
-    	@note: 收集主机minion信息
-    	'''
+        """收集主机minion信息"""
         headers = {
             'Accept': 'application/json',
             'X-Auth-Token': self.__token_id
