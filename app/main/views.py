@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-15 10:10:57
+# @Last Modified time: 2018-03-15 10:13:10
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -149,7 +149,6 @@ def platform_log():
     rumcmdlog = RuncmdLog.query.order_by(desc(RuncmdLog.id)).all()
 
     for each_log in rumcmdlog:
-        print each_log.to_json()['runcmd_time']
         rumcmd_log_data.append(each_log.to_json())
 
     return render_template('platform_log.html',
