@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-15 10:13:10
+# @Last Modified time: 2018-03-15 18:47:28
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -43,6 +43,7 @@ def for_admin_only():
 @login_required
 def index():
     """返回主页内容 """
+    print current_app._get_current_object()
     if not current_user.is_authenticated:
         return redirect('auth/login')
     else:
@@ -156,6 +157,7 @@ def platform_log():
                             rumcmd_log_data=rumcmd_log_data)
 
 ###############################################################################
+
 @main.route('/server_list')
 @login_required
 def server_list():
@@ -393,7 +395,7 @@ def api_manager_del():
 
 ###############################################################################
 @main.route('/apitest', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def apitest():
     """测试API是否连接正常"""
     if request.method == 'POST':

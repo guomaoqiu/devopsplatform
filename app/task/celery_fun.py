@@ -6,7 +6,7 @@ from flask_login import login_required
 from app import celery
 from . import task
 from .. import db
-
+from ..salt.saltapi import SaltApi
 import json, requests
 from celery.schedules import crontab
 from celery.task import periodic_task
@@ -148,7 +148,7 @@ def check_saltapi():
     return r
 
 
-@periodic_task(run_every=2)
+@periodic_task(run_every=20)
 def apitest():
     '''
     @note: 周期性进行数据库的查询操作，后续会作为数据查询过后插入进去的周期性任务计划；
@@ -167,3 +167,48 @@ def apitest():
         print e
 
 
+
+# 邮件发送函数
+from threading import Thread
+from flask import current_app, render_template
+from flask_mail import Message
+
+
+
+import app
+@periodic_task(run_every=2)
+def testzss():
+    print app.app_context()
+    
+
+# from flask import current_app
+# @periodic_task(run_every=2)
+# def check_saltapi():
+#     '''
+#     @note: 周期性进行数据库的查询操作，后续会作为数据查询过后插入进去的周期性任务计划；
+#     主要重点是在工厂函数, 初始化的时候需要加上 db.app = app 这行
+#     '''
+#     #return current_app.name
+#     from flask import app
+#     app = current_app._get_current_object()
+
+#     def send_async_email(app):
+#         with app.app_context():
+#             print  app.name
+
+#     send_async_email(app)        
+    #def send_email(to, subject, template, **kwargs):
+        #pp = current_app._get_current_object()
+        
+    #print current_app._get_current_object()
+   # return 'x'
+    # def check(app):
+    #     with app.app_context():
+    #         print 'xxxxx'
+    # app = current_app.__get_current_object()
+    # check(app)
+    # client = SaltApi()
+    # if client.login_test():
+    #     return "x"
+    # else:
+    #     return "0"
