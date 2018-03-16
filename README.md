@@ -9,7 +9,8 @@
 
 ##### 0. 获取代码
 ```
-
+cd /usr/local/
+git clone git@github.com:guomaoqiu/devopsplatform.git
 ```
 ##### 1.安装依赖包
 ```
@@ -39,7 +40,6 @@ from manager import Role
 Role.insert_roles()
 Role.query.all()
 ```
-
 ##### 5.发布salt grains 获取主机特定或自身的一些属性信息
 ```
 mkdir /srv/salt/_grains/
@@ -67,7 +67,7 @@ ln -sv /usr/local/devopsenv/bin/supervisord /usr/bin/
 ```
 [program:devops]
 command=/usr/local/devopsenv/bin/gunicorn -w 10  -b 127.0.0.1:5000 manager:app --log-file /tmp/gunicorn.log --log-level=debug
-directory=/usr/local/devopsenv
+directory=/usr/local/devopsplatform
 stopwaitsecs=0
 autostart=true
 autorestart=true
