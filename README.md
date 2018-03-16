@@ -8,7 +8,12 @@
 
 ##### 1.安装依赖包
 ```
+yum install -y python-devel python-mysql virtualenv pip
 pip install -r requirements.txt
+
+#创建虚拟环境并且激活
+virtualenv /usr/local/devopsenv
+cd /usr/local/devopsenv && source activate
 ```
 ##### 2.创建数据库时需要指定编码为UTF8;
 ```
