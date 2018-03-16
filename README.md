@@ -73,12 +73,37 @@ autostart=true
 autorestart=true
 stdout_logfile=/var/log/gunicorn.log
 stderr_logfile=/var/log/gunicorn.error
+
+[program:celery]
+command=/usr/local/devopsenv/bin/celery worker -A  manager.celery -l debug 
+directory=/usr/local/devopsplatform
+stdout_logfile=/var/log/supervisor/celeryd_out.log
+stderr_logfile=/var/log/supervisor/celeryd_err.log 
+stdout_logfile_maxbytes=20MB 
+stdout_logfile_backups=20 
+autostart=true 
+autorestart=true
+startsecs=10
 ```
 ##### 10. 通过supervisor来控制
 ```
 supervisord -c /etc/supervisor.conf
 supervisorctl -c /etc/supvisrod.conf status all
 ```
-###### 注意:一般都是通过supervisor来做管理，然后通过Nginx反代Flask服务
+##### 11. nginx 配置(虚拟主机)
+```
+server {
+    listen 80;
+    server_name localhost;
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+    access_log /var/log/devopsplatform_access.log;
+    error_log /var/log/devopsplatform_error.log;
+
+}
+```
 
 
