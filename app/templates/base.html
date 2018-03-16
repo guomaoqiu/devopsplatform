@@ -54,6 +54,7 @@
                             </ul>
                         </div>
                     </li>
+                    
                     <li>  <!-- 默认为主页 -->
                         <a href="{{ url_for('main.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">仪表盘</span></a>
                     </li>
@@ -167,7 +168,7 @@
 {% block scripts %}
 {{ moment.include_moment() }}
 {% endblock %}
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
     <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
     <!-- 消息闪现 -->
