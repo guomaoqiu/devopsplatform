@@ -6,9 +6,14 @@
 4. 通过用户添加/设置IP地址进行访问限制
 5. Celery后台任务执行,周期性任务执行
 
+
+##### 0. 获取代码
+```
+
+```
 ##### 1.安装依赖包
 ```
-yum install -y python-devel python-mysql virtualenv pip
+yum install -y python-devel python-mysql virtualenv pip supervisor
 pip install -r requirements.txt
 
 #创建虚拟环境并且激活
@@ -51,6 +56,28 @@ python manager runserver
 ##### 7.启动后台任务以及周期性任务(-B参数)
 ```
 celery worker -A manager.celery -l info -E -B
+```
+##### 8.生成supervisor配置
+```
+ln -sv /usr/local/devopsenv/bin/supervisorctl /usr/bin/
+ln -sv /usr/local/devopsenv/bin/supervisord /usr/bin/
+/usr/local/devopsenv/bin/echo_supervisord_conf > /etc/supervisor.conf
+```
+##### 9.添加项目配置到/etc/supervisor.conf
+```
+[program:devops]
+command=/usr/local/devopsenv/bin/gunicorn -w 10  -b 127.0.0.1:5000 manager:app --log-file /tmp/gunicorn.log --log-level=debug
+directory=/usr/local/devopsenv
+stopwaitsecs=0
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/gunicorn.log
+stderr_logfile=/var/log/gunicorn.error
+```
+##### 10. 通过supervisor来控制
+```
+supervisord -c /etc/supervisor.conf
+supervisorctl -c /etc/supvisrod.conf status all
 ```
 ###### 注意:一般都是通过supervisor来做管理，然后通过Nginx反代Flask服务
 
