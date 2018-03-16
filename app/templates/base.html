@@ -32,7 +32,9 @@
                           <!-- <img src="{{ url_for('static',filename='opsplatform/img/images.jpeg') }}" width="120"> -->
                           <!-- <img class="img-rounded profile-thumbnail" src="{{ current_user.gravatar(size=256) }}" width="50"> -->
                             <div class="dropdown profile-element">
-                            <span><img alt="image" class="img-circle" src="{{ current_user.gravatar(size=256) }}"  width="135" /></span>
+                             <span><img alt="image" class="img-circle" src="http://blog.sctux.com/wp-content/themes/simple/images/face.png"  width="120" /></span>
+                            
+                            <!-- <span><img alt="image" class="img-circle" src="{{ current_user.gravatar(size=128) }}"  width="100" /></span> -->
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold">{% if current_user.name %}{{ current_user.name }}{% else %}{{ current_user.username }}{% endif %}</strong></span>

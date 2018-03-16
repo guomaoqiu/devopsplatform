@@ -29,8 +29,8 @@ def create_app(config_name):
     config[config_name].init_app(app)
     csrf.init_app(app)
 
-    celery.conf.update(app.config) # 更新 celery 的配置
-
+    # update celery  config
+    celery.conf.update(app.config)
     db.init_app(app)
     db.app = app
     
@@ -40,6 +40,7 @@ def create_app(config_name):
 
 
     login_manager.init_app(app)
+    # create tables
     with app.test_request_context():
         db.create_all()
 
