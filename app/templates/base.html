@@ -32,10 +32,12 @@
                           <!-- <img src="{{ url_for('static',filename='opsplatform/img/images.jpeg') }}" width="120"> -->
                           <!-- <img class="img-rounded profile-thumbnail" src="{{ current_user.gravatar(size=256) }}" width="50"> -->
                             <div class="dropdown profile-element">
-                             {% if current_user.is_administrator()%}
+                             {% if not current_user.is_administrator()%}
                               <span><img alt="image" class="img-circle" src="http://blog.sctux.com/wp-content/themes/simple/images/face.png"  width="120" /></span>
                               {% else %}
-                              <span><img alt="image" class="img-circle" src="{{ current_user.gravatar(size=128) }}"  width="100" /></span>
+                                                        <!-- <img src="{{ url_for('static',filename='opsplatform/img/images.jpeg') }}" width="120"> -->
+
+                              <span><img alt="image" class="img-circle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/TUX-G2-SVG.svg/120px-TUX-G2-SVG.svg.png"  width="100" /></span>
                             {% endif %}
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
@@ -45,7 +47,6 @@
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <!-- <li><a href="" onclick="add_apiinfo()"><i class="fa fa-user"></i> xxxxx</a></li> -->
-
                                 <li><a href="{{ url_for('main.user', username=current_user.username) }}"><i class="fa fa-user"></i>  个人资料</a></li>
                                 <li><a href="{{ url_for('auth.change_password') }}"><i class="fa fa-key"></i>  密码更改</a></li>
                                 <li><a href="{{ url_for('auth.change_email_request') }}"><i class="fa fa-envelope"></i>  邮箱更改</a></li>

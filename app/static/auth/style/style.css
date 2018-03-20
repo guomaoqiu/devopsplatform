@@ -1,7 +1,7 @@
 body{
 	font-size: 12px;
 	line-height: 10px;
-	color: #666;
+	color: #ccc;
 	border-top: 3px solid #eee;
 	background:#343434 url("../img/blur-background08.jpg") no-repeat fixed center; 
 	background-size: cover;
@@ -916,11 +916,11 @@ header .header-data .hdata em{
 /* Widget */
 
 .widget {
-  border: 1px solid #c9c9c9;
+  /*border: 1px solid #c9c9c9;*/
   border-radius: 3px;
   margin-top: 10px;
   margin-bottom: 20px; 
-  background: #fafafa url('../img/cream.png') repeat;
+  /*background: #fafafa url('../img/cream.png') repeat;*/
 }
 
 .widget p{
@@ -991,7 +991,7 @@ header .header-data .hdata em{
 }
 
 .widget .widget-head,.modal-header{
-  background-color: #f8f8f8;
+/*  background-color: #f8f8f8;
   background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f2f2f2));
   background: -webkit-linear-gradient(top, #f8f8f8, #f2f2f2);
   background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
@@ -1002,7 +1002,7 @@ header .header-data .hdata em{
   border-top-left-radius: 3px;
   text-shadow:0px 1px #fff;
   border-bottom: 1px solid #ccc;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #fff;*/
 	color: #666;
 	font-size: 13px;
 	font-weight: bold;
@@ -1043,7 +1043,7 @@ header .header-data .hdata em{
 }
 
 .widget .widget-foot, .modal-footer{
-  background-color: #f8f8f8;
+/*  background-color: #f8f8f8;
   background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f2f2f2));
   background: -webkit-linear-gradient(top, #f8f8f8, #f2f2f2);
   background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
@@ -1058,7 +1058,7 @@ header .header-data .hdata em{
   padding: 8px 15px;
   font-size: 12px;
   color: #555;
-  box-shadow: inset 0px 1px 1px #fff;
+  box-shadow: inset 0px 1px 1px #fff;*/
 }
 
 .widget.wblack .widget-foot{

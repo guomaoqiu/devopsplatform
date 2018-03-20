@@ -29,7 +29,7 @@
                         <div class="ibox-content">
                             <h5>请先上传需要添加主机的文本文件<code>&lt;'hostlist.xls'&gt;</code>格式如下:</h5>
                             <h5>请务必保持文件格式如下所示:</h5><br>
-                            <img src="{{ url_for('static',filename='main/img/add.png') }}" alt="add host example" height="50px">
+                            <img src="{{ url_for('static',filename='main/img/add.png') }}" alt="add host example" >
                             <form action="" method=post enctype=multipart/form-data>
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
