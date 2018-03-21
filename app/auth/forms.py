@@ -12,6 +12,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     #code = StringField('code',)
     #recaptcha = RecaptchaField() # google验证码
+    verify_code = StringField('verify_code', validators=[DataRequired(), Length(6, 6, message=u'填写6位验证码')])
     remember_me = BooleanField('Keep me logged in')
 
     submit = SubmitField('Log In')

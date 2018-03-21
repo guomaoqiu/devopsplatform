@@ -1,0 +1,35 @@
+<form action="{{ url_for('auth.login') }}" method="post" class="form" role="form">
+      {{ form.csrf_token }}
+<div class="form-group ">
+    <label class="control-label" for="email">Email</label>
+            <input class="form-control" id="email" name="email" type="text" value="">
+      </div>  
+  <div class="form-group ">
+          <label class="control-label" for="password">Password</label>
+          <input class="form-control" id="password" name="password" type="password" value="">
+    </div> 
+  <div class="form-group ">
+
+          <label class="control-label" for="verify_code">verify_code</label>
+          <input class="form-control" id="verify_code" name="verify_code" type="text" value="">
+    </div>
+    <div class="form-group required has-feedback pull-left">
+        <label class="sr-only" for="verify_code">验证码</label>
+        <input class="form-control login-input" id="verify_code" name="verify_code" required type="text" placeholder="验证码" value="">
+      </div>
+      <img class="has-feedback pull-left" src="{{ url_for('auth.verify_code') }}">
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck" style="border-radius: 15px">
+            <label style="color: gainsboro">
+              <input type="checkbox" id="remember_me" name="remember_me" value="remember-me"> 保持登录
+            </label>
+          </div>
+        </div>
+    <div class="checkbox">
+      <label>
+        <input id="remember_me" name="remember_me" type="checkbox" value="y"> Keep me logged in
+      </label>
+    </div>
+    <input class="btn btn-default" id="submit" name="submit" type="submit" value="Log In">
+</form>

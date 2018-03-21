@@ -3,13 +3,14 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-21 10:45:34
+# @Last Modified time: 2018-03-21 12:20:25
 
-from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify
+from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
 from ..models import User, LoginLog,AccessIpList
 from .. import db
+from verify_code import create_validate_code
 from flask_login import login_user, logout_user, login_required, current_user
 import time, json
 from ..email import send_email
@@ -25,6 +26,20 @@ def before_request():
                 #and str(request.endpoint) != 'static':
             return redirect(url_for('auth.unconfirmed'))
 
+
+@auth.route('/verify_code/')
+def verify_code():
+    """ 验证码 """
+    from io import BytesIO
+    output = BytesIO()
+    code_img, code_str = create_validate_code()
+    code_img.save(output, 'jpeg')
+    img_data=output.getvalue()
+    output.close()
+    response = make_response(img_data)
+    response.headers['Content-Type'] = 'image/jpg'
+    session['code_text'] = code_str
+    return response
 ###############################################################################
 
 @auth.route('/unconfirmed')
@@ -69,8 +84,10 @@ def login():
     """用户登录"""
     form = LoginForm()
     if form.validate_on_submit():
+        if 'code_text' in session and form.verify_code.data.lower() != session['code_text'].lower():
+            flash(u'验证码错误！','danger')
+            return render_template('auth/login.html',form=form)
         user = User.query.filter_by(email=form.email.data).first() # 数据库查询
-        print request.args.get('next')
 
         access_ip = request.headers.get('X-Forwarded-For',request.remote_addr) # 查库判断登录IP
         # c = AccessIpList.query.filter_by(ip=access_ip).first()
@@ -93,7 +110,7 @@ def login():
             flash("您好，%s。 欢迎登陆xxxxxxx平台！ 您的账户已于%s通过%s地址登录，请注意账号安全，若有异常，及时修改密码!" % (user.username,users.logintime,access_ip),'info')
 
             # 用户每次登录 通知管理员
-            send_email(current_app.config['FLASKY_ADMIN'], '登录通知','auth/email/login_notice',user=user, ip=request.remote_addr, agent=request.user_agent)
+            # send_email(current_app.config['FLASKY_ADMIN'], '登录通知','auth/email/login_notice',user=user, ip=request.remote_addr, agent=request.user_agent)
 
             return redirect(url_for('main.index')) # 如果认证成功则重定向到已认证首页
         else:

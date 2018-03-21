@@ -32,13 +32,41 @@
               </div>
             {% endfor %}
               <div class="widget-head">
-              <center><img src="https://login.salesforce.com/img/logo198.png"  width="200" /></center>
+                  <center><img src="{{ url_for('static',filename='auth/img/logo.png')}}" /></center>
+
+              <!-- <center><img src="https://login.salesforce.com/img/logo198.png"  width="200" /></center> -->
               </div>
               <div class="widget-content">
                 <div class="padd">
                   <!-- Login form -->
-                  {% import "bootstrap/wtf.html" as wtf %}
-                  {{ wtf.quick_form(form) }}
+                    <form action="{{ url_for('auth.login') }}" method="post" class="form" role="form">
+                              {{ form.csrf_token }}
+                        <div class="form-group ">
+                            <label class="control-label" for="email">Email</label>
+                                    <input class="form-control" id="email" name="email" type="text" value="">
+                              </div>  
+                          <div class="form-group ">
+                                  <label class="control-label" for="password">Password</label>
+                                  <input class="form-control" id="password" name="password" type="password" value="">
+                            </div> 
+                          <div class="form-group ">
+                                  <label class="control-label" for="verify_code">verify_code</label>
+                                  <input class="form-control" id="verify_code" name="verify_code" type="text" value="">
+                            </div>
+                              <div class="form-group ">
+                                  <label class="control-label" for="verify_code">验证码:</label>
+                                 <a href="{{ url_for('auth.login') }}"> 
+                                    <img src="{{ url_for('auth.verify_code') }}" href="www.baidu.com">
+                                 </a>
+
+                            </div>
+                            <div class="checkbox">
+                              <label>
+                                <input id="remember_me" name="remember_me" type="checkbox" value="y"> Keep me logged in
+                              </label>
+                            </div>
+                            <input class="btn btn-default" id="submit" name="submit" type="submit" value="Log In">
+                        </form>
                   </div>
                 </div>
                 <hr>
