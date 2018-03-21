@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-21 12:20:25
+# @Last Modified time: 2018-03-21 12:36:23
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -78,17 +78,18 @@ def resend_confirmation():
     return redirect(url_for('main.index'))
 
 ###############################################################################
-
+ 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     """用户登录"""
     form = LoginForm()
     if form.validate_on_submit():
+        # 验证码验证
         if 'code_text' in session and form.verify_code.data.lower() != session['code_text'].lower():
             flash(u'验证码错误！','danger')
             return render_template('auth/login.html',form=form)
-        user = User.query.filter_by(email=form.email.data).first() # 数据库查询
 
+        user = User.query.filter_by(email=form.email.data).first() # 数据库查询
         access_ip = request.headers.get('X-Forwarded-For',request.remote_addr) # 查库判断登录IP
         # c = AccessIpList.query.filter_by(ip=access_ip).first()
         # if c is None or c.ip != access_ip:

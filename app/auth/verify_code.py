@@ -3,7 +3,7 @@
 # @File Name: verify_code.py
 # @Date:   2018-03-21 11:31:25
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-21 12:34:28
+# @Last Modified time: 2018-03-21 12:36:03
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import os
@@ -13,9 +13,6 @@ _letter_cases = "abcdefghijklnmopqrstuvwxyz"
 _upper_cases = _letter_cases.upper()
 _numbers = ''.join(map(str, range(3, 10)))
 init_chars = ''.join((_letter_cases, _upper_cases, _numbers))
-
-
-		
 
 def create_validate_code(size=(130, 30),
                          chars=init_chars,
