@@ -24,7 +24,14 @@
       <div class="col-lg-12">
         <!-- Widget starts -->
             <div class="widget wred">
+                {% for message in get_flashed_messages(with_categories=True) %}
+              <div class="alert alert-{{message[0]}}">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                 {{ message[1] }}
+              </div>
+              {% endfor %}
               <div class="widget-head">
+                <center><img src="https://login.salesforce.com/img/logo198.png"  width="200" /></center>
                 <i class="icon-lock"></i> 用户注册 
               </div>
               <div class="widget-content">
@@ -33,12 +40,8 @@
                 {{ wtf.quick_form(form) }}
                 </div>
               </div>
-            {% for message in get_flashed_messages(with_categories=True) %}
-            <div class="alert alert-{{message[0]}}">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-               {{ message[1] }}
-            </div>
-            {% endfor %}
+        
+            <hr>
                 <div class="widget-foot">
                   Already Registred? <a href="{{url_for('auth.login')}}">Login</a>
                 </div>

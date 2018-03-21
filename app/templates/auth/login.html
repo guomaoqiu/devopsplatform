@@ -41,29 +41,25 @@
                   {{ wtf.quick_form(form) }}
                   </div>
                 </div>
-
-         
-
+                <hr>
                 <div class="widget-foot">
-                    <p>忘记密码? <a href="{{ url_for('auth.password_reset_request') }}">点击重置</a>.</p>
-
-                  <!-- Not Registred? <a href="{{ url_for('auth.register')}}" >Register here</a> -->
-
-                </div>
-            </div>
-            <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" style="color:white">
+                    <p>忘记密码? <a href="{{ url_for('auth.password_reset_request') }}">点击重置</a>. or 
+                    <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" style="color:white">
                                      <i class="fa fa-headphones"></i>  <span style="font-size: small">联系管理员
+
                                          <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" title="">
                                          <img border="0" src="http://wpa.qq.com/pa?p=2:471166308:51">
                                      </a>
                                      </span>
                               </a>
-
+                     </p>
+                  <!-- Not Registred? <a href="{{ url_for('auth.register')}}" >Register here</a> -->
+                </div>
+            </div>
       </div>
     </div>
   </div>
 </div>
-
 <!-- JS -->
 <script src="{{ url_for('static',filename='auth/js/jquery.js') }} "></script>
 <script src="{{ url_for('static',filename='auth/js/bootstrap.js') }} "></script>

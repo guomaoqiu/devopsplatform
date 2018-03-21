@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-20 18:54:47
+# @Last Modified time: 2018-03-21 10:45:34
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify
 from . import auth
@@ -107,19 +107,24 @@ def register():
     """用户注册"""
     form = RegistrationForm()
     if form.validate_on_submit():
-        #检查config.py中定义的公司邮箱后缀名
-        # if current_app.config['COMPANY_MAIL_SUFFIX'] != str(form.email.data).split('@')[1]:
-        #     flash('严禁使用非公司邮箱进行注册操作!', 'danger')
-        #     return render_template('auth/register.html', form=form)
-        user = User(email=form.email.data,
-                    username=form.username.data,
-                    password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        token = user.generate_confirmation_token()
-        send_email(user.email, '账户确认','auth/email/confirm', user=user, token=token)
-        flash('已通过电子邮件向您发送确认电子邮件.','info')
-        return redirect(url_for('auth.login'))
+        if current_app.config["REGISTER"]:
+            #检查config.py中定义的公司邮箱后缀名
+            if current_app.config['COMPANY_MAIL_SUFFIX'] != str(form.email.data).split('@')[1]:
+                flash('严禁使用非公司邮箱进行注册操作!', 'danger')
+                return render_template('auth/register.html', form=form)
+            user = User(email=form.email.data,
+                        username=form.username.data,
+                        password=form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            token = user.generate_confirmation_token()
+            send_email(user.email, '账户确认','auth/email/confirm', user=user, token=token)
+            flash('已通过电子邮件向您发送确认电子邮件.','info')
+            return redirect(url_for('auth.login'))
+        else:
+            flash('注册功能已暂时关闭...','danger')
+            return redirect(url_for('auth.register'))
+    flash('注册功能已暂时关闭...','danger')
     return render_template('auth/register.html', form=form)
 
 ###############################################################################
