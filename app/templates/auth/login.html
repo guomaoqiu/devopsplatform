@@ -53,10 +53,12 @@
                                   <input class="form-control" id="verify_code" name="verify_code" type="text" value="">
                             </div>
                               <div class="form-group ">
-                                  <label class="control-label" for="verify_code">验证码:</label>
-                                 <a href="{{ url_for('auth.login') }}"> 
-                                    <img src="{{ url_for('auth.verify_code') }}" href="www.baidu.com">
-                                 </a>
+                                  <!-- <label class="control-label" for="verify_code">验证码:</label> -->
+                                 <!-- <a onclick=test()>  -->
+                                    <input type=image onclick="ImgClick();" border="0" src="{{ url_for('auth.verify_code') }}">
+
+                                    <!-- <img src="{{ url_for('auth.verify_code') }}" onclick=test() href="www.baidu.com"> -->
+                                 <!-- </a> -->
                             </div>
                             <div class="checkbox">
                               <label>
@@ -87,8 +89,9 @@
   </div>
 </div>
 <!-- JS -->
-<script src="{{  url_for('static',filename='opsplatform/js/sweetalert.min.js') }}"></script>
+<script src="{{ url_for('static',filename='auth/js/bootstrap.js') }} "></script>
 <script src="{{ url_for('static',filename='auth/js/jquery.js') }} "></script>
+<script src="{{  url_for('static',filename='opsplatform/js/sweetalert.min.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
 <script>
    if ({{ flag }} == 1) {
@@ -97,10 +100,35 @@
     function error(){
       layer.msg('验证码不正确', {
         offset: 't',
-        anim: 6
+        anim: 6,
+        icon: 5
       }
       );
 }
 </script>
+<script>
+   if ({{ flag }} == 2) {
+      error();
+    }
+    function error(){
+      layer.msg('登录验证失败或用户信息不存在!', {
+        offset: '',
+        anim: 6,
+        icon: 5
+      }
+      );
+}
+</script>
+<!-- <script>
+   // if ({{ flag }} == 0) {
+      error();
+    // }
+    function error(){
+      layer.msg("默认账号密码: admin@123.com/admin");
+}
+</script> -->
+
+
 </body>
 </html>
+http://127.0.0.1:5000/static/opsplatform/js/skin/default/layer.css?v=3.0.3303

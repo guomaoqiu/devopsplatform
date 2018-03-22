@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-22 16:25:00
+# @Last Modified time: 2018-03-22 18:31:59
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -116,7 +116,8 @@ def login():
 
             return redirect(url_for('main.index')) # 如果认证成功则重定向到已认证首页
         else:
-            flash(u'登录验证失败或用户信息不存在，请检查帐号密码是否正确!','danger')    # 如果认证错误则flash一条消息过去
+            # flash(u'登录验证失败或用户信息不存在!','danger')    # 如果认证错误则flash一条消息过去
+            return render_template('auth/login.html',form=form,flag=2)
     return render_template('auth/login.html',form=form,flag=0)
 
 ###############################################################################
