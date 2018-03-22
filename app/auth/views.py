@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-21 13:49:13
+# @Last Modified time: 2018-03-22 16:25:00
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -25,7 +25,7 @@ def before_request():
                 and str(request.endpoint[:5]) != 'auth.':
                 #and str(request.endpoint) != 'static':
             return redirect(url_for('auth.unconfirmed'))
-
+###############################################################################
 
 @auth.route('/verify_code/')
 def verify_code():
@@ -40,6 +40,7 @@ def verify_code():
     response.headers['Content-Type'] = 'image/jpg'
     session['code_text'] = code_str
     return response
+
 ###############################################################################
 
 @auth.route('/unconfirmed')
@@ -86,8 +87,8 @@ def login():
     if form.validate_on_submit():
         # 验证码验证
         if 'code_text' in session and form.verify_code.data.lower() != session['code_text'].lower():
-            flash(u'验证码错误！','danger')
-            return render_template('auth/login.html',form=form)
+            # flash(u'验证码错误！','danger')
+            return render_template('auth/login.html',form=form,flag=1)
 
         user = User.query.filter_by(email=form.email.data).first() # 数据库查询
         access_ip = request.headers.get('X-Forwarded-For',request.remote_addr) # 查库判断登录IP
@@ -116,7 +117,7 @@ def login():
             return redirect(url_for('main.index')) # 如果认证成功则重定向到已认证首页
         else:
             flash(u'登录验证失败或用户信息不存在，请检查帐号密码是否正确!','danger')    # 如果认证错误则flash一条消息过去
-    return render_template('auth/login.html',form=form)
+    return render_template('auth/login.html',form=form,flag=0)
 
 ###############################################################################
 
