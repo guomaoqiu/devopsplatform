@@ -84,7 +84,7 @@
                           <li><a href="{{ url_for('zabbix.zabbixdel') }}">Zabbix Server删除</a></li>
                       </ul>
                    </li>
-                {% if current_user.is_administrator() %}
+
                    <!-- 
                     <li>
                         <a href=""><i class="fa fa-wrench"></i> <span class="nav-label">CBT日常操作</span><span class="fa arrow"></span></a>
@@ -104,9 +104,7 @@
                         <a href="{{ url_for('main.editor') }}"><i class="fa fa-film"></i> <span class="nav-label">文件编辑</span></a>
                     </li>
                      -->
-                    {%endif%}
 
-                    
                     
                     <li>
                         <a href="{{ url_for('main.platform_log') }}"><i class="fa fa-film"></i> <span class="nav-label">平台日志</span></a>
@@ -122,6 +120,8 @@
                             <li><a href="{{ url_for('main.access_iplist')}}"><i class="fa fa-bullseye"></i> <span class="nav-label">访问控制列表</span></a></li>
                        </ul>
                     </li>
+                                        {% if current_user.is_administrator() %}
+
                     {%endif%}
                          <li>
                       <a href=""><i class="fa fa-ioxhost"></i> <span class="nav-label">示例页面</span></span><span class="fa arrow"></span></a>
