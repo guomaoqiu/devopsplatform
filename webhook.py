@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify,abort
 import git, os
 
 # 远程服务器代码地址
-code_dir = "./devopsplatform"
+code_dir = "./"
 
 # 远程仓库地址
 git_url = "git@github.com:guomaoqiu/devopsplatform.git"
