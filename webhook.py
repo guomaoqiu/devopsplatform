@@ -16,12 +16,13 @@ restart_services = os.system("systemctl restart supervisord")
 
 @app.route('/pullcode', methods=['POST'])
 def pullcode():
-    
+
     # 只允许指定服务器向Flask应用发起POST请求，否则直接返回403
     #if request.headers.get('X-Forwarded-For', request.remote_addr) not in allow_ip:
     #    return abort(403)
 
     if request.method == 'POST':
+        print request.headers
         if os.path.isdir(code_dir):
             local_repo = git.Repo(code_dir)
             try:
