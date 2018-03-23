@@ -117,13 +117,18 @@
       );
 }
 </script>
-<!-- <script>
+<script>
    // if ({{ flag }} == 0) {
-      error();
+      notice();
     // }
-    function error(){
-      layer.msg("默认账号密码: admin@123.com/admin");
+    function notice(){
+      layer.msg("默认账号密码: admin@123.com/admin", {
+        offset: 't',
+        anim: 6,
+        icon: 5
+        }
+        );
 }
-</script> -->
+</script>
 </body>
 </html>
