@@ -7,10 +7,8 @@ code_dir = "./"
 
 # 远程仓库地址
 git_url = "git@github.com:guomaoqiu/devopsplatform.git"
-
 #白名单
 #allow_ip=[""]
-
 app = Flask(__name__)
 
 #重启服务
