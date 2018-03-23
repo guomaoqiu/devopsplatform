@@ -3,7 +3,7 @@
 # @File Name: verify_code.py
 # @Date:   2018-03-21 11:31:25
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-21 12:36:03
+# @Last Modified time: 2018-03-23 10:11:24
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import os
@@ -14,18 +14,18 @@ _upper_cases = _letter_cases.upper()
 _numbers = ''.join(map(str, range(3, 10)))
 init_chars = ''.join((_letter_cases, _upper_cases, _numbers))
 
-def create_validate_code(size=(130, 30),
+def create_validate_code(size=(120, 30),
                          chars=init_chars,
                          img_type="GIF",
                          mode="RGB",
-                         bg_color=(120, 120, 120),
-                         fg_color=(0, 0, 255),
+                         bg_color=(150, 150, 150),
+                         fg_color=(255, 255, 255),
                          font_size=18,
                          font_type=FONT_FILE_PATH,
                          length=6,
                          draw_lines=True,
                          n_line=(1, 2),
-                         draw_points=True,
+                         draw_points=False,
                          point_chance=2):
     """
     @todo: 生成验证码图片

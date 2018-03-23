@@ -55,9 +55,10 @@
                               <div class="form-group ">
                                   <!-- <label class="control-label" for="verify_code">验证码:</label> -->
                                  <!-- <a onclick=test()>  -->
-                                    <input type=image onclick="ImgClick();" border="0" src="{{ url_for('auth.verify_code') }}">
+                                    <!-- <input type=image onclick="ImgClick();" border="0" src="{{ url_for('auth.verify_code') }}"> -->
 
-                                    <!-- <img src="{{ url_for('auth.verify_code') }}" onclick=test() href="www.baidu.com"> -->
+                                    <img src="{{ url_for('auth.verify_code') }}" onclick=test() href="www.baidu.com">
+                                    <button>dds</button>
                                  <!-- </a> -->
                             </div>
                             <div class="checkbox">
@@ -89,8 +90,9 @@
   </div>
 </div>
 <!-- JS -->
-<script src="{{ url_for('static',filename='auth/js/bootstrap.js') }} "></script>
+
 <script src="{{ url_for('static',filename='auth/js/jquery.js') }} "></script>
+<script src="{{ url_for('static',filename='auth/js/bootstrap.js') }} "></script>
 <script src="{{  url_for('static',filename='opsplatform/js/sweetalert.min.js') }}"></script>
 <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
 <script>
@@ -127,8 +129,5 @@
       layer.msg("默认账号密码: admin@123.com/admin");
 }
 </script> -->
-
-
 </body>
 </html>
-http://127.0.0.1:5000/static/opsplatform/js/skin/default/layer.css?v=3.0.3303

@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-20 11:52:13
+# @Last Modified time: 2018-03-22 18:38:52
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -34,8 +34,7 @@ def vue():
     """在登陆状态下只允许管理者进入，否则来到403禁止界面"""
     return render_template('vue.html')
 
-
-
+###############################################################################
 
 @main.route('/admin')
 @login_required
@@ -79,6 +78,7 @@ def page_404():
         return redirect('auth/login')
     else:
         return render_template('404.html')  
+        
 ###############################################################################
 
 @main.route('/page_500')
