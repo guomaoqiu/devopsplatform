@@ -23,7 +23,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="wrapper wrapper-content animated fadeInRight">
-                        <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}">
+                           {% if not current_user.is_administrator()%}
+                              <span><img alt="image" class="img-circle" src="http://blog.sctux.com/wp-content/themes/simple/images/face.png"  width="120" /></span>
+                              {% else %}
+                                                        <!-- <img src="{{ url_for('static',filename='opsplatform/img/images.jpeg') }}" width="120"> -->
+
+                              <span><img alt="image" class="img-circle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/TUX-G2-SVG.svg/120px-TUX-G2-SVG.svg.png"  width="100" /></span>
+                            {% endif %}
                         <div class="profile-header"><br>
                             <!-- <p>Name: <a>{{ user.username }}</a></p> -->
                             <!-- <h1>Name: {{ user.username }}</h1> -->
