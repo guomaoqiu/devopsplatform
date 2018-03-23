@@ -9,7 +9,8 @@ code_dir = "./"
 git_url = "git@github.com:guomaoqiu/devopsplatform.git"
 #白名单
 #allow_ip=[""]
-
+app = Flask(__name__)
+  # 
 #重启服务
 #sss
 restart_services = os.system("systemctl restart supervisord")
@@ -22,6 +23,7 @@ def pullcode():
     #    return abort(403)
 
     if request.method == 'POST':
+        print request.headers
         if os.path.isdir(code_dir):
             local_repo = git.Repo(code_dir)
             try:
