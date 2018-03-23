@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 # 依赖包: pip install flask gitpython
-
 from flask import Flask, request, jsonify,abort
 import git, os
-
 # 远程服务器代码地址
 code_dir = "./"
 
