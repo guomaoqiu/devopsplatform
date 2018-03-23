@@ -14,7 +14,7 @@ git clone git@github.com:guomaoqiu/devopsplatform.git
 ```
 ##### 1.安装依赖包
 ```
-yum install -y python-devel python-mysql virtualenv pip supervisor
+yum install -y python-devel python-mysql virtualenv pip supervisor 
 pip install -r requirements.txt
 
 #创建虚拟环境并且激活

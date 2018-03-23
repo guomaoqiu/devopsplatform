@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-22 18:31:59
+# @Last Modified time: 2018-03-23 15:37:46
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -144,7 +144,7 @@ def register():
         else:
             flash('注册功能已暂时关闭...','danger')
             return redirect(url_for('auth.register'))
-    flash('注册功能已暂时关闭...','danger')
+    # flash('注册功能已暂时关闭...','danger')
     return render_template('auth/register.html', form=form)
 
 ###############################################################################
