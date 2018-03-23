@@ -84,7 +84,7 @@
                           <li><a href="{{ url_for('zabbix.zabbixdel') }}">Zabbix Server删除</a></li>
                       </ul>
                    </li>
-                  {% if current_user.is_administrator() %}
+                {% if current_user.is_administrator() %}
                    <!-- 
                     <li>
                         <a href=""><i class="fa fa-wrench"></i> <span class="nav-label">CBT日常操作</span><span class="fa arrow"></span></a>
@@ -104,6 +104,7 @@
                         <a href="{{ url_for('main.editor') }}"><i class="fa fa-film"></i> <span class="nav-label">文件编辑</span></a>
                     </li>
                      -->
+                    {%endif%}
 
                     
                     
