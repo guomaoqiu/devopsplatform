@@ -12,6 +12,7 @@ git_url = "git@github.com:guomaoqiu/devopsplatform.git"
 app = Flask(__name__)
   # 
 #重启服务
+#sss
 restart_services = os.system("systemctl restart supervisord")
 
 @app.route('/pullcode', methods=['POST'])
