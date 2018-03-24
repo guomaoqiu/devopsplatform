@@ -3,16 +3,17 @@
 from flask import Flask, request, jsonify,abort
 import git, os
 # 远程服务器代码地址
-code_dir = "/usr/local/devopsplatform"
+code_dir = "./"
 
 # 远程仓库地址
 git_url = "git@github.com:guomaoqiu/devopsplatform.git"
 #白名单
 #allow_ip=[""]
 app = Flask(__name__)
-
-def reload_serivces():
-    os.system("/usr/bin/supervisorctl -c /etc/supervisord.conf restart ops")
+  # 
+#重启服务
+#sss
+restart_services = os.system("systemctl restart supervisord")
 
 @app.route('/pullcode', methods=['POST'])
 def pullcode():
@@ -22,13 +23,13 @@ def pullcode():
     #    return abort(403)
 
     if request.method == 'POST':
-        # print request.headers
+        print request.headers
         if os.path.isdir(code_dir):
             local_repo = git.Repo(code_dir)
             try:
                 print local_repo.git.pull()
                 # 重新加载代码、重启服务
-                print restart_services()
+                restart_services
                 return jsonify({"result":True,"message":"pull success"})
             except Exception,e:
                 return jsonify({"result":False,"message": "pull faild".format(e)})
