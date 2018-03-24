@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-24 11:13:32
+# @Last Modified time: 2018-03-24 14:32:21
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -99,6 +99,7 @@ def login():
 
         if user is not None and user.verify_password(form.password.data): # 用户是否存在以及是否正确
             login_user(user,form.remember_me.data) # 记住我功能，bool值
+            print form.remember_me.data
             # 记录登陆日志
             users = LoginLog()
             #print user.username # 用户

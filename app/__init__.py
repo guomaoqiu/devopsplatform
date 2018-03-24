@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask
+from flask import Flask, session
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 from flask_moment import Moment
@@ -9,6 +9,7 @@ from config import config
 from config import CeleryConfig
 from celery import Celery
 from flask_wtf.csrf import CSRFProtect
+from datetime import timedelta
 
 app = Flask(__name__)
 
@@ -38,6 +39,10 @@ login_manager.login_message_category = "info"
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
+    #session超时5分钟
+    app.permanent_session_lifetime = timedelta(minutes=5)
+
     config[config_name].init_app(app)
     csrf.init_app(app)
 

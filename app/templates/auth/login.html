@@ -18,7 +18,6 @@
 <!-- Form area -->
 <div class="admin-form">
   <div class="container">
-
     <div class="row">
       <div class="col-md-12">
         <!-- Widget starts -->
@@ -47,42 +46,46 @@
                                   <input class="form-control" id="password" name="password" type="password" value="" placeholder="密码">
                             </div> 
                           <div class="form-group ">
-                                  <input class="form-control" id="verify_code" name="verify_code" type="text" value="" placeholder="验证码">
+                                  <input class="form-control" id="verify_code" name="verify_code" type="text" value="" placeholder="验证码"> <img src="{{ url_for('auth.verify_code') }}">
                             </div>
                               <div class="form-group ">
-                                  <!-- <label class="control-label" for="verify_code">验证码:</label> -->
-                                 <!-- <a onclick=test()>  -->
-                                    <!-- <input type=image onclick="ImgClick();" border="0" src="{{ url_for('auth.verify_code') }}"> -->
-                                    <img src="{{ url_for('auth.verify_code') }}" onclick=test() href="www.baidu.com">
-                                 <!-- </a> -->
-                            </div>
                             <div class="checkbox">
                               <label>
                                 <input id="remember_me" name="remember_me" type="checkbox" value="y"> 
                               </label>
                             </div>
                             <input class="btn btn-default" id="submit" name="submit" type="submit" value="Log In">
+                            </div>
                         </form>
+
+                        <div class="widget-foot">
+                          <span style="font-size: small" >
+                          忘记密码? <a href="{{ url_for('auth.password_reset_request') }}">点击重置</a>. or 
+                            <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" style="color:white">
+                              <i class="fa fa-headphones"></i>
+                              </a>联系管理员
+                             <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" title="">
+                              <img border="0" src="http://wpa.qq.com/pa?p=2:471166308:51">
+                            </a>    
+                          </span>
+                        </div>
+                        <hr>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <hr>
-                <div class="widget-foot">
-                    <p>忘记密码? <a href="{{ url_for('auth.password_reset_request') }}">点击重置</a>. or 
-                    <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" style="color:white">
-                                     <i class="fa fa-headphones"></i>  <span style="font-size: small">联系管理员
-                                         <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" title="">
-                                         <img border="0" src="http://wpa.qq.com/pa?p=2:471166308:51">
-                                     </a>
-                                     </span>
-                              </a>
-                     </p>
-                  <!-- Not Registred? <a href="{{ url_for('auth.register')}}" >Register here</a> -->
-                </div>
-            </div>
+              </div>
+            <div class="footer">
+              <span style="font-size: small" >
+                  <div class="pull-right">  运维平台  ---  © 2018 - 2019 版权所有
+                      <a href="http://blog.sctux.com/" target="_blank">OutMan</a>
+                  </div>
+              </span>
       </div>
     </div>
   </div>
-</div>
+</body>
+
 <!-- JS -->
 
 <script src="{{ url_for('static',filename='auth/js/jquery.js') }} "></script>
