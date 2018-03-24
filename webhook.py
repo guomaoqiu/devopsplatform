@@ -13,7 +13,7 @@ app = Flask(__name__)
   # 
 #重启服务
 #sss
-restart_services = os.system("systemctl restart supervisord")
+restart_services = os.system("/usr/bin/supervisorctl  -c /etc/supervisord.conf restart ops")
 
 @app.route('/pullcode', methods=['POST'])
 def pullcode():
@@ -23,7 +23,7 @@ def pullcode():
     #    return abort(403)
 
     if request.method == 'POST':
-        print request.headers
+        # print request.headers
         if os.path.isdir(code_dir):
             local_repo = git.Repo(code_dir)
             try:
