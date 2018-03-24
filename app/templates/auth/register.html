@@ -21,7 +21,7 @@
 <div class="admin-form">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-10">
         <!-- Widget starts -->
             <div class="widget wred">
                 {% for message in get_flashed_messages(with_categories=True) %}
@@ -32,15 +32,31 @@
               {% endfor %}
               <div class="widget-head">
                 <center><img src="{{ url_for('static',filename='auth/img/logo.png')}}" /></center>
-                <i class="icon-lock"></i> 用户注册 
+                <!-- <i class="icon-lock"></i> 用户注册  -->
               </div>
               <div class="widget-content">
-                <div class="padd">
-                {% import "bootstrap/wtf.html" as wtf %}
-                {{ wtf.quick_form(form) }}
-                </div>
+                <!-- <form method="post" class="form" role="form"> -->
+                <form action="{{ url_for('auth.register') }}" method="post" class="form" role="form">
+                              {{ form.csrf_token }}
+                      <div class="form-group ">
+                      <!-- <label class="control-label" for="email">Email</label> -->
+                              <input class="form-control" id="email" name="email" type="text" value="" placeholder="邮箱地址">
+                        </div>
+                      <div class="form-group ">
+                      <!-- <label class="control-label" for="username">Username</label> -->
+                              <input class="form-control" id="username" name="username" type="text" value="" placeholder="用户名">
+                        </div>
+                      <div class="form-group ">
+                      <!-- <label class="control-label" for="password">Password</label> -->
+                              <input class="form-control" id="password" name="password" type="password" value="" placeholder="密码">
+                        </div>
+                      <div class="form-group ">
+                      <!-- <label class="control-label" for="password2">Confirm password</label> -->
+                              <input class="form-control" id="password2" name="password2" type="password" value="" placeholder="密码确认">
+                        </div>
+                          <input class="btn btn-default" id="submit" name="submit" type="submit" value="注册">
+                      </form>
               </div>
-        
             <hr>
                 <div class="widget-foot">
                   Already Registred? <a href="{{url_for('auth.login')}}">Login</a>
@@ -62,9 +78,23 @@
    if ({{ flag }} == 0) {
       error();
     }
+    else {
+      notice();
+
+    }
+
+    function notice(){
+      layer.msg('注册功能已开放', {
+        offset: 't',
+        anim: 6,
+        icon: 6
+      }
+      );
+    }
+
     function error(){
       layer.msg('注册功能已暂时关闭', {
-        offset: '',
+        offset: 't',
         anim: 6,
         icon: 5
       }

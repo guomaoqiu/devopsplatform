@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-24 11:04:04
+# @Last Modified time: 2018-03-24 11:13:32
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -118,6 +118,7 @@ def login():
         else:
             # flash(u'登录验证失败或用户信息不存在!','danger')    # 如果认证错误则flash一条消息过去
             return render_template('auth/login.html',form=form,flag=2)
+
     return render_template('auth/login.html',form=form,flag=0)
 
 ###############################################################################
@@ -143,7 +144,7 @@ def register():
             flash('已通过电子邮件向您发送确认电子邮件.','info')
             return redirect(url_for('auth.login'))
         else:
-            return render_template('auth/register.html', form=form,flag=None)
+            return render_template('auth/register.html', form=form,flag=2)
     else:
         return render_template('auth/register.html', form=form,flag=0)
           
