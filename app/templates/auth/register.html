@@ -56,5 +56,16 @@
 <!-- JS -->
 <script src="{{ url_for('static',filename='auth/js/jquery.js') }} "></script>
 <script src="{{ url_for('static',filename='auth/js/bootstrap.js') }} "></script>
+<script>
+    notice();
+    function notice(){
+      layer.msg("账号注册功能已展示关闭", {
+        offset: 'a',
+        anim: 6,
+        icon: 6
+        }
+        );
+}
+</script>
 </body>
 </html>
