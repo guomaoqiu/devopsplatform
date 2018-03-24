@@ -66,8 +66,6 @@
                   </div>
                 </div>
                 <hr>
-                demo 默认账号密码: admin@qq.com/admin 
-                <hr>
                 <div class="widget-foot">
                     <p>忘记密码? <a href="{{ url_for('auth.password_reset_request') }}">点击重置</a>. or 
                     <a href="tencent://message/?uin=2399447849$Site=&amp;Menu=yes" style="color:white">
@@ -111,7 +109,7 @@
     }
     function error(){
       layer.msg('登录验证失败或用户信息不存在!', {
-        offset: '',
+        offset: 't',
         anim: 6,
         icon: 5
       }
