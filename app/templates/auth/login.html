@@ -41,10 +41,10 @@
                     <form action="{{ url_for('auth.login') }}" method="post" class="form" role="form">
                               {{ form.csrf_token }}
                         <div class="form-group ">
-                                    <input class="form-control" id="email" name="email" type="text" value="" placeholder="邮箱地址">
+                                    <input class="form-control" id="email" name="email" type="text" value="admin@qq.com" placeholder="邮箱地址">
                               </div>  
                           <div class="form-group ">
-                                  <input class="form-control" id="password" name="password" type="password" value="" placeholder="密码">
+                                  <input class="form-control" id="password" name="password" type="password" value="admin" placeholder="密码">
                             </div> 
                           <div class="form-group ">
                                   <input class="form-control" id="verify_code" name="verify_code" type="text" value="" placeholder="验证码">
