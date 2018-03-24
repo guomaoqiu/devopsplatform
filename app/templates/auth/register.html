@@ -56,13 +56,15 @@
 <!-- JS -->
 <script src="{{ url_for('static',filename='auth/js/jquery.js') }} "></script>
 <script src="{{ url_for('static',filename='auth/js/bootstrap.js') }} "></script>
+<script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
+
 <script>
     notice();
     function notice(){
       layer.msg("账号注册功能已暂时关闭", {
-        offset: 'a',
+        offset: 't',
         anim: 6,
-        icon: 6
+        icon: 2
         }
         );
 }

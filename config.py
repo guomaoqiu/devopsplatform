@@ -2,8 +2,8 @@
 # @Author: guomaoqiu
 # @File Name: config.py
 # @Date:   2018-02-28 11:57:30
-# @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-23 16:33:56
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-03-24 10:49:35
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import timedelta
@@ -24,7 +24,7 @@ class Config:
     # 公司邮箱域名后缀，限制只能公司域名才能注册
     COMPANY_MAIL_SUFFIX='moefantasy.com'
     # 用户注册功能开关: True:可注册；False: 关闭注册
-    REGISTER = False
+    REGISTER = True
     
     # send mail
     MAIL_SERVER = 'smtp.qq.com'
