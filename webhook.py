@@ -13,7 +13,9 @@ app = Flask(__name__)
   # 
 #重启服务
 #sss
-restart_services = os.system("/usr/bin/supervisorctl  -c /etc/supervisord.conf restart ops")
+
+def reload_serivces():
+    os.system("/usr/bin/supervisorctl  -c /etc/supervisord.conf restart ops")
 
 @app.route('/pullcode', methods=['POST'])
 def pullcode():
@@ -29,7 +31,7 @@ def pullcode():
             try:
                 print local_repo.git.pull()
                 # 重新加载代码、重启服务
-                restart_services
+                print restart_services()
                 return jsonify({"result":True,"message":"pull success"})
             except Exception,e:
                 return jsonify({"result":False,"message": "pull faild".format(e)})
