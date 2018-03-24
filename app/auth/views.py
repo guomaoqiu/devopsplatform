@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-24 11:02:53
+# @Last Modified time: 2018-03-24 11:04:04
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -143,7 +143,7 @@ def register():
             flash('已通过电子邮件向您发送确认电子邮件.','info')
             return redirect(url_for('auth.login'))
         else:
-            return render_template('auth/register.html', form=form)
+            return render_template('auth/register.html', form=form,flag=None)
     else:
         return render_template('auth/register.html', form=form,flag=0)
           
