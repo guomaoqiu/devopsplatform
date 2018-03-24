@@ -20,6 +20,7 @@ def reload_serivces():
 @app.route('/pullcode', methods=['POST'])
 def pullcode():
 
+
     # 只允许指定服务器向Flask应用发起POST请求，否则直接返回403
     #if request.headers.get('X-Forwarded-For', request.remote_addr) not in allow_ip:
     #    return abort(403)
