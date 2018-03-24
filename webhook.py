@@ -10,9 +10,6 @@ git_url = "git@github.com:guomaoqiu/devopsplatform.git"
 #白名单
 #allow_ip=[""]
 app = Flask(__name__)
-  # 
-#重启服务
-#sss
 
 def reload_serivces():
     os.system("/usr/bin/supervisorctl -c /etc/supervisord.conf restart ops")
