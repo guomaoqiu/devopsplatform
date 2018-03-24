@@ -15,7 +15,7 @@ app = Flask(__name__)
 #sss
 
 def reload_serivces():
-    os.system("/usr/bin/supervisorctl  -c /etc/supervisord.conf restart ops")
+    os.system("/usr/bin/supervisorctl -c /etc/supervisord.conf restart ops")
 
 @app.route('/pullcode', methods=['POST'])
 def pullcode():
