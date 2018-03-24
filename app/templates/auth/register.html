@@ -59,14 +59,16 @@
 <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
 
 <script>
-    notice();
-    function notice(){
-      layer.msg("账号注册功能已暂时关闭", {
-        offset: 't',
+   if ({{ flag }} == 0) {
+      error();
+    }
+    function error(){
+      layer.msg('注册功能已暂时关闭', {
+        offset: '',
         anim: 6,
-        icon: 2
-        }
-        );
+        icon: 5
+      }
+      );
 }
 </script>
 </body>
