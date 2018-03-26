@@ -124,7 +124,7 @@ class SaltApi(object):
 
         try:
             req = requests.post(self.__url,data=params,headers=headers,verify=False,timeout=5)
-
+            print req.content
             return req.content
         except Exception, e:
             print e
