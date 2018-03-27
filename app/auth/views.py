@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-27 14:02:50
+# @Last Modified time: 2018-03-27 15:50:29
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -14,8 +14,6 @@ from verify_code import create_validate_code
 from flask_login import login_user, logout_user, login_required, current_user
 import time, json
 from ..email import send_email
-
-
 
 ###############################################################################
 # #
@@ -29,6 +27,7 @@ from ..email import send_email
 #                 and str(request.endpoint[:5]) != 'auth.':
 #                 #and str(request.endpoint) != 'static':
 #             return redirect(url_for('auth.unconfirmed'))
+
 ###############################################################################
 
 @auth.route('/verify_code/')
@@ -82,15 +81,6 @@ def resend_confirmation():
     return redirect(url_for('main.index'))
 
 ###############################################################################
-  
-@auth.route('/check_user_status')
-def check_user_status():
-    if "key" in session:
-    # print session['key']
-    # if 'username' in session:
-        return jsonify({"result":True, "msg": "登录态正常"})
-    else:
-        return jsonify({"result":False, "msg": "未登录"})
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
