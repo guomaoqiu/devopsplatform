@@ -1,6 +1,17 @@
 <link href="{{ url_for('static',filename='auth/style/bootstrap.css') }}" rel="stylesheet">
 <script src="{{  url_for('static',filename='opsplatform/js/bootstrap.min.js') }}"></script>
 <div class="col-md-2">
-    {% import "bootstrap/wtf.html" as wtf %}
-    {{ wtf.quick_form(form) }}
+    <form method="post" class="form" role="form">
+    {{ form.csrf_token }}
+    <div class="form-group ">
+            <input class="form-control" id="email" name="email" type="text" value="" placeholder="您的邮箱">
+      </div>
+    <div class="form-group ">
+            <input class="form-control" id="username" name="username" type="text" value="" placeholder="您的名字">
+      </div>
+    <div class="form-group ">
+            <input class="form-control" id="company" name="company" type="text" value="" placeholder="您所在公司">
+      </div>
+        <input class="btn btn-success" id="submit" name="submit" type="submit" value="提交您的信息">
+    </form>
 </div>
