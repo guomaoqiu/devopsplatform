@@ -24,6 +24,7 @@ def pullcode():
             local_repo = git.Repo(code_dir)
             try:
                 print local_repo.git.pull()
+                print local_repo.git.log()
                 # 重新加载代码、重启服务
                 restart_services
                 return jsonify({"result":True,"message":"pull success"})
@@ -34,8 +35,8 @@ def pullcode():
                 print git.Repo.clone_from(url=git_url, to_path=code_dir)
                 # 重新加载代码、重启服务
                 restart_services
-                return jsonify({"result":True,"message":"clone success"})
+                return jsonify({"result":True,"message":"clone success","commit_id":commit_id})
             except Exception, e:
-                return jsonify({"result":False,"message": "clone faild".format(e)})
+                return jsonify({"result":False,"message": "clone faild".format(e),"commit_id":commit_id})
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5002)
