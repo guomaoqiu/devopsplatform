@@ -10,6 +10,7 @@
   <link href="{{ url_for('static',filename='auth/style/bootstrap.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static',filename='auth/style/font-awesome.css') }}">
   <link href="{{ url_for('static',filename='auth/style/style.css') }} " rel="stylesheet">
+
   <!-- Favicon -->
 
   <link rel="shortcut icon" href="{{ url_for('static',filename='auth/img/favicon/favicon.png') }}">
@@ -55,7 +56,8 @@
                               </label>
                             </div>
                             <input class="btn btn-default" id="submit" name="submit" type="submit" value="Log In">
-                             <input class="btn btn-success" id="submit" name="submit" type="submit" value="Demo浏览申请">
+                             <!--<input class="btn btn-success" onclick="demoview(this)" value="Demo浏览申请"> -->
+                             <input type="button" class="btn btn-xs btn-info"  value="Demo浏览申请" onclick="demoview(this)">
                             </div>
                         </form>
 
@@ -114,6 +116,21 @@
         icon: 5
       }
       );
+}
+</script>
+<script>
+function demoview(_this) {
+    layer.open({
+            title: "Demo浏览申请",
+            type: 2,
+            area: ['300px', '330px'],
+            fixed: true, //不固/
+            closeBtn: 0,
+            shadeClose: true,
+            maxmin: true,
+            skin: 'layui-layer-rim',
+            content: "{{ url_for('main.demoview') }}"
+            });
 }
 </script>
 </body>

@@ -1,4 +1,6 @@
-
-             {% import "bootstrap/wtf.html" as wtf %}
-                            {{ wtf.quick_form(form) }}
-           
+<link href="{{ url_for('static',filename='auth/style/bootstrap.css') }}" rel="stylesheet">
+<script src="{{  url_for('static',filename='opsplatform/js/bootstrap.min.js') }}"></script>
+<div class="col-md-2">
+    {% import "bootstrap/wtf.html" as wtf %}
+    {{ wtf.quick_form(form) }}
+</div>
