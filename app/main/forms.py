@@ -2,8 +2,8 @@
 # @Author: guomaoqiu
 # @File Name: forms.py
 # @Date:   2018-02-01 14:38:19
-# @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-01 12:14:50
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-03-27 11:01:26
 from flask_wtf import FlaskForm
 from flask_wtf.recaptcha import RecaptchaField
 from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField, PasswordField
@@ -104,3 +104,15 @@ class EditorForm(FlaskForm):
     do_action = StringField('Action')
     file_path = StringField('File Path', validators=[DataRequired()])
     file_data = TextAreaField('File Data')
+
+class DemoViewForm(FlaskForm):
+    email = StringField('Email', validators=[Required(), Length(1, 64),Email()])
+    username = StringField('Username', validators=[
+        Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
+                                          'Usernames must have only letters, '
+                                          'numbers, dots or underscores')])
+    role = SelectField('Role', coerce=int)
+    name = StringField('Real name', validators=[Length(0, 64)])
+    location = StringField('Location', validators=[Length(0, 64)])
+    about_me = TextAreaField('About me')
+    submit = SubmitField('Submit')

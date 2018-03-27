@@ -21,7 +21,6 @@ bootstrap = Bootstrap()
 mail = Mail()
 moment = Moment()
 
-
 # 设置登录视图的名称，如果一个未登录用户请求一个只有登录用户才能访问的视图，
 # 则闪现一条错误消息，并重定向到这里设置的登录视图。
 # 如果未设置登录视图，则直接返回401错误。
@@ -41,7 +40,8 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
 
     #session超时5分钟
-    app.permanent_session_lifetime = timedelta(minutes=5)
+    app.permanent_session_lifetime = timedelta(seconds=40)
+
 
     config[config_name].init_app(app)
     csrf.init_app(app)

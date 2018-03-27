@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-24 14:32:21
+# @Last Modified time: 2018-03-27 10:49:55
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -14,17 +14,21 @@ from verify_code import create_validate_code
 from flask_login import login_user, logout_user, login_required, current_user
 import time, json
 from ..email import send_email
+
+
+
 ###############################################################################
-#
-@auth.before_app_request
-def before_request():
-    """修饰的函数会在请求处理之前被调用"""
-    if current_user.is_authenticated:
-        current_user.ping()
-        if not current_user.confirmed \
-                and str(request.endpoint[:5]) != 'auth.':
-                #and str(request.endpoint) != 'static':
-            return redirect(url_for('auth.unconfirmed'))
+# #
+# @auth.before_app_request
+# def before_request():
+#     """修饰的函数会在请求处理之前被调用"""
+#     if current_user.is_authenticated:
+#         current_user.ping()
+#         print '修饰的函数会在请求处理之前被调用'
+#         if not current_user.confirmed \
+#                 and str(request.endpoint[:5]) != 'auth.':
+#                 #and str(request.endpoint) != 'static':
+#             return redirect(url_for('auth.unconfirmed'))
 ###############################################################################
 
 @auth.route('/verify_code/')
@@ -72,22 +76,32 @@ def confirm(token):
 def resend_confirmation():
     """从新发送确认邮件"""
     token = current_user.generate_confirmation_token()
-
     send_email(current_user.email, 'Confirm Your Account',
                'auth/email/confirm', user=current_user, token=token)
     flash('通过电子邮件发送了一封新的确认电子邮件.','info')
     return redirect(url_for('main.index'))
 
 ###############################################################################
- 
+  
+@auth.route('/check_user_status')
+def check_user_status():
+    if "key" in session:
+    # print session['key']
+    # if 'username' in session:
+        return jsonify({"result":True, "msg": "登录态正常"})
+    else:
+        return jsonify({"result":False, "msg": "未登录"})
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     """用户登录"""
     form = LoginForm()
+    # print request.headers
     if form.validate_on_submit():
         # 验证码验证
+        session.permanent = True
+        session['key'] = 'devopsplatform'
         if 'code_text' in session and form.verify_code.data.lower() != session['code_text'].lower():
-            # flash(u'验证码错误！','danger')
             return render_template('auth/login.html',form=form,flag=1)
 
         user = User.query.filter_by(email=form.email.data).first() # 数据库查询
@@ -156,6 +170,7 @@ def register():
 def logout():
     """用户登出"""
     logout_user()
+    session.pop('key', None)
     flash('logout success...', 'success')
     return redirect(url_for('auth.login'))
 

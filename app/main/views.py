@@ -2,8 +2,8 @@
 # @Author: guomaoqiu
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
-# @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-22 18:38:52
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-03-27 11:04:51
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -11,7 +11,7 @@ from . import main
 from flask_login import current_user, login_required
 from ..decorators import admin_required , permission_required
 import json,commands,datetime,sys,os
-from .forms import  EditProfileForm, EditProfileAdminForm, ApiForm, DataForm,ResDataForm, EditorUidForm, EditorForm, DataFormOnline,ResDataFormOnline,AccessForm, WebsshForm,UidForm
+from .forms import  EditProfileForm, EditProfileAdminForm, ApiForm, DataForm,ResDataForm, EditorUidForm, EditorForm, DataFormOnline,ResDataFormOnline,AccessForm, WebsshForm,UidForm, DemoViewForm
 from ..models import User, LoginLog, Role, ApiMg, AccessIpList, Hostinfo, RuncmdLog
 from .. import db
 from app.crypto import prpcrypt
@@ -26,6 +26,20 @@ from celery.task.control import revoke
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
+
+@main.route('/demoview')
+def demoview():
+    form = DemoViewForm()
+    if form.validate_on_submit():
+        # data = {
+        #     "host":form.host.data,
+        #     "port":form.port.data,
+        #     "username":form.username.data,
+        #     "password":form.password.data,
+        # }
+        return render_template('demo_view.html',form=form)
+    return render_template('demo_view.html',form=form)
+
 
 ###############################################################################
 
@@ -49,6 +63,7 @@ def for_admin_only():
 # @admin_required
 @login_required
 def index():
+    # print request.headers
     """返回主页内容 """
     if not current_user.is_authenticated:
         return redirect('auth/login')
@@ -112,7 +127,6 @@ def user(username):
     return render_template('user.html', user=user)
 
 ###############################################################################
-
 @main.route('/usermanager',methods=['GET', 'POST'])
 @login_required
 def usermanager():

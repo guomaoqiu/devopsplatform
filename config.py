@@ -3,7 +3,7 @@
 # @File Name: config.py
 # @Date:   2018-02-28 11:57:30
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-24 13:49:54
+# @Last Modified time: 2018-03-27 11:06:55
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import timedelta
@@ -44,7 +44,7 @@ class Config:
         pass
 
 class DevelopmentConfig(Config):
-    DEBUG = True
+    DEBUG = False
     db_host = '127.0.0.1'
     db_user = 'flask'
     db_pass = 'flask'

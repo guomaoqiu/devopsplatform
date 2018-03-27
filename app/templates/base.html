@@ -174,7 +174,6 @@
 {% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-    <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
     <!-- 消息闪现 -->
     <script src="{{  url_for('static',filename='opsplatform/js/sweetalert.min.js') }}"></script>
 
@@ -220,6 +219,7 @@
     <!-- CSRF_TOKEN -->
     <script src="{{  url_for('static',filename='opsplatform/js/csrf_token.js') }}"></script>
 
+    <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
 
 
 <script>
@@ -236,5 +236,39 @@
         });
   }
 </script>
+
+<!-- 检查用户登录态 -->
+<!-- <script>
+ var timmer = window.setInterval("check_user_status()",1000);
+     function check_user_status() {
+            $.ajax ({
+                type:'GET',
+                url:"{{ url_for('auth.check_user_status') }}",
+                success: function(res) {
+                     if (res.result) {
+                        console.log(res)
+                     }
+                     else{
+                        swal(res.msg,'','登录超时，请点击确定回到登录界面...');
+                        exit();
+                     }
+
+                    }
+                });
+        }
+</script> -->
+
+
 </body>
 </html>
+
+
+
+<!-- cbt:
+and: 100024 : 3.7.0 loginurl: http://jpcbt.warshipgirls.com/
+iso: 100025 : 3.7.0 loginurl: http://jpcbt.warshipgirls.com/
+
+online:
+and: 100024 : 3.6.0  loginurl: https://loginand.jp.warshipgirls.com/
+iso: 100025 : 3.6.0  loginurl: https://loginios.jp.warshipgirls.com/
+ -->
