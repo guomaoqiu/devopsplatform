@@ -23,8 +23,8 @@ def pullcode():
         if os.path.isdir(code_dir):
             local_repo = git.Repo(code_dir)
             try:
+                print local_repo.head
                 print local_repo.git.pull()
-                print local_repo.git.log()
                 # 重新加载代码、重启服务
                 restart_services
                 return jsonify({"result":True,"message":"pull success"})
