@@ -23,7 +23,10 @@ def pullcode():
         if os.path.isdir(code_dir):
             local_repo = git.Repo(code_dir)
             try:
-                print local_repo.head
+                head = local_repo.head
+                master = head.reference     # retrieve the reference the head points to
+                log = master.log()
+                print log                
                 print local_repo.git.pull()
                 # 重新加载代码、重启服务
                 restart_services
