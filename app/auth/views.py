@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-27 10:49:55
+# @Last Modified time: 2018-03-27 14:01:31
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -127,7 +127,7 @@ def login():
             flash("您好，%s。 欢迎登陆xxxxxxx平台！ 您的账户已于%s通过%s地址登录，请注意账号安全，若有异常，及时修改密码!" % (user.username,users.logintime,access_ip),'info')
 
             # 用户每次登录 通知管理员
-            # send_email(current_app.config['FLASKY_ADMIN'], '登录通知','auth/email/login_notice',user=user, ip=request.remote_addr, agent=request.user_agent)
+            send_email(current_app.config['FLASKY_ADMIN'], '登录通知','auth/email/login_notice',user=user, ip=request.remote_addr, agent=request.user_agent)
 
             return redirect(url_for('main.index')) # 如果认证成功则重定向到已认证首页
         else:
