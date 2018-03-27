@@ -235,39 +235,23 @@
         });
   }
 </script>
-
-<!-- 检查用户登录态 -->
-<!-- <script>
- var timmer = window.setInterval("check_user_status()",1000);
-     function check_user_status() {
-            $.ajax ({
-                type:'GET',
-                url:"{{ url_for('auth.check_user_status') }}",
-                success: function(res) {
-                     if (res.result) {
-                        console.log(res)
-                     }
-                     else{
-                        swal(res.msg,'','登录超时，请点击确定回到登录界面...');
-                        exit();
-                     }
-
-                    }
-                });
+<script>
+window.setTimeout(function() {
+        swal({ 
+        title: "登录超时，请重新登录", 
+        type: "warning",
+        confirmButtonColor: "#1ab394",
+        confirmButtonText: "跳转至登录页面", 
+        closeOnConfirm: false, 
+        closeOnCancel: false  
+      },
+      function(isConfirm){ 
+        if (isConfirm) { 
+          location = "{{ url_for('auth.login') }}"
         }
-</script> -->
+      });
 
-
+}, 600000 ); //10分钟超时时间
+</script>
 </body>
 </html>
-
-
-
-<!-- cbt:
-and: 100024 : 3.7.0 loginurl: http://jpcbt.warshipgirls.com/
-iso: 100025 : 3.7.0 loginurl: http://jpcbt.warshipgirls.com/
-
-online:
-and: 100024 : 3.6.0  loginurl: https://loginand.jp.warshipgirls.com/
-iso: 100025 : 3.6.0  loginurl: https://loginios.jp.warshipgirls.com/
- -->

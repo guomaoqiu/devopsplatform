@@ -40,7 +40,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
 
     #session超时5分钟
-    app.permanent_session_lifetime = timedelta(seconds=40)
+    app.permanent_session_lifetime = timedelta(minutes=10)
 
 
     config[config_name].init_app(app)
