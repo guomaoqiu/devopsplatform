@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-27 12:17:29
+# @Last Modified time: 2018-03-27 12:28:16
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -23,6 +23,7 @@ from ..email import send_email
 from app.auth.forms import RegistrationForm
 from ..zabbix.zabbixapi import ZabbixAction
 from celery.task.control import revoke
+from ..email import send_email
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -31,6 +32,10 @@ sys.setdefaultencoding("utf-8")
 def demoview():
     form = DemoViewForm()
     if form.validate_on_submit():
+        email = form.email.data
+        username = form.username.data
+        company = form.company.data
+        send_email(current_app.config['FLASKY_ADMIN'], '浏览申请','auth/email/demoview',email=email, username=username, company=company)
         return '您的申请已经提交,管理人员稍后会将密码发送至您的邮箱...^o^\n'
     return render_template('demo_view.html',form=form)
 
