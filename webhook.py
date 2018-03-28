@@ -10,11 +10,11 @@ git_url = "git@github.com:guomaoqiu/devopsplatform.git"
 #白名单
 #allow_ip=[""]
 app = Flask(__name__)
-#sss
 restart_services = os.system("systemctl restart supervisord && echo 'restart supervisord success......'")
 
 @app.route('/pullcode', methods=['POST'])
 def pullcode():
+    
     # 只允许指定服务器向Flask应用发起POST请求，否则直接返回403
     #if request.headers.get('X-Forwarded-For', request.remote_addr) not in allow_ip:
     #    return abort(403)
