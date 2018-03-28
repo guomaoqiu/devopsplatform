@@ -45,7 +45,6 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <!-- <li><a href="" onclick="add_apiinfo()"><i class="fa fa-user"></i> xxxxx</a></li> -->
                                 <li><a href="{{ url_for('main.user', username=current_user.username) }}"><i class="fa fa-user"></i>  个人资料</a></li>
                                 <li><a href="{{ url_for('auth.change_password') }}"><i class="fa fa-key"></i>  密码更改</a></li>
                                 <li><a href="{{ url_for('auth.change_email_request') }}"><i class="fa fa-envelope"></i>  邮箱更改</a></li>
@@ -219,22 +218,6 @@
     <script src="{{  url_for('static',filename='opsplatform/js/csrf_token.js') }}"></script>
 
     <script src="{{  url_for('static',filename='opsplatform/js/layer.js') }}"></script>
-
-
-<script>
-  function add_apiinfo() {
-      layer.open({
-        type: 2,
-        area: ['850px', '400px'],
-        fixed: true, //不固/
-        closeBtn: 0,
-        shadeClose: true,
-        maxmin: true,
-        skin: 'layui-layer-rim',
-        content: ".fdsaf"
-        });
-  }
-</script>
 <script>
 window.setTimeout(function() {
         swal({ 

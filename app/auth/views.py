@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-27 15:50:29
+# @Last Modified time: 2018-03-27 17:51:14
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -32,7 +32,7 @@ from ..email import send_email
 
 @auth.route('/verify_code/')
 def verify_code():
-    """ 验证码 """
+    """ 登录验证码 """
     from io import BytesIO
     output = BytesIO()
     code_img, code_str = create_validate_code()
@@ -160,7 +160,6 @@ def register():
 def logout():
     """用户登出"""
     logout_user()
-    session.pop('key', None)
     flash('logout success...', 'success')
     return redirect(url_for('auth.login'))
 

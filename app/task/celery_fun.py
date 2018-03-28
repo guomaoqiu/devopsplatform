@@ -165,20 +165,6 @@ def apitest():
     except Exception,e:
         db.session.rollback()
         print e
-
-
-
-# 邮件发送函数
-from threading import Thread
-from flask import current_app, render_template
-from flask_mail import Message
-
-
-
-import app
-@periodic_task(run_every=2)
-def testzss():
-    print app.app_context()
     
 
 # from flask import current_app
