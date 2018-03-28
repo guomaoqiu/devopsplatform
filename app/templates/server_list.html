@@ -72,7 +72,7 @@
                                                             <td>{{ each_data['kernelrelease'] }}</td>
                                                             <td>
                                                                 <input type="button" class="btn btn-xs btn-info"  check_id="{{ each_data.id }}" name="{{ each_data.hostname }}" value="详情" onclick="get_hostdetail(this)">
-                                                                <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data['id'] }}" name="{{ each_data['hostname'] }}" value="删除" onclick="del_raw(this)">
+                                                                <!-- <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data['id'] }}" name="{{ each_data['hostname'] }}" value="删除" onclick="del_raw(this)"> -->
                                                                 <input type="button" class="btn btn-xs btn-primary" check_id="{{ each_data['id'] }}" name="{{ each_data['hostname'] }}" value="命令执行" onclick="salt_cmd(this)">
                                                             </td>
                                                         </tr>
