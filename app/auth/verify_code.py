@@ -2,8 +2,8 @@
 # @Author: guomaoqiu
 # @File Name: verify_code.py
 # @Date:   2018-03-21 11:31:25
-# @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-03-23 10:11:24
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-03-29 18:15:01
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import os
@@ -16,14 +16,14 @@ init_chars = ''.join((_letter_cases, _upper_cases, _numbers))
 
 def create_validate_code(size=(120, 30),
                          chars=init_chars,
-                         img_type="GIF",
+                         img_type="PNG",
                          mode="RGB",
-                         bg_color=(150, 150, 150),
-                         fg_color=(255, 255, 255),
+                         bg_color=(120, 120, 120),
+                         fg_color=(200, 200, 200),
                          font_size=18,
                          font_type=FONT_FILE_PATH,
                          length=6,
-                         draw_lines=True,
+                         draw_lines=False,
                          n_line=(1, 2),
                          draw_points=False,
                          point_chance=2):
@@ -66,7 +66,7 @@ def create_validate_code(size=(120, 30),
 
     def create_points():
         """绘制干扰点"""
-        chance = min(100, max(0, int(point_chance)))  # 大小限制在[0, 100]
+        chance = min(2, max(0, int(point_chance)))  # 大小限制在[0, 100]
 
         for w in range(width):
             for h in range(height):

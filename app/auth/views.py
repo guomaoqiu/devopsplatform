@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-27 17:51:14
+# @Last Modified time: 2018-03-29 16:04:21
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -94,7 +94,7 @@ def login():
         if 'code_text' in session and form.verify_code.data.lower() != session['code_text'].lower():
             return render_template('auth/login.html',form=form,flag=1)
 
-        user = User.query.filter_by(email=form.email.data).first() # 数据库查询
+        user = User.query.filter_by(username=form.username.data).first() # 数据库查询
         access_ip = request.headers.get('X-Forwarded-For',request.remote_addr) # 查库判断登录IP
         # c = AccessIpList.query.filter_by(ip=access_ip).first()
         # if c is None or c.ip != access_ip:
