@@ -3,7 +3,7 @@
 # @File Name: config.py
 # @Date:   2018-02-28 11:57:30
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-28 15:44:14
+# @Last Modified time: 2018-03-29 11:08:51
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import timedelta
@@ -11,7 +11,7 @@ from celery.schedules import crontab
 class CeleryConfig(object):
     """后台任务配置"""
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
-    CELERY_RESULT_BACKEND = 'redis://localhost:6379/'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
     CELERY_TASK_SERIALIZER = ['json','msgpack']
     
 class Config:

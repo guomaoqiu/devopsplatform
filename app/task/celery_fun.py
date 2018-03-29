@@ -10,10 +10,11 @@ from ..salt.saltapi import SaltApi
 import json, requests
 from celery.schedules import crontab
 from celery.task import periodic_task
+from tasks import testping
 ###########################  后台执行任务公共配置 START ###########################
 
 @task.route('/execute_task/<exclude_env>', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def execute_task(exclude_env):
     """
     @summary: 请求函数入口
@@ -27,6 +28,8 @@ def execute_task(exclude_env):
         task = update_cbt_resource.apply_async()
     elif exclude_env == "update_online_resource":
         task = update_online_resource.apply_async()
+    elif exclude_env == "testping":
+        task = testping.apply_async()
     else:
         pass
 

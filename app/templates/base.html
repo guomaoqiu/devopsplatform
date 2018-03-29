@@ -29,22 +29,11 @@
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                          <!-- <img src="{{ url_for('static',filename='opsplatform/img/images.jpeg') }}" width="120"> -->
                             <div class="dropdown profile-element">
                             <span><img alt="image" class="img-circle" src="{{  url_for('static',filename='auth/img/favicon/favicon.png' )}}"  width="120" /></span>
-
-                            <!--
-                             {% if not current_user.is_administrator()%}
-                              <span><img alt="image" class="img-circle" src="http://blog.sctux.com/wp-content/themes/simple/images/face.png"  width="120" /></span>
-                              {% else %}
-
-                              <span><img alt="image" class="img-circle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/TUX-G2-SVG.svg/120px-TUX-G2-SVG.svg.png"  width="100" /></span>
-                            {% endif %}
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold">{% if current_user.name %}{{ current_user.name }}{% else %}{{ current_user.username }}{% endif %}</strong></span>
-                               -->
-
                                 <span class="text-muted text-xs block">账户<b class="caret"></b></span>
                                 </span>
                             </a>
