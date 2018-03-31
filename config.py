@@ -24,7 +24,7 @@ class Config:
     # 公司邮箱域名后缀，限制只能公司域名才能注册
     COMPANY_MAIL_SUFFIX='moefantasy.com'
     # 用户注册功能开关: True:可注册；False: 关闭注册
-    REGISTER = True
+    REGISTER = False
     
     # send mail
     MAIL_SERVER = 'smtp.qq.com'

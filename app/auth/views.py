@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-30 14:51:08
+# @Last Modified time: 2018-03-30 15:26:44
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -90,7 +90,6 @@ def login():
     if form.validate_on_submit():
         # 验证码验证
         session.permanent = True
-        session['key'] = 'devopsplatform'
         if 'code_text' in session and form.verify_code.data.lower() != session['code_text'].lower():
             return render_template('auth/login.html',form=form,flag=1)
 
