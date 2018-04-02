@@ -3,7 +3,7 @@
 # @File Name: config.py
 # @Date:   2018-02-28 11:57:30
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-30 14:45:17
+# @Last Modified time: 2018-04-02 15:08:05
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import timedelta
@@ -31,7 +31,7 @@ class Config:
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USERNAME = "2399447849@qq.com" #os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD =  "Guomaoqiu.310963" #os.environ.get('MAIL_PASSWORD')
+    MAIL_PASSWORD =  "" #os.environ.get('MAIL_PASSWORD')
     FLASKY_MAIL_SUBJECT_PREFIX = u'[DevOpsPlatform]'
     FLASKY_MAIL_SENDER = '2399447849@qq.com'
     FLASKY_ADMIN = '2399447849@qq.com' # os.environ.get('FANXIANG_ADMIN')
