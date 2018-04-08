@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-30 15:26:44
+# @Last Modified time: 2018-04-08 17:53:22
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -16,17 +16,17 @@ import time, json
 from ..email import send_email
 
 ###############################################################################
-# #
-# @auth.before_app_request
-# def before_request():
-#     """修饰的函数会在请求处理之前被调用"""
-#     if current_user.is_authenticated:
-#         current_user.ping()
-#         print '修饰的函数会在请求处理之前被调用'
-#         if not current_user.confirmed \
-#                 and str(request.endpoint[:5]) != 'auth.':
-#                 #and str(request.endpoint) != 'static':
-#             return redirect(url_for('auth.unconfirmed'))
+#
+@auth.before_app_request
+def before_request():
+    """修饰的函数会在请求处理之前被调用"""
+    if current_user.is_authenticated:
+        current_user.ping()
+        print '修饰的函数会在请求处理之前被调用'
+        if not current_user.confirmed \
+                and str(request.endpoint[:5]) != 'auth.':
+                #and str(request.endpoint) != 'static':
+            return redirect(url_for('auth.unconfirmed'))
 
 ###############################################################################
 

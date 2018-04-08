@@ -3,7 +3,9 @@ body{
 	line-height: 10px;
 	color: #ccc;
 	border-top: 3px solid #eee;
-	background:#343434 url("../img/blur-background08.jpg") no-repeat fixed center; 
+	background:#343434 url("../img/blueking.jpg") no-repeat fixed center; 
+	
+
 	background-size: cover;
 	padding-top: 37px;
 	-webkit-font-smoothing: antialiased;
