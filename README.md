@@ -54,21 +54,17 @@ salt '*' saltutil.sync_all
 # 检查自定义grains是否发布成功
 salt '*' grains.items
 ```
-##### 6.Run
-```
-python manager runserver
-```
-##### 7.启动后台任务以及周期性任务(-B参数)
+##### 6.启动后台任务以及周期性任务(-B参数)
 ```
 celery worker -A manager.celery -l info -E -B
 ```
-##### 8.生成supervisor配置
+##### 7.生成supervisor配置
 ```
 ln -sv /usr/local/devopsenv/bin/supervisorctl /usr/bin/
 ln -sv /usr/local/devopsenv/bin/supervisord /usr/bin/
 /usr/local/devopsenv/bin/echo_supervisord_conf > /etc/supervisor.conf
 ```
-##### 9.添加项目配置到/etc/supervisor.conf
+##### 8.添加项目配置到/etc/supervisor.conf
 ```
 [program:devops]
 command=/usr/local/devopsenv/bin/gunicorn -w 10  -b 127.0.0.1:5000 manager:app --log-file /tmp/gunicorn.log --log-level=debug
@@ -90,12 +86,12 @@ autostart=true
 autorestart=true
 startsecs=10
 ```
-##### 10. 通过supervisor来控制
+##### 9. 通过supervisor来控制
 ```
 supervisord -c /etc/supervisor.conf
 supervisorctl -c /etc/supvisrod.conf status all
 ```
-##### 11. nginx 配置(虚拟主机)
+##### 10. nginx 配置(虚拟主机)
 ```
 server {
     listen 80;
@@ -110,6 +106,15 @@ server {
 
 }
 ```
+##### 11.Run
+```
+python manager runserver
+```
+##### 访问:
+```
+http://xxx.xxx.xxx.xxx
+```
+
 ### 平台截图
 #### 平台登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
