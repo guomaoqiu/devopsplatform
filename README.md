@@ -111,7 +111,7 @@ server {
 ####  登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
 #### 用户管理
-![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/usermanager.jpeg)
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/user_manager.jpeg)
 #### 访问控制
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/access_con.jpeg)
 #### API管理
