@@ -1,6 +1,6 @@
 ### DevOpsPlatform
 
-#### 技术栈: `Flask`,`BootStrap`,`Tencent Magicbox`,`SaltStack`,`Zabbix`,`Celery`...
+#### 主要技术栈: `Flask`,`BootStrap`,`Tencent Magicbox`,`SaltStack`,`Zabbix`,`Celery`...
 
 #### 目前功能:
 1. 用户注册、登录(邮件确认)
