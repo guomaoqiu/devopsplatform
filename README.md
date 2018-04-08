@@ -108,8 +108,8 @@ server {
 
 
 ### 平台截图
-## 服务器列表
+####  服务器列表
 ![](http://git.oschina.net/demo_demo/devopsdemo_v2/raw/master/screenshots/demo1.png)
-## SaltStack命令执行
+#### SaltStack命令执行
 ![](http://git.oschina.net/demo_demo/devopsdemo_v2/raw/master/screenshots/demo2.png)
 
