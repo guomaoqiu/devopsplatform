@@ -11,9 +11,6 @@
 6. Salt单(多)主机命令执行
 7. Zabbix主机批量添加(删除)
 ......
-......
-......
-
 
 ##### 0. 获取代码
 ```
@@ -113,8 +110,6 @@ server {
 
 }
 ```
-
-
 ### 平台截图
 #### 平台登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
