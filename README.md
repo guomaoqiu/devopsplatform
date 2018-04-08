@@ -110,7 +110,7 @@ server {
 ```
 python manager runserver
 ```
-##### 访问:
+##### 12.访问:
 ```
 http://xxx.xxx.xxx.xxx
 ```
