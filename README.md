@@ -135,5 +135,4 @@ server {
 
 ##### 其他内容正在完善中......
 ##### 如果觉得对您有帮助您可以点赞或赞赏一二
-![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/wechat.jpeg)
-![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zhifubao.jpeg)
+![-w300](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zanshang.jpg)
