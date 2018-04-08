@@ -108,8 +108,25 @@ server {
 
 
 ### 平台截图
-####  服务器列表
-![](http://git.oschina.net/demo_demo/devopsdemo_v2/raw/master/screenshots/demo1.png)
-#### SaltStack命令执行
-![](http://git.oschina.net/demo_demo/devopsdemo_v2/raw/master/screenshots/demo2.png)
-
+####  登录界面
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
+#### 用户管理
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/user_manager.jpeg)
+#### 访问控制
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/access_con.jpeg)
+#### API管理
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/api_test.jpeg)
+#### salt客户端管理
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/salt_minion.jpeg)
+#### salt命令执行(single host)
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/salt_cmd_host.jpeg)
+#### salt命令执行(multi host)
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/salt_cmd_all.jpeg)
+#### salt命令执行日志
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/cmd_log.jpeg)
+#### zabbix主机批量添加
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zabbix_add.jpeg)
+#### zabbix主机批量删除
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zabbix_del.jpeg)
+#### 主机列表详情页
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/host_detail.jpeg)
