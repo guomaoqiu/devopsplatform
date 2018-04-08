@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # 依赖包: pip install flask gitpython
 from flask import Flask, request, jsonify,abort
-import git, os
+import git, os,commands
 # 远程服务器代码地址
 code_dir = "./"
 
@@ -10,7 +10,10 @@ git_url = "git@github.com:guomaoqiu/devopsplatform.git"
 #白名单
 #allow_ip=[""]
 app = Flask(__name__)
-restart_services = os.system("systemctl restart supervisord && echo 'restart supervisord success......'")
+
+
+
+restart_services = commands.getoutput("systemctl restart supervisord && echo 'restart supervisord success......'")
 
 @app.route('/pullcode', methods=['POST'])
 def pullcode():
