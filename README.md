@@ -126,6 +126,8 @@ server {
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/cmd_log.jpeg)
 #### zabbix主机批量添加
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zabbix_add.jpeg)
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zabbix_add_result.jpeg)
+
 #### zabbix主机批量删除
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zabbix_del.jpeg)
 #### 主机列表详情页
