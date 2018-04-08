@@ -111,7 +111,7 @@ server {
 ####  登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
 #### 用户管理
-![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/user_manager.jpeg)
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/user_managerddd.jpeg)
 #### 访问控制
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/access_con.jpeg)
 #### API管理
@@ -127,7 +127,6 @@ server {
 #### zabbix主机批量添加
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zabbix_add.jpeg)
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zabbix_add_result.jpeg)
-
 #### zabbix主机批量删除
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zabbix_del.jpeg)
 #### 主机列表详情页
