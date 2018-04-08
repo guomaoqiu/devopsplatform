@@ -1,5 +1,8 @@
-基础FlaskWeb后台代码。可基于该基础代码作为模板，进行其他开发作业
-目前功能:
+### DevOpsPlatform
+
+#### 技术栈: `Flask`,`BootStrap`,`Tencent Magicbox`,`SaltStack`,`Zabbix`,`Celery`...
+
+#### 目前功能:
 1. 用户注册、登录(邮件确认)
 2. 通过用户权限进行页面视图限制
 3. 第三个方API接入管理
@@ -135,4 +138,6 @@ server {
 
 ##### 其他内容正在完善中......
 ##### 如果觉得对您有帮助您可以点赞或赞赏一二
-![-w200](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zanshang.jpg)
+![-w300](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zanshang.jpg)
+
+
