@@ -114,7 +114,8 @@ python manager runserver
 ```
 http://xxx.xxx.xxx.xxx
 ```
-
+##### Notice
+如果您尝试使用此套代码搭建该平台，中间有任何问题请及时提issue或联系我(QQ:2399447849)
 ### 平台截图
 #### 平台登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
