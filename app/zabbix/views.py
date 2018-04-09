@@ -15,6 +15,7 @@ from zabbixapi import ZabbixAction
 def zabbixadd():
     if request.method == 'POST':
         result = request.files['file']
+        print result.
         #获取当前目录的位置然后通过path.join来连接上传目录
         basepath=path.abspath(path.dirname(__file__))
         upload_path = path.join(basepath,'upload')
@@ -23,11 +24,17 @@ def zabbixadd():
         if result.filename:
             result.save(path.join(upload_path,secure_filename(result.filename)))
             flash(u'文件上传成功 & 主机导入成功!','success')
-            z_add = ZabbixAction()
-            z_add.login_test()
-            z_add.create_hosts(path.join(upload_path,secure_filename(result.filename)))
-            res = (commands.getoutput('cat /tmp/cache_add_zabbix.txt')).decode('utf-8').split('!')
-            return render_template('zabbixadd.html',result=res)
+            try:
+              z_add = ZabbixAction()
+              z_add.create_hosts(path.join(upload_path,secure_filename(result.filename)))
+
+              res = (commands.getoutput('cat /tmp/cache_add_zabbix.txt')).decode('utf-8').split('!')
+              return render_template('zabbixadd.html',result=res)
+            except Exception, e:
+              print e
+              flash('xzssssss','danger')
+              return render_template('zabbixadd.html')
+
         else:
             flash(u'务必选择一个文件进行操作!', 'danger')
             return render_template('zabbixadd.html')

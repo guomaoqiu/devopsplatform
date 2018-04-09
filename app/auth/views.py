@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-08 18:36:55
+# @Last Modified time: 2018-04-09 15:35:00
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -22,7 +22,7 @@ def before_request():
     """修饰的函数会在请求处理之前被调用"""
     if current_user.is_authenticated:
         current_user.ping()
-        print '修饰的函数会在请求处理之前被调用'
+        #print '修饰的函数会在请求处理之前被调用'
         if not current_user.confirmed \
                 and str(request.endpoint[:5]) != 'auth.':
             return redirect(url_for('auth.unconfirmed'))
