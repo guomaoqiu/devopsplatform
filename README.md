@@ -114,7 +114,7 @@ python manager runserver
 ```
 http://xxx.xxx.xxx.xxx
 ```
-
+-------
 ### 部分功能截图
 #### 平台登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
