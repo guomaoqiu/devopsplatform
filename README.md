@@ -1,5 +1,6 @@
 ### DevOpsPlatform
 -------
+
 #### 主要技术栈: `Flask`,`BootStrap`,`Tencent Magicbox`,`SaltStack`,`Zabbix`,`Celery`...
 
 #### 目前功能:
@@ -10,7 +11,7 @@
 5. Celery后台任务执行,周期性任务执行
 6. Salt单(多)主机命令执行
 7. Zabbix主机批量添加(删除)
-......
+-------
 
 ##### 0. 获取代码
 ```
