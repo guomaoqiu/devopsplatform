@@ -115,6 +115,10 @@ python manager runserver
 http://xxx.xxx.xxx.xxx
 ```
 -------
+
+##### 在线Demo
+[Preview](http://demo.sctux.com)
+
 ### 部分功能截图
 #### 平台登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
