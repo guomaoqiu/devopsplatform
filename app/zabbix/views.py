@@ -16,7 +16,7 @@ def zabbixadd():
     if request.method == 'POST':
         result = request.files['file']
         #获取当前目录的位置然后通过path.join来连接上传目录
-        basepath=path.abspath(path.dirname(__file__))
+        basepath=path. abspath(path.dirname(__file__))
         upload_path = path.join(basepath,'upload')
         #print '删除旧文件'
         if result.filename:
@@ -130,10 +130,12 @@ def data():
 
 @zabbix.route('/haha')
 def haha():
+    from flask import jsonify 
     client=ZabbixAction()
     if client.login_test():
-      return "认证成功"
+      #return "认证成功"
+      return jsonify({"result":"fss"})
     else:
-      return "认证失败"
+      return "认证成功"
 
 
