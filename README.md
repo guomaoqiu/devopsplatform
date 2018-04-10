@@ -145,6 +145,7 @@ http://xxx.xxx.xxx.xxx
 ##### 如果觉得对您有帮助您可以点赞或赞赏一二😁
 ![-w300](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zanshang.jpg)
 
+-------
 
-##### Notice
+##### Notice:
 如果您尝试使用此套代码搭建该平台，中间有任何问题请及时提issue或联系我(QQ:2399447849),Thx!!!
