@@ -3,7 +3,7 @@
 # @File Name: verify_code.py
 # @Date:   2018-03-21 11:31:25
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-29 18:15:01
+# @Last Modified time: 2018-04-11 16:28:19
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import os
@@ -18,8 +18,8 @@ def create_validate_code(size=(120, 30),
                          chars=init_chars,
                          img_type="PNG",
                          mode="RGB",
-                         bg_color=(120, 120, 120),
-                         fg_color=(200, 200, 200),
+                         bg_color=(500, 500, 500),
+                         fg_color=(0, 0, 0),
                          font_size=18,
                          font_type=FONT_FILE_PATH,
                          length=6,
