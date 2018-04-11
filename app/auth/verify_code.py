@@ -3,7 +3,7 @@
 # @File Name: verify_code.py
 # @Date:   2018-03-21 11:31:25
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-11 16:28:19
+# @Last Modified time: 2018-04-11 16:31:49
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import os
@@ -81,7 +81,7 @@ def create_validate_code(size=(120, 30),
 
         font = ImageFont.truetype(font_type, font_size)
         font_width, font_height = font.getsize(strs)
-        draw.text(((width - font_width) / 3, (height - font_height) / 3),
+        draw.text(((width - font_width) / 5, (height - font_height) / 3),
                   strs, font=font, fill=fg_color)
 
         return ''.join(c_chars)
