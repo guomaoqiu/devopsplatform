@@ -3,7 +3,7 @@
 # @File Name: verify_code.py
 # @Date:   2018-03-21 11:31:25
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-11 16:31:49
+# @Last Modified time: 2018-04-11 19:00:35
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import os
@@ -104,3 +104,9 @@ def create_validate_code(size=(120, 30),
     img = img.transform(size, Image.PERSPECTIVE, params)  # 创建扭曲
     img = img.filter(ImageFilter.EDGE_ENHANCE_MORE)  # 滤镜，边界加强（阈值更大）
     return img, strs
+
+
+
+
+
+    

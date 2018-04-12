@@ -3,7 +3,7 @@
 # @File Name: manager.py
 # @Date:   2018-03-13 17:42:01
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-03-27 11:40:09
+# @Last Modified time: 2018-04-12 14:25:07
 
 # from gevent import monkey
 # from gevent.pywsgi import WSGIServer
@@ -36,7 +36,7 @@ def dev():
       for name in files:
           filepath=os.path.join(root, name)
           live_server.watch(filepath)
-  live_server.serve(open_url=False)
+  live_server.serve(open_url=True)
 
 if __name__ == '__main__':
     manager.run()

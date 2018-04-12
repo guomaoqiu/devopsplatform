@@ -32,7 +32,13 @@
                             <span><img alt="image" class="img-circle" src="{{  url_for('static',filename='auth/img/favicon/favicon.png' )}}"  width="120" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">{% if current_user.name %}{{ current_user.name }}{% else %}{{ current_user.username }}{% endif %}</strong></span>
+                               <span class="block m-t-xs"><strong class="font-bold">
+                               {% if current_user.name %}{{ current_user.name }}
+                               {% else %}
+                               {{ current_user.username }}
+                               {% endif %}
+                               </strong>
+                               </span>
                                 <span class="text-muted text-xs block">账户<b class="caret"></b></span>
                                 </span>
                             </a>
