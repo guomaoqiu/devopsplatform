@@ -3,7 +3,7 @@
 # @File Name: config.py
 # @Date:   2018-02-28 11:57:30
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-02 15:08:05
+# @Last Modified time: 2018-04-13 15:27:38
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import timedelta
@@ -22,7 +22,7 @@ class Config:
     SQLALCHEMY_RECORD_QUERIES = True
     BABEL_DEFAULT_LOCALE = 'zh'
     # 公司邮箱域名后缀，限制只能公司域名才能注册
-    COMPANY_MAIL_SUFFIX='moefantasy.com'
+    COMPANY_MAIL_SUFFIX='sctux.com'
     # 用户注册功能开关: True:可注册；False: 关闭注册
     REGISTER = False
     
@@ -52,7 +52,6 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql://' + db_user + ':' + db_pass + '@' + db_host + '/' + db_name
     SQLALCHEMY_ECHO=False #用于显式地禁用或启用查询记录
 
-    ##SQLALCHEMY_DATABASE_URI = 'mysql://flask1:flask1@127.0.0.1/flask1'
     SQLALCHEMY_TRACK_MODIFICATIONS=True
     #RECAPTCHA_PUBLIC_KEY = '6LdCijkUAAAAAKo5KAdTE7XR7yA_PRvLHgmVlGeW'
     #RECAPTCHA_PRIVATE_KEY = '6LdCijkUAAAAAJTB0xosM4D_YTJmN3gxRmuJ-Jfj'
