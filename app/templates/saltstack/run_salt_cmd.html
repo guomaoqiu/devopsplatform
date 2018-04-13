@@ -14,6 +14,7 @@
         word-wrap: break-word;
         overflow-x: hidden;
         overflow-y: auto;
+        /*white-space:pre;*/
         white-space: pre-line;
         font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
         -webkit-user-modify: read-write-plaintext-only;
@@ -108,12 +109,8 @@
                         </div>
                         <div class="ibox-content">
 
-                        <div class="test_box" contenteditable="true"><br/></div>
+                        <div class="test_box" contenteditable="false"></div>
 
-{#                                <textarea class="test_box" style="margin: 1px 2px 10px; height: 550px; width: 100%; background-color: #161616;color:green"></textarea>#}
-
-
-                        </div>
                     </div>
                 </div>
             </div>
@@ -216,6 +213,8 @@
                              if (res.result) {
 
                                     var json_data = JSON.stringify(JSON.parse(res.data), null, 2);
+                                    console.log(res.data)
+
                                     $(".test_box").append(
                                             '执行命令: ',command,"\n",'目标主机: ',host_arr.join(','),"\n",
                                             '执行时间: ',res.run_time,"\n",'执行结果: ',"\n",json_data, "\n",
