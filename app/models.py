@@ -1,4 +1,10 @@
-#-*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: models.py
+# @Date:   2018-03-30 14:44:19
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-04-13 15:29:17
+
 from datetime import datetime
 import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash

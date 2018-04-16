@@ -3,7 +3,7 @@
 # @File Name: manager.py
 # @Date:   2018-03-13 17:42:01
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-13 15:26:54
+# @Last Modified time: 2018-04-16 12:12:45
 
 # from gevent import monkey
 # from gevent.pywsgi import WSGIServer
@@ -12,6 +12,7 @@
 from flask_script import Manager, Shell
 from app import create_app, db, celery
 import os
+from app.models import Role
 
 from flask_migrate import Migrate, MigrateCommand, upgrade
 from livereload import Server
@@ -22,7 +23,7 @@ manager = Manager(app,db)
 migrate = Migrate(app,db)
 
 def make_shell_context():
-    return dict(app=app)
+    return dict(app=app,Role=Role)
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)

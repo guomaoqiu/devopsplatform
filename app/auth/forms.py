@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: forms.py
+# @Date:   2018-04-02 15:44:37
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-04-13 15:32:20
+
+
 from flask_wtf import FlaskForm
 from flask_wtf.recaptcha import RecaptchaField
 from wtforms import StringField, PasswordField, BooleanField, SubmitField

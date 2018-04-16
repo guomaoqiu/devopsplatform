@@ -1,4 +1,10 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: decorators.py
+# @Date:   2018-03-30 14:44:19
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-04-13 15:28:55
+
 from functools import wraps
 from flask import abort
 from flask_login import current_user

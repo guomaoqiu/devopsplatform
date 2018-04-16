@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: saltapi.py
+# @Date:   2018-03-30 14:44:19
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-04-13 15:31:55
+
 import json ,requests, sys, os
 from flask import current_app
 from app.crypto import prpcrypt

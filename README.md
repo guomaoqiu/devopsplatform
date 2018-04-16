@@ -40,10 +40,12 @@ python manager.py db upgrade
 ```
 ##### 4.初始化admin管理权限角色数据库
 ```
-#python manage.py shell
+python manager.py shell << EOF
 from manager import Role
 Role.insert_roles()
 Role.query.all()
+exit()
+EOF
 ```
 ##### 5.发布salt grains 获取主机特定或自身的一些属性信息
 ```

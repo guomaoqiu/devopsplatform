@@ -1,4 +1,10 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: crypto.py
+# @Date:   2017-07-30 14:44:19
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-04-13 15:28:32
+
 from Crypto.Cipher import AES
 from binascii import b2a_hex, a2b_hex
 
