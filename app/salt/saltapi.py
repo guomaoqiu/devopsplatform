@@ -102,7 +102,7 @@ class SaltApi(object):
             return req.content
         except Exception, e:
             print e
-    
+
     def all_key(self):
         """获取所有的salt-key"""
         params = {'client': 'wheel', 'fun': 'key.list_all'}
