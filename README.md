@@ -124,6 +124,8 @@ http://xxx.xxx.xxx.xxx
 ### 部分功能截图
 #### 平台登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
+#### 平台主页页面
+![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/index.jpeg)
 #### 平台用户管理
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/user_manager.jpeg)
 #### 平台访问控制
