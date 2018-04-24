@@ -3,7 +3,7 @@
 # @File Name: saltapi.py
 # @Date:   2018-03-30 14:44:19
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-13 15:31:55
+# @Last Modified time: 2018-04-24 11:45:59
 
 import json ,requests, sys, os
 from flask import current_app
@@ -99,7 +99,9 @@ class SaltApi(object):
         self.__url = self.__url.strip('/login')
         try:
             req = requests.post(self.__url,data=params,headers=headers,verify=False,timeout=5)
+            print req.content
             return req.content
+
         except Exception, e:
             print e
 
