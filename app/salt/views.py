@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-03-12 18:51:26
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-24 11:47:49
+# @Last Modified time: 2018-04-24 14:08:01
 from . import salt
 import time, json
 from flask_login import current_user
@@ -107,7 +107,7 @@ def run_salt_cmd():
         [host_list.append(each_host) for each_host in json.loads(request.form.get('data'))['host_arr'].split(',')]
         try:
             client = SaltApi()
-            run_cmd = json.loads(client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt':hostname,'expr_form':'list' , 'arg': cmd}))['return'][0].values()
+            run_cmd = client.saltCmd(params={'client': 'local', 'fun': 'cmd.run', 'tgt':hostname,'expr_form':'list' , 'arg': cmd})
             print run_cmd,'xxxxxxxxxxxxxx'
             if run_cmd is None:
                 return jsonify({"result": False, "data": run_cmd, "run_time": t, "message": u'执行失败,请检查API连接是否正常'})
