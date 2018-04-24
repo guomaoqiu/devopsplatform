@@ -11,7 +11,7 @@
                     <h2>zabbix监控主机添加</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="{{ url_for("main.index") }}">Home</a>
+                            <a href="{{ url_for('main.index') }}">Home</a>
                         </li>
 
                         <li class="active">
@@ -25,11 +25,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Line scatter diagram</h5>
-                        </div>
+                
                         <div class="ibox-content">
-                            <h5>请先上传需要添加主机的文本文件<code>&lt;'hostlist.xls'&gt;</code>请务必保持文件格式如下所示:</h5>
+                            <h5>请先上传需要添加主机的文本文件<code>&lt;'hostlist.xls'&gt;</code>请务必保持文件格式如下所示:
+                            <a href='{{ url_for("zabbix.download",filename="hostlist.xls") }}'>点击下载示例hostlist.xls</a>
+                            </h5>
                             <table class="table table-bordered">
                               <thead>
                                 <tr>

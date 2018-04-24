@@ -5,10 +5,30 @@ import commands
 from os import path
 from werkzeug.utils import secure_filename
 import json
-#from app.scripts.zabbixapi import ZabbixAction
-
 from . import zabbix
 from zabbixapi import ZabbixAction
+from flask import send_file, send_from_directory
+from flask import make_response
+
+
+
+@zabbix.route('/download/<filename>')
+@login_required
+def download(filename):
+  """
+  hostlist.xls示例文件下载
+  """
+  basepath=path.abspath(path.dirname(__file__))
+  upload_path = path.join(basepath,'upload')
+
+  response = make_response(send_from_directory(upload_path, filename, as_attachment=True))
+  response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+  return response
+
+
+
+
+
 # zabbix server add
 @zabbix.route('/zabbixadd' ,methods=['GET','POST'])
 @login_required
@@ -16,7 +36,7 @@ def zabbixadd():
     if request.method == 'POST':
         result = request.files['file']
         #获取当前目录的位置然后通过path.join来连接上传目录
-        basepath=path. abspath(path.dirname(__file__))
+        basepath=path.abspath(path.dirname(__file__))
         upload_path = path.join(basepath,'upload')
         #print '删除旧文件'
         if result.filename:

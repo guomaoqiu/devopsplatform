@@ -212,7 +212,7 @@
                             }
                              if (res.result) {
                                     var json_data = JSON.stringify(JSON.parse(res.data), null, 2);
-                           	    if(json_data.indexOf("\\n")) json_data = json_data.replace(/\\n/g,"\n"); 
+                           	    if(json_data.indexOf("\\n") != -1) json_data = json_data.replace(/\\n/g,"\n"); 
                                     $(".test_box").append(
                                             '执行命令: ',command,"\n",'目标主机: ',host_arr.join(','),"\n",
                                             '执行时间: ',res.run_time,"\n",'执行结果: ',"\n",json_data, "\n",
