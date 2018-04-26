@@ -16,12 +16,10 @@ from flask import make_response
 @login_required
 def download(filename):
   """
-  hostlist.xls示例文件下载
+  hostlist.xls_template示例文件下载
   """
-  basepath=path.abspath(path.dirname(__file__))
-  upload_path = path.join(basepath,'upload')
-
-  response = make_response(send_from_directory(upload_path, filename, as_attachment=True))
+  file_path=path.abspath(path.dirname(__file__))
+  response = make_response(send_from_directory(file_path, filename, as_attachment=True))
   response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
   return response
 
@@ -78,7 +76,6 @@ def zabbixdel():
 @zabbix.route('/zabbix_host_get',methods=['GET','POST'])
 @login_required
 def zabbix_host_get():
-      print 'xxxxx'
       host_get = ZabbixAction()
       host_get.login_test()
       host_get.get_host()

@@ -131,7 +131,7 @@ def update_cbt_resource(self):
 # 1）直接设置秒数
 # 例如刚刚所说的10秒间隔，run_every=10，每10秒执行一次任务。1分钟即是60秒；1小时即是3600秒。
 # 2）通过datetime设置时间间隔
-# 1小时15分钟40秒 = 1*60*60 + 15*60 + 40。这种情况可读性也不高。
+# 1小时15分钟40  = 1*60*60 + 15*60 + 40。这种情况可读性也不高。
 # @periodic_task(run_every=datetime.timedelta(hours=1, minutes=15, seconds=40))
 # 3）celery的crontab表达式(教程:http://yshblog.com/blog/164)
 # '''
