@@ -1,5 +1,10 @@
-#!~/zero/bin/python /data/study/flask-login-register2/app/scripts/zabbix_delete.py
-#-*- coding:utf8 -*-
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: zabbixapi.py
+# @Date:   2018-04-24 10:44:21
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-04-26 14:33:21
+
 # 在3.0版本d中host.exists方法已经去除，所以这里判断主机是否存在的方式是获取所有主机的hostname
 # 再进行判断.
 import xlrd, os

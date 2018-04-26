@@ -24,9 +24,6 @@ def download(filename):
   return response
 
 
-
-
-
 # zabbix server add
 @zabbix.route('/zabbixadd' ,methods=['GET','POST'])
 @login_required
