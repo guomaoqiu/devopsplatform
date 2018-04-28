@@ -1,4 +1,10 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
+# @Author: guomaoqiu
+# @File Name: views.py
+# @Date:   2018-04-26 14:32:21
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-04-28 13:54:13
+
 from flask import render_template, request, flash
 from flask_login import login_required
 import commands
@@ -20,7 +26,7 @@ def download(filename):
   """
   file_path=path.abspath(path.dirname(__file__))
   response = make_response(send_from_directory(file_path, filename, as_attachment=True))
-  response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+  response.headers["Content-Disposition"] = "attachment; filename={}".format(filename)
   return response
 
 
