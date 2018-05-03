@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-03-12 18:51:26
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-25 10:25:53
+# @Last Modified time: 2018-05-02 16:12:25
 from . import salt
 import time, json
 from flask_login import current_user
@@ -57,8 +57,6 @@ def file_push():
     #print testping
     return render_template('saltstack/file_push.html')
         
-
-
 @salt.route('/saltcmd/<hostname>',methods=['GET','POST'])
 @login_required
 def saltcmd(hostname):
@@ -93,7 +91,6 @@ def run_saltcmd():
                 except Exception,e:
                     return jsonify({"result": False, "message": u'执行失败,请检查API连接是否正常'})
     return render_template('saltstack/saltcmd.html')
-
 
 @salt.route('/run_salt_cmd', methods=['GET', 'POST'])
 @login_required

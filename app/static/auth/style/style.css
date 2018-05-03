@@ -3,8 +3,9 @@ body{
 	line-height: 10px;
 	color: #666;
 	border-top: 3px solid #eee;
-	background:#343434 url("../img/blueking.jpg") no-repeat fixed center; 
-	
+	/*background:#343434 url("../img/blueking.jpg") no-repeat fixed center; */
+	background:#343434 url("http://119.3.20.21:4006/public/img/heatmap_bg_test.svg") no-repeat fixed center; 
+
 
 	background-size: cover;
 	padding-top: 37px;

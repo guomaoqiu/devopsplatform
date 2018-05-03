@@ -2,8 +2,8 @@
 # @Author: guomaoqiu
 # @File Name: views.py
 # @Date:   2018-02-01 17:47:45
-# @Last Modified by:   guomaoqiu
-# @Last Modified time: 2018-02-08 16:42:52
+# @Last Modified by:   guomaoqiu@sina.com
+# @Last Modified time: 2018-05-02 16:13:44
 
 from flask import render_template
 from flask_login import login_required, request
@@ -13,8 +13,6 @@ import time
 from ..models import DataApi
 from dataapi import graphics_1_api, graphics_2_api
 #########################
-
-
 @data.route('/graphics_1',methods=['GET','POST'])
 @login_required
 def graphics_1():
@@ -28,8 +26,6 @@ def graphics_1():
 		print graphics_1_api()
 		return graphics_1_api()
 	return render_template("graphics/graphics_1.html")
-
-
 
 # @data.route('/graphics_2',methods=['GET','POST'])
 # # @login_required
