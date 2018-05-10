@@ -118,9 +118,6 @@ http://xxx.xxx.xxx.xxx
 ```
 -------
 
-[comment]:##### 在线Demo
-[comment]:[Preview](http://demo.sctux.com)
-
 ### 部分功能截图
 #### 平台登录界面
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/login_page.jpeg)
