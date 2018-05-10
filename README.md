@@ -118,8 +118,8 @@ http://xxx.xxx.xxx.xxx
 ```
 -------
 
-##### 在线Demo
-[Preview](http://demo.sctux.com)
+[comment]:##### 在线Demo
+[comment]:[Preview](http://demo.sctux.com)
 
 ### 部分功能截图
 #### 平台登录界面

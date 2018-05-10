@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-05-02 12:13:36
+# @Last Modified time: 2018-05-10 12:14:03
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -98,10 +98,10 @@ def login():
         # if c is None or c.ip != access_ip:
         #    flash('您所在地区【' + access_ip +  '】不能访问该平台'  ,'danger')
         #    return redirect('auth/login')
-
+        
         if user is not None and user.verify_password(form.password.data): # 用户是否存在以及是否正确
             login_user(user,form.remember_me.data) # 记住我功能，bool值
-            print form.remember_me.data
+            #print form.remember_me.data
             # 记录登陆日志
             users = LoginLog()
             #print user.username # 用户
