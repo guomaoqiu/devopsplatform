@@ -3,7 +3,7 @@
 # @File Name: __init__.py
 # @Date:   2018-03-30 14:44:19
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-13 15:29:37
+# @Last Modified time: 2018-05-16 18:49:54
 
 from flask import Flask, session
 from flask_bootstrap import Bootstrap
@@ -52,7 +52,7 @@ def create_app(config_name):
     config[config_name].init_app(app)
     csrf.init_app(app)
 
-    # update celery  config
+    # 更新celery配置
     celery.conf.update(app.config)
     db.init_app(app)
     db.app = app
@@ -67,13 +67,14 @@ def create_app(config_name):
     with app.test_request_context():
         db.create_all()
 
+    # 功能蓝图注册
     from auth import auth as auth_blueprint
     from main import main as main_blueprint
     from salt import salt as salt_blueprint
     from task import task as task_blueprint
     from zabbix import zabbix as zabbix_blueprint
     from data import data as data_blueprint
-
+    
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(main_blueprint)
     app.register_blueprint(salt_blueprint)
