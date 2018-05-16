@@ -3,7 +3,7 @@
 # @File Name: verify_code.py
 # @Date:   2018-03-21 11:31:25
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-13 15:32:06
+# @Last Modified time: 2018-05-11 16:02:24
 
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
@@ -28,6 +28,7 @@ def create_validate_code(size=(120, 30),
                          n_line=(1, 2),
                          draw_points=False,
                          point_chance=2):
+
     """
     @todo: 生成验证码图片
     @param size: 图片的大小，格式（宽，高），默认为(120, 30)
