@@ -3,8 +3,8 @@
 # @File Name: verify_code.py
 # @Date:   2018-03-21 11:31:25
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-05-11 16:02:24
-
+# @Last Modified time: 2018-05-17 18:32:13
+ 
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import os

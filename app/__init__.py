@@ -3,7 +3,7 @@
 # @File Name: __init__.py
 # @Date:   2018-03-30 14:44:19
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-05-16 18:49:54
+# @Last Modified time: 2018-05-21 17:19:17
 
 from flask import Flask, session
 from flask_bootstrap import Bootstrap
@@ -56,6 +56,7 @@ def create_app(config_name):
     celery.conf.update(app.config)
     db.init_app(app)
     db.app = app
+
     
     bootstrap.init_app(app)
     mail.init_app(app)

@@ -41,12 +41,22 @@
                      <form class="form-horizontal">
                         <div class="form-group clearfix">
                             <div class="col-sm-10">
-                                <input type="text" class="form-control bk-valign-top"  placeholder="Linux Command" > </div>
-                                <input type="button" class="btn btn-xl btn-success" value="Run" name="{{ hostname}}" onclick="cmd(this)">
+                                <input type="text" class="form-control bk-valign-top"  placeholder="Linux Command" value="top -b1 -n1 |head -n 5" > </div>
+                                <input type="button" class="btn btn-xl btn-success" value="Run" name="{{ hostname}}" onclick="cmd_demo(this)">
                         </div>
                     </form>
                     <div class="panel-body p5">
-                        <div class="test_box" contenteditable="true"><br /></div>
+                        <div class="test_box" contenteditable="true"><br>执行命令: top -b1 -n1 |head -n 5
+目标主机: sctux.com
+执行时间: 2018-05-22 11:26:22
+执行结果: 
+top - 11:26:22 up 29 days, 20:33,  0 users,  load average: 0.00, 0.01, 0.00
+Tasks: 139 total,   2 running, 137 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.8 us,  0.2 sy,  0.0 ni, 98.6 id,  0.4 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem :  1032176 total,    83224 free,   860528 used,    88424 buff/cache
+KiB Swap:  2314232 total,  1685592 free,   628640 used.    43528 avail Mem
+----------------------------------------------------------------------------------
+</div>
                     </div>
                 </div>
             </div>
@@ -60,6 +70,12 @@
     </div>
 </body>
 
+
+<script>
+    function cmd_demo(_this) {
+        swal("demo环境，已关闭命令执行")
+    }
+</script>
 <script>
     var csrftoken = $('meta[name=csrf-token]').attr('content')
     $.ajaxSetup({

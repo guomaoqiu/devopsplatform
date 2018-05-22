@@ -41,7 +41,7 @@
                         </li>
 
                         <li class="active">
-                            <strong>应用部署</strong>
+                            <strong>命令批量执行</strong>
 
                         </li>
                     </ol>
@@ -56,8 +56,7 @@
 
                         </div>
                         <div class="ibox-content">
-
-                                 <input type="text" class="form-control" id="cmd_content" placeholder="Command">
+                                 <input type="text" class="form-control" id="cmd_content" placeholder="Command" value="top -b1 -n1 |head -n 5">
                                 <hr>
                                  <table>
                                      <tr>
@@ -90,7 +89,7 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                 <input type="button" class="btn btn-xl btn-success"  value="执行" onclick="start_deploy()">
+                                                 <input type="button" class="btn btn-xl btn-success"  value="执行" onclick="start_deploy_demo()">
                                                 </td>
                                             </tr>
                                         </table>
@@ -109,7 +108,25 @@
                         </div>
                         <div class="ibox-content">
 
-                        <div class="test_box" contenteditable="false"></div>
+                        <div class="test_box" contenteditable="false">
+执行命令: top -b1 -n1 |head -n 5
+目标主机: sctux.com
+执行时间: 2018-05-22 11:26:22
+执行结果: 
+{
+  "return": [
+    {
+      "sctux.com": 
+       "top - 11:26:22 up 29 days, 20:38,  0 users,  load average: 0.02, 0.02, 0.00  
+       Tasks: 140 total,   2 running, 138 sleeping,   0 stopped,   0 zombie 
+       %Cpu(s):  0.8 us,  0.2 sy,  0.0 ni, 98.6 id,  0.4 wa,  0.0 hi,  0.0 si,  0.0 st  
+       KiB Mem :  1032176 total,    69560 free,   865404 used,    97212 buff/cache  
+       KiB Swap:  2314232 total,  1686800 free,   627432 used.    34228 avail Mem"
+    }
+  ]
+}
+----------------------------------------------------------------------------------
+                        </div>
 
                     </div>
                 </div>
@@ -153,6 +170,15 @@
         });
     });
 </script>
+
+<!-- demo start -->
+<script>
+    function start_deploy_demo() {
+        swal("demo环境，已关闭命令执行")
+    }
+</script>
+<!-- demo end-->
+
 <script>
     function start_deploy() {
         var command = $(" #cmd_content ").val();
