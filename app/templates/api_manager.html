@@ -58,7 +58,7 @@
                                             <td>{{ each_data.create_time }}</td>
                                             <td>{{ each_data.api_url }}</td>
                                             <td>
-                                                <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}"  value="删除" onclick="del_raw(this)">
+                                                <input type="button" class="btn btn-xs btn-danger" check_id="{{ each_data.id }}"  value="删除" onclick="del_row_demo(this)">
                                                 <input type="button" class="btn btn-xs btn-info"  check_id="{{ each_data.id }}" value="连接测试" onclick="testapi(this)">
                                             </td>
                                         </tr>
@@ -104,6 +104,11 @@
             </div>
         </div>
 
+<script>
+  function del_row_demo(_this) {
+    swal("demo环境，已关闭删除功能")
+  }
+</script>
 <!-- 删除api信息 -->
 <script>
  function del_raw(_this) {
