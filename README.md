@@ -117,8 +117,9 @@ python manager runserver
 http://xxx.xxx.xxx.xxx
 ```
 
-##### 13.访问:
+##### 13.在线demo:
 [http://demo.sctux.com](http://demo.sctux.com)
+
 账户名: admin 密码: admin
 (注: demo版本部分功能已禁用🍺)
 
