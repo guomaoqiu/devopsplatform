@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-04-19 17:15:36
+# @Last Modified time: 2018-05-23 16:58:51
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -982,3 +982,12 @@ def editor():
 #     @note:
 #     '''
 #     print 'ok'
+
+
+
+
+
+@main.route('/consul_test')
+def consul_test():
+
+    return jsonify({"result":True,"message":"call success","code":200})
