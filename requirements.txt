@@ -47,7 +47,6 @@ livereload==2.4.1
 Mako==1.0.6
 Markdown==2.3.1
 MarkupSafe==0.23
-matplotlib==2.0.0
 MySQL-python==1.2.5
 mysqlclient==1.3.9
 Naked==0.1.31

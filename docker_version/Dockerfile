@@ -1,8 +1,26 @@
-FROM python:2.7
-EXPOSE 5000
-WORKDIR /opt/project/
-RUN
+FROM alpine
+MAINTAINER guomaoqiu<2399447849@qq.com>
 
-RUN cd /opt/project/ && git clone http://192.168.1.105:3000/guomaoqiu/japan_ops_code.git
-RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple -r  /opt/project/japan_ops_code/requirements.txt
+EXPOSE 5000
+WORKDIR /opt/project/devopsplatform
+
+RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.4/main" > /etc/apk/repositories
+	
+
+RUN apk add --update \
+    bash \
+    git \
+    python \
+    python-dev \
+    py-pip \
+    mysql-dev \
+    build-base \
+  && pip install -i https://pypi.douban.com/simple --upgrade pip \
+  && rm -rf /var/cache/apk/*
+ 
+
+RUN cd /opt/project/ && git clone https://github.com/guomaoqiu/devopsplatform.git
+RUN pip install --no-cache-dir -i https://pypi.douban.com/simple -r requirements.txt
 CMD python manager.py
+
+
