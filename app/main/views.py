@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-08 16:55:13
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-05-28 10:55:07
+# @Last Modified time: 2018-06-05 15:56:05
 # jsonify 用于返回jsons数据
 from flask import Flask, render_template,redirect,request,Response,flash,jsonify,url_for,current_app
 from sqlalchemy import desc
@@ -306,7 +306,6 @@ def loginlog():
     data = []
     for x in res:
         data.append(x.to_json())
-    #user_list = User.query.all()#
     return render_template('loginlog.html',data=data)
 
 ###############################################################################

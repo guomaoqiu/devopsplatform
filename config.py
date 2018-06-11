@@ -63,7 +63,7 @@ class TestingConfig(Config):
 
 class Production(Config):
     DEBUG = True
-    db_host = '127.0.0.1'
+    db_host = 'db'
     db_user = 'flask'
     db_pass = 'local_ops'
     db_name = 'local_ops'
