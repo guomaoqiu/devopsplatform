@@ -45,7 +45,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = False
-    db_host = 'db'
+    db_host = 'localhost'
     db_user = 'flask'
     db_pass = 'flask'
     db_name = 'flask4'
