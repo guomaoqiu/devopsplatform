@@ -110,7 +110,7 @@ server {
 ```
 ##### 11.Run
 ```
-python manager runserver
+python manager.py runserver
 ```
 ##### 12.访问:
 ```
