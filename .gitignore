@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 config.py
+.vscode
 # C extensions
 *.so
 requirements.txt
