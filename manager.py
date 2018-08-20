@@ -10,6 +10,7 @@
 # from geventwebsocket.handler import WebSocketHandler
 
 import os
+
 from app import celery, create_app, db
 from app.models import Role
 from flask_migrate import Migrate, MigrateCommand, upgrade
@@ -39,4 +40,7 @@ def dev():
   live_server.serve(open_url=False)
 
 if __name__ == '__main__':
-    manager.run()
+    app.run()
+         
+
+    

@@ -1,3 +1,0 @@
-邮箱 {{ email }}
-用户 {{ username }}
-公司 {{ company }}

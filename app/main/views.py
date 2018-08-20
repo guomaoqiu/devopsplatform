@@ -177,7 +177,9 @@ def server_list():
     """主机列表"""
     host_list = Hostinfo.query.all()
     data = []
+    
     [ data.append(i.to_json()) for i in host_list ]
+    print data
     return render_template('server_list.html',data=data)
 
 ###############################################################################
@@ -233,8 +235,8 @@ def get_server_info():
                         )
                         db.session.add(host_record)
                         db.session.commit()
-                                                                                       
                 result = {"result": True, "message": u'刷新完毕！'}
+                print result                                                      
                 return jsonify(result)
             except Exception, e:
                 print e
