@@ -3,7 +3,7 @@
 # @File Name: views.py
 # @Date:   2018-02-07 11:13:08
 # @Last Modified by:   guomaoqiu@sina.com
-# @Last Modified time: 2018-09-10 16:38:34
+# @Last Modified time: 2018-09-11 11:09:00
 
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify,make_response,session
 from . import auth
@@ -268,3 +268,5 @@ def delete_user():
             db.session.rollback()
             print e
             return  jsonify({"result":False,"message":"用户删除失败".format(e)})
+
+
