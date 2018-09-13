@@ -1,5 +1,6 @@
 ### DevOpsPlatform
 -------
+#### 该项目由本人独立完成开发，目前已经部署应用到实际工作中 【源码暂不开源】
 
 #### 主要技术栈: `Flask`,`BootStrap`,`Tencent Magicbox`,`SaltStack`,`Zabbix`,`Celery`...
 
@@ -11,8 +12,6 @@
 5. Celery后台任务执行,周期性任务执行
 6. Salt单(多)主机命令执行
 7. Zabbix主机批量添加(删除)
-
-##### 【源码不再开源】
 
 ##### 在线demo:
 [http://demo.sctux.com](http://demo.sctux.com)
@@ -52,13 +51,9 @@
 #### 主机列表详情页
 ![](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/host_detail.jpeg)
 
+-------
 
 ##### 其他功能正在完善中......
 ##### 如果觉得对您有帮助您可以点赞或施舍一二😁
 ![-w300](https://raw.githubusercontent.com/guomaoqiu/devopsplatform/master/screenshots/zanshang.jpg)
-
--------
-
-##### Notice:
-如果您尝试使用此套代码搭建该平台，中间有任何问题请及时提issue或联系我(QQ:2399447849),Thx!!!
 
