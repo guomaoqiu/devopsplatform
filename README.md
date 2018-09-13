@@ -12,7 +12,7 @@
 6. Salt单(多)主机命令执行
 7. Zabbix主机批量添加(删除)
 
-##### 【源码不在开源】
+##### 【源码不再开源】
 
 ##### 在线demo:
 [http://demo.sctux.com](http://demo.sctux.com)
