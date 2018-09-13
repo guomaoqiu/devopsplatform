@@ -1,5 +1,0 @@
-{% if user.name %}
-用户 {{ user.name}} 已登录DevOps平台
-{% else %}
-用户 {{ user.username}} 已登录DevOps平台
-{% endif %}
