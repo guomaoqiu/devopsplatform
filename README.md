@@ -14,7 +14,7 @@
 7. Zabbix主机批量添加(删除)
 
 
-<a href="http://jobcenter.sctux.com/" target="_blank">
+<a href="http://demo.sctux.com/" target="_blank">
   <img src="https://img.alicdn.com/tfs/TB12GX6zW6qK1RjSZFmXXX0PFXa-744-122.png" width="180" />
 </a>
 
